@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+.claude/
+/data/
+/models/
+results/runs/
+results/rejudged/
+.mcp.json
+results/leaderboard.html
+# tone-bench's own results, ranked with ours: kept local, as tone-bench is private.
+results/leaderboard.md

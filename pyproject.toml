@@ -1,0 +1,106 @@
+[project]
+name = "pipecat-tone"
+version = "0.1.0"
+description = "Tone models for Pipecat: a reader that hears how each turn was meant, and a tagger that voices plain LLM replies"
+requires-python = ">=3.11"
+license = "BSD-2-Clause"
+license-files = ["LICENSE"]
+# Needs Pipecat with expressive conversation, not yet released: pipecat-ai/pipecat#6319.
+dependencies = [
+    "numpy",
+    "pipecat-ai",
+    "pyyaml>=6.0.3",
+]
+
+[project.optional-dependencies]
+# The trained models: ONNX on CPU, downloaded from Hugging Face.
+model = [
+    "huggingface_hub>=0.30,<2",
+    "onnxruntime>=1.20",
+    "tokenizers>=0.23,<1",
+]
+
+[dependency-groups]
+dev = [
+    # Fish's settings, for the pace tests.
+    "pipecat-ai[fish]",
+    "pipecat-tone[model]",
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "ruff",
+]
+# src/lab: the corpus, tone-bench runs and Modal jobs. tone-bench is imported from its checkout.
+lab = [
+    "anthropic>=2.3.0",
+    "modal>=1.5.4",
+    "pipecat-ai[baseten,openai]",
+    # The reader's rebuild reads its sources' parquet files.
+    "pyarrow==25.0.1",
+    "python-dotenv",
+]
+# Training, on Modal GPUs, beside the model extra every job image has.
+train = [
+    "onnx>=1.17",
+    "onnxscript",
+    "torch>=2.5",
+    "transformers>=4.48",
+]
+examples = [
+    "pipecat-ai[baseten,cartesia,deepgram,runner,silero,webrtc]",
+    "pipecat-tone[model]",
+    "python-dotenv",
+]
+# src/lab/reader: the reader's training, calibration, export and scoring jobs, beside the lab group, at the pins
+# Pipecat Tone rc1 was made with.
+reader = [
+    "huggingface-hub==1.33.0",
+    "numpy==2.2.6",
+    "onnx==1.23.2",
+    "onnxruntime==1.30.0",
+    "safetensors==0.8.0",
+    "tokenizers==0.23.2",
+    "torch==2.14.1",
+    "transformers==5.18.0",
+]
+
+[tool.uv]
+default-groups = ["dev", "lab"]
+# The reader's pins stand apart: its jobs install it with the lab group only.
+conflicts = [
+    [{ group = "reader" }, { group = "dev" }],
+    [{ group = "reader" }, { group = "train" }],
+    [{ group = "reader" }, { group = "examples" }],
+]
+
+[tool.uv.sources]
+# The commit tone-bench's uv.lock pins, so tagger and benchmark parse the same markup; move both
+# together. Expressive conversation with perception: pipecat-ai/pipecat#6319.
+pipecat-ai = { git = "https://github.com/pipecat-ai/pipecat", rev = "32b4a818aed7a8404405e23abc5a4b055361c04c" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pipecat_tone"]
+# Editable installs put src on the path, so src/lab imports too.
+dev-mode-dirs = ["src"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/pipecat_tone", "README.md"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["pipecat_tone", "lab"]
+# tone-bench's package, imported from its checkout.
+known-third-party = ["bench"]

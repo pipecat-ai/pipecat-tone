@@ -1,0 +1,130 @@
+"""Two exports compared line by line on every test set through the shipped runtime, with and without the line before:
+each scorecard item as the paired difference, var minus ref, with its 95% bootstrap interval.
+
+    MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.compare --var tonetext-r2-student-minilm-l6-seed1 --ref tonetext-r1-student-minilm-l6-seed0
+"""
+
+from lab import ROOT
+from lab.reader import storage
+from lab.reader.app import TORCH, app, job, save
+
+# The items on Tone's own test sets, which r2 may not make worse than r1 beyond noise.
+TONE_ITEMS = (
+    "emotion_main",
+    "emotion_player_speech",
+    "emotion_unseen",
+    "move_macro_f1",
+    "move_answered_or_open",
+    "move_asks_or_not",
+    "sarcasm_held_out_f1",
+)
+
+
+@job(TORCH, cpu=8.0, memory=16384, timeout=3 * 3600)
+def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: str = "export") -> dict:
+    import time
+
+    from lab.reader import runtime, scoring
+    from lab.reader.committee.label import speaker_role
+
+    storage.reload()
+    t0 = time.time()
+    ref, var = runtime.fetch(ref_run, ref_prefix), runtime.fetch(var_run, var_prefix)
+    rows = scoring.test_rows(storage.jsonl)
+    act_rows, ex_rows, sar_rows, voice, real = (
+        rows["act"],
+        rows["exchange"],
+        rows["sarcasm"],
+        rows["voice"],
+        rows["voice_real"],
+    )
+
+    # Sarcastic lines that carry a committee emotion: Tone's act test lines a sarcasm set calls sarcastic (or with the
+    # sarcasm slice), and the generated voice-agent lines its sarcasm labels call sarcastic.
+    is_sarc = lambda r: (r.get("sarcasm") or {}).get("label") is not None and int(r["sarcasm"]["label"]) == 1  # noqa: E731
+    sarc_ids = {r["line"]["line_id"] for r in sar_rows if is_sarc(r)}
+    voice_sarc_ids = {r["line"]["line_id"] for r in voice["sarcasm"] if is_sarc(r)}
+    sarcastic_tone = [
+        r
+        for r in act_rows
+        if scoring.clean_test(r["line"])
+        and (r["line"]["line_id"] in sarc_ids or "sarcasm" in (r["line"].get("slices") or []))
+    ]
+    sarcastic_voice = [r for r in voice["emotion"] if r["line"]["line_id"] in voice_sarc_ids]
+
+    keep_cfg = ("run_id", "sarcasm_tau_raw", "sarcasm_tau_rule", "calibration")
+    out = {
+        "var_run": var_run,
+        "ref_run": ref_run,
+        "var_prefix": var_prefix,
+        "ref_prefix": ref_prefix,
+        "var_config": {k: var.config.get(k) for k in keep_cfg},
+        "ref_config": {k: ref.config.get(k) for k in keep_cfg},
+        "columns": {},
+    }
+    paired = scoring.Paired(ref, var)
+    for col, keep in (("with_previous", True), ("without_previous", False)):
+        c = paired.column(keep)
+        c.emotion("emotion_main", [r for r in act_rows if scoring.main_test(r["line"])])
+        c.emotion(
+            "emotion_player_speech", [r for r in act_rows if scoring.in_slice(r["line"], "player_speech")]
+        )
+        c.emotion("emotion_unseen", [r for r in act_rows if scoring.in_slice(r["line"], "unseen_genre")])
+        c.emotion("emotion_noisy_twins", [r for r in act_rows if scoring.noisy_twin(r["line"])])
+        c.emotion("emotion_voice", voice["emotion"])
+        c.emotion("emotion_voice_agent", [r for r in voice["emotion"] if speaker_role(r) == "agent"])
+        c.emotion("emotion_voice_real", real["emotion"], floor=True)
+        c.emotion(
+            "emotion_voice_real_agent", [r for r in real["emotion"] if speaker_role(r) == "agent"], floor=True
+        )
+        c.move("move", [r for r in ex_rows if scoring.move_test(r["line"])])
+        c.move("move_voice", voice["move"])
+        c.move("move_voice_real", real["move"], floor=True)
+        c.sarcasm(
+            "sarcasm_held_out", [r for r in sar_rows if r["set"] in scoring.HARD_SARCASM_SETS], True, False
+        )
+        c.sarcasm(
+            "sarcasm_natural", [r for r in sar_rows if r["set"] == scoring.NATURAL_SARCASM_SET], False, True
+        )
+        c.sarcasm("sarcasm_voice", voice["sarcasm"], True, True)
+        c.sarcasm("sarcasm_voice_real", real["sarcasm"], True, True)
+        for name, sarcastic in (("sarcastic_tone", sarcastic_tone), ("sarcastic_voice", sarcastic_voice)):
+            sarcastic = [r for r in sarcastic if (r.get("emotion") or {}).get("label")]
+            if not sarcastic:
+                continue
+            c.emotion(f"emotion_{name}", sarcastic)
+            # Taken at face value: called happy where the committee's emotion is not happy.
+            neg = [r for r in sarcastic if r["emotion"]["label"] != "happy"]
+            said = [tuple(int(t["emotion"]["label"] == "happy") for t in c.tags(r)) for r in neg]
+            c.items[f"face_value_{name}"] = scoring.paired_rate(
+                [(x, 1) for x, _ in said], [(y, 1) for _, y in said]
+            )
+        worse = c.worse()
+        out["columns"][col] = {
+            "items": c.items,
+            "by_class": c.classes,
+            "worse_beyond_noise": worse,
+            "better_beyond_noise": c.better(),
+            "false_sarcasm_or_face_value_rises": c.rises(),
+            "tone_items_worse": [k for k in worse if k in TONE_ITEMS],
+        }
+    out["lines_tagged"] = len(paired.tagged)
+    out["seconds"] = round(time.time() - t0)
+    return out
+
+
+@app.local_entrypoint()
+def main(var: str, ref: str, var_prefix: str = "export", ref_prefix: str = "export"):
+    res = compare.remote(var, ref, var_prefix, ref_prefix)
+    path = save("compare", f"results-compare-{var}-vs-{ref}.json", res)
+    for col, c in res["columns"].items():
+        print(
+            f"{col}: worse beyond noise {c['worse_beyond_noise'] or 'none'}; better {c['better_beyond_noise'] or 'none'}; "
+            f"false sarcasm or face value rises {c['false_sarcasm_or_face_value_rises'] or 'none'}"
+        )
+        for k, v in c["items"].items():
+            print(
+                f"  {k}: {v['ref']} -> {v['var']} ({v['diff']:+}, {v['ci'][0]:+} to {v['ci'][1]:+}, "
+                f"{v.get('lines', v.get('units'))} lines)"
+            )
+    print(f"{res['lines_tagged']} inputs tagged, {res['seconds']} s; wrote", path.relative_to(ROOT))

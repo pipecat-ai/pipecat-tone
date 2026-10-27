@@ -1,0 +1,336 @@
+{
+ "prefix": "check/",
+ "upstream": {
+  "upstream/hf/google-research-datasets/go_emotions@add492243ff905527e67aeb8b80c082af02207c3/simplified/train-00000-of-00001.parquet": "downloaded",
+  "upstream/hf/google/civil_comments@f2970eb3a55777454c94069077cc8d9b5866312d/data/validation-00000-of-00001.parquet": "downloaded",
+  "upstream/hf/google/civil_comments@f2970eb3a55777454c94069077cc8d9b5866312d/data/train-00000-of-00002.parquet": "downloaded",
+  "upstream/hf/google/civil_comments@f2970eb3a55777454c94069077cc8d9b5866312d/data/train-00001-of-00002.parquet": "downloaded",
+  "upstream/hf/willwade/Gutenberg-dialog-en@f3a0a1df18275cd9f61f7d161ad6eed3ce35f88c/dev.txt": "downloaded",
+  "upstream/hf/willwade/Gutenberg-dialog-en@f3a0a1df18275cd9f61f7d161ad6eed3ce35f88c/test.txt": "downloaded",
+  "upstream/hf/willwade/Gutenberg-dialog-en@f3a0a1df18275cd9f61f7d161ad6eed3ce35f88c/train.txt": "downloaded"
+ },
+ "downloads": {
+  "natcs": {
+   "archive": {
+    "name": "dstc11-track2-intent-induction-969b95a0d736.tar.gz",
+    "bytes": 14414812,
+    "sha256": "cf8fcaf6621fd9ba5331f8aa8d76e3ff1d786d0a95d18f9f4ce57d497585d1d2"
+   },
+   "seconds": 6
+  },
+  "taskmaster1": {
+   "archive": {
+    "name": "Taskmaster-d92cb6af3005.tar.gz",
+    "bytes": 138453808,
+    "sha256": "c7e4774798ace96e3b413a9beef6d2a706458d66c4e87ef1061e9426db1a3c46"
+   },
+   "seconds": 37
+  },
+  "abcd": {
+   "archive": {
+    "name": "abcd-6b8700ce67c6.tar.gz",
+    "bytes": 39079288,
+    "sha256": "60f6addf121804d2946b4120c264c8d795f4d22c0fc3270b165ee12a415cce97"
+   },
+   "seconds": 8
+  },
+  "multiwoz22": {
+   "archive": {
+    "name": "multiwoz-fe0c8e65cfcd.tar.gz",
+    "bytes": 60515016,
+    "sha256": "f89119037a9d1f39005838081fa0b617caf194c095b3adc100a48236b124c388"
+   },
+   "seconds": 12
+  },
+  "star": {
+   "archive": {
+    "name": "STAR-3058975092cd.tar.gz",
+    "bytes": 11120655,
+    "sha256": "0f15f37243b3aa69e13f25d0ee55212e5fe3afefb216adf3bf1a5a07e15285f2"
+   },
+   "seconds": 4
+  },
+  "ccpem": {
+   "archive": {
+    "name": "ccpe-2c9cd30f33f3.tar.gz",
+    "bytes": 541345,
+    "sha256": "3348c750a5fc0802171eaa2964007161acbf6e4cf861a7b2f47affadb2fa01f4"
+   },
+   "seconds": 3
+  },
+  "harpervalley": {
+   "archive": {
+    "name": "gridspace-stanford-harper-valley-0bd721e877c4-text.tar.gz",
+    "bytes": 2521877,
+    "sha256": "b013eb74873906292de7d4d99ee8795783bea13be5b6178c566f5706bb155ce8"
+   },
+   "seconds": 165
+  },
+  "ami": {
+   "archive": {
+    "name": "ami_public_manual_1.6.2.zip",
+    "bytes": 22887865,
+    "sha256": "b56e5babb2496b8795deeeda7e71178d7fbc9963f94276cf2a3f4b56ebbc9f9d"
+   },
+   "seconds": 14
+  },
+  "dipco": {
+   "archive": {
+    "name": "DipCo-text.tar.gz",
+    "bytes": 418499,
+    "sha256": "d288aedf701e1e66b513d3b5857878ff4de72f92bd462b9a1c7b9eeebd7b2920"
+   },
+   "seconds": 546
+  },
+  "dynasent_r2": {
+   "archive": {
+    "name": "dynasent-707b6208978b.tar.gz",
+    "bytes": 17280515,
+    "sha256": "27f0eedf4ccf6d4589e66bd46ba22b80fdb879058acc729bd4b50311266173b1"
+   },
+   "seconds": 4
+  },
+  "isarcasmeval": {
+   "archive": {
+    "name": "iSarcasmEval-dfc708b53bde.tar.gz",
+    "bytes": 688733,
+    "sha256": "6e6d04727934816429603f799eb75082e1b4bf3ca54a260e3e356943f48ffce2"
+   },
+   "seconds": 5
+  },
+  "topicalchat_test": {
+   "archive": {
+    "name": "Topical-Chat-7c939229cbcf.tar.gz",
+    "bytes": 138950780,
+    "sha256": "b404d7e46dca4b6696b152425d7b2359c318fd993add469dd8ee14126c9165f1"
+   },
+   "seconds": 44
+  }
+ },
+ "open": {
+  "natcs": {
+   "source": "natcs",
+   "key": "check/runs/tonetext/open/natcs-0.1/lines.jsonl",
+   "sha256": "876b7969bfd61c4dc6445bfcbd5ed91e1387bde9d8aeda4a5060c28f549f161c",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "876b7969bfd61c4dc6445bfcbd5ed91e1387bde9d8aeda4a5060c28f549f161c",
+   "bytes": 126983672,
+   "seconds": 17
+  },
+  "taskmaster1": {
+   "source": "taskmaster1",
+   "key": "check/runs/tonetext/open/taskmaster1-0.1/lines.jsonl",
+   "sha256": "96de436ff3b2c3a6f56333945256eddf990b9f3570565043c3574f3998825f2a",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "96de436ff3b2c3a6f56333945256eddf990b9f3570565043c3574f3998825f2a",
+   "bytes": 169012646,
+   "seconds": 22
+  },
+  "taskmaster2": {
+   "source": "taskmaster2",
+   "key": "check/runs/tonetext/open/taskmaster2-0.1/lines.jsonl",
+   "sha256": "6a258bf007ac9536ad54a69bbb576e44dbe3b243f817113f7b0f7ac5991d744d",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "6a258bf007ac9536ad54a69bbb576e44dbe3b243f817113f7b0f7ac5991d744d",
+   "bytes": 179248971,
+   "seconds": 24
+  },
+  "taskmaster3": {
+   "source": "taskmaster3",
+   "key": "check/runs/tonetext/open/taskmaster3-0.1/lines.jsonl",
+   "sha256": "050d0d04e438c042c16d72ad7a6b2b51c28ad83fd7ebe355779e9358586a422b",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "050d0d04e438c042c16d72ad7a6b2b51c28ad83fd7ebe355779e9358586a422b",
+   "bytes": 254822486,
+   "seconds": 31
+  },
+  "abcd": {
+   "source": "abcd",
+   "key": "check/runs/tonetext/open/abcd-0.1/lines.jsonl",
+   "sha256": "bb9a52fc5aef4a88845955eb559c88b95c35aec62d0308b0e9a884cb4be8d564",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "bb9a52fc5aef4a88845955eb559c88b95c35aec62d0308b0e9a884cb4be8d564",
+   "bytes": 75557943,
+   "seconds": 16
+  },
+  "multiwoz22": {
+   "source": "multiwoz22",
+   "key": "check/runs/tonetext/open/multiwoz22-0.1/lines.jsonl",
+   "sha256": "6a1b9857a8caaf8fd4001776c1b7029ea3269af475f8071609d65a272bc8d0fd",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "6a1b9857a8caaf8fd4001776c1b7029ea3269af475f8071609d65a272bc8d0fd",
+   "bytes": 88724069,
+   "seconds": 22
+  },
+  "star": {
+   "source": "star",
+   "key": "check/runs/tonetext/open/star-0.1/lines.jsonl",
+   "sha256": "92bc5258200d1d96c96809a955a5f44bbbcb466022f7c3a8cafa6ed4f995c779",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "92bc5258200d1d96c96809a955a5f44bbbcb466022f7c3a8cafa6ed4f995c779",
+   "bytes": 43863889,
+   "seconds": 11
+  },
+  "ccpem": {
+   "source": "ccpem",
+   "key": "check/runs/tonetext/open/ccpem-0.1/lines.jsonl",
+   "sha256": "17bde704c2ca8b4874f8f5f2aa1848089839352f45109ea9b99faf57071e4214",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "17bde704c2ca8b4874f8f5f2aa1848089839352f45109ea9b99faf57071e4214",
+   "bytes": 6063260,
+   "seconds": 2
+  },
+  "harpervalley": {
+   "source": "harpervalley",
+   "key": "check/runs/tonetext/open/harpervalley-0.1/lines.jsonl",
+   "sha256": "684deebb50595b865136cd9e0441be1c90d5cc704b25c1a668d947d23db02d44",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "684deebb50595b865136cd9e0441be1c90d5cc704b25c1a668d947d23db02d44",
+   "bytes": 13982782,
+   "seconds": 3
+  },
+  "ami": {
+   "source": "ami",
+   "key": "check/runs/tonetext/open/ami-0.1/lines.jsonl",
+   "sha256": "5c23323cd7b9fc62f23f1819a3103f0bb83e3e5c7547dda18d98a56a86ba8763",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "5c23323cd7b9fc62f23f1819a3103f0bb83e3e5c7547dda18d98a56a86ba8763",
+   "bytes": 55862581,
+   "seconds": 15
+  },
+  "dipco": {
+   "source": "dipco",
+   "key": "check/runs/tonetext/open/dipco-0.1/lines.jsonl",
+   "sha256": "67d88f441a7269ec982e133ec3266c8ade4eef6a0fd4ed2f42a4fb5ea0539b6e",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "67d88f441a7269ec982e133ec3266c8ade4eef6a0fd4ed2f42a4fb5ea0539b6e",
+   "bytes": 3100072,
+   "seconds": 2
+  },
+  "dynasent_r2": {
+   "source": "dynasent_r2",
+   "key": "check/runs/tonetext/open/dynasent_r2-0.1/lines.jsonl",
+   "sha256": "6ebd9e5f7c128e6f60e10f27a77718835b7eed914b973a1a548c4a747e29ead4",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "6ebd9e5f7c128e6f60e10f27a77718835b7eed914b973a1a548c4a747e29ead4",
+   "bytes": 10680525,
+   "seconds": 4
+  },
+  "isarcasmeval": {
+   "source": "isarcasmeval",
+   "key": "check/runs/tonetext/open/isarcasmeval-0.1/lines.jsonl",
+   "sha256": "735fbb5dff4946d6ece3ecf5363b16454edd05f8444467f7f6ef36b6b71d0e42",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "735fbb5dff4946d6ece3ecf5363b16454edd05f8444467f7f6ef36b6b71d0e42",
+   "bytes": 3024320,
+   "seconds": 2
+  },
+  "topicalchat_test": {
+   "source": "topicalchat_test",
+   "key": "check/runs/tonetext/open/topicalchat_test-0.1/lines.jsonl",
+   "sha256": "b073cb16fbb31ac214e47cc2d9260c44bd920eac689978abeb98faef01966f1b",
+   "archive_files_differ": 0,
+   "archive_files_extra": 0,
+   "first": [],
+   "result": "written",
+   "built_sha256": "b073cb16fbb31ac214e47cc2d9260c44bd920eac689978abeb98faef01966f1b",
+   "bytes": 18756265,
+   "seconds": 7
+  }
+ },
+ "standins": {
+  "runs/linecls/pool/linecls-pool-0.6/lines.jsonl": {
+   "result": "written",
+   "built_sha256": "a72ef036c13bd40b214d46589a24cb4ad836a3de1b8f6a04b261cdc95f4c0230",
+   "bytes": 188974584,
+   "seconds": 32
+  },
+  "runs/linecls/labels/linecls-corpus-0.1-full-committee/labelled.jsonl": {
+   "result": "written",
+   "built_sha256": "80e22139de58e4d0435b39eef363888813b78121ffe1ec65ea4fc8ecb62bf900",
+   "bytes": 8902944,
+   "seconds": 4
+  },
+  "runs/linecls/labels/linecls-corpus-0.1-thin-committee/labelled.jsonl": {
+   "result": "written",
+   "built_sha256": "77eb0d01ba9aa99c9c0027163b69d3013b224463b7ab79310094061c9bda0e1a",
+   "bytes": 1091764,
+   "seconds": 1
+  },
+  "runs/linecls/labels/linecls-sarcasm-train-0.1-sarcasm/labelled.jsonl": {
+   "result": "written",
+   "built_sha256": "174097491948c91cf5c973df58aea3980a916debd26d14247f71d5eeb81d1174",
+   "bytes": 2767638,
+   "seconds": 1
+  },
+  "runs/tonetext/labels/tonetext-r2-committee/labelled.jsonl": {
+   "result": "written",
+   "built_sha256": "10af51d5a27ce80f95f7f5c231f5f04a927a310bfce799fc9ef5360e70f859ec",
+   "bytes": 9236561,
+   "seconds": 29
+  },
+  "runs/tonetext/labels/tonetext-r2-exchange/labelled.jsonl": {
+   "result": "written",
+   "built_sha256": "0a3631d70c235754568823f460ea2a426362d9a0b157d9f0fbdc22d8a57fbad6",
+   "bytes": 6582570,
+   "seconds": 1
+  },
+  "runs/tonetext/labels/tonetext-r2-sarcasm/labelled.jsonl": {
+   "result": "written",
+   "built_sha256": "6a40ef713f428e7346a585073ed6deb27f9b9887e782986ce513cee16a4ad9be",
+   "bytes": 6680658,
+   "seconds": 1
+  },
+  "runs/tonetext/speech/tonetext-speech-0.1/lines.jsonl": {
+   "result": "written",
+   "built_sha256": "7a4e5040cbb7b611ccd94709fe16b870efe9011c59a130353c4b6ca05085ed9f",
+   "bytes": 21639351,
+   "seconds": 15
+  }
+ },
+ "check": {
+  "files": 64,
+  "right": 64,
+  "missing": [],
+  "differ": []
+ }
+}

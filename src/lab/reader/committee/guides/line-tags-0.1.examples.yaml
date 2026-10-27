@@ -1,0 +1,188 @@
+# Line tags 0.1: worked examples (line classifier S1). Hand-written by the agent from the label guide,
+# contracts/taxonomy/line-tags-guide-0.1.md. Every example validates against contracts/schemas/line_tags.py
+# (tests/test_line_tags.py), and together they cover every emotion, every act and the backchannel flag.
+# They are the guide's examples and the committee's few-shot set. They never enter a test split.
+
+- line_id: guide-01-insult
+  input: {speaker: Mara, speaker_kind: npc, to: Tomas, targets: [Tomas, Wren], text: "You still owe me ten coins, you layabout.",
+          previous: "Tomas: Lovely day for it, isn't it?"}
+  tags: {emotion: contemptuous, emotion_intensity: medium, acts: {Tomas: {act: insult, intensity: medium}, Wren: {act: none}}}
+  slices: [group]
+  notes: Insult outranks the implied accusation (hard edge 9). Wren is a bystander.
+
+- line_id: guide-02-insult-noisy
+  input: {speaker: player, speaker_kind: player, to: Guard, targets: [Guard], text: "you useless lump get out of my way"}
+  tags: {emotion: angry, emotion_intensity: high, acts: {Guard: {act: insult, intensity: high}}}
+  slices: [noisy]
+  notes: Speech-to-text output, no punctuation. Insult outranks the demand.
+
+- line_id: guide-03-threat
+  input: {speaker: Brenna, speaker_kind: npc, to: player, targets: [player], text: "Touch that box again and you'll be eating through a straw."}
+  tags: {emotion: angry, emotion_intensity: medium, acts: {player: {act: threat, intensity: medium}}}
+
+- line_id: guide-04-threat-veiled
+  input: {speaker: Vince, speaker_kind: npc, to: player, targets: [player, Joe], text: "Nice cart you've got. Be a shame if it caught fire some night."}
+  tags: {emotion: contemptuous, emotion_intensity: low, acts: {player: {act: threat, intensity: medium}, Joe: {act: none}}}
+  slices: [group]
+
+- line_id: guide-05-accusation
+  input: {speaker: Mara, speaker_kind: npc, to: Tomas, targets: [Tomas, player], text: "You were the last one in the storeroom, Tomas. Where's the flour gone?"}
+  tags: {emotion: angry, emotion_intensity: low, acts: {Tomas: {act: accusation, intensity: medium}, player: {act: none}}}
+  slices: [group]
+
+- line_id: guide-06-accusation-third-party
+  input: {speaker: Wren, speaker_kind: npc, to: player, targets: [player, Tomas], text: "Tomas here took your purse. I saw him do it."}
+  tags: {emotion: neutral, acts: {player: {act: none}, Tomas: {act: accusation, intensity: medium}}}
+  slices: [group]
+  notes: The line is said to the player but is about Tomas, who is present (hard edge 1).
+
+- line_id: guide-07-accusing-question
+  input: {speaker: Oskar, speaker_kind: npc, to: player, targets: [player], text: "Did you think I wouldn't notice the missing coins?"}
+  tags: {emotion: angry, emotion_intensity: medium, acts: {player: {act: accusation, intensity: medium}}}
+  notes: A question that presumes guilt (hard edge 10).
+
+- line_id: guide-08-tease
+  input: {speaker: player, speaker_kind: player, to: Fenna, targets: [Fenna, Eli], text: "Ha, still can't hit the target from ten paces, eh?"}
+  tags: {emotion: amused, emotion_intensity: medium, acts: {Fenna: {act: tease, intensity: low}, Eli: {act: none}}}
+  slices: [group]
+
+- line_id: guide-09-threat-in-jest
+  input: {speaker: Ruth, speaker_kind: npc, to: player, targets: [player], text: "Spill my ale once more and I'll toss you in the river, ha!"}
+  tags: {emotion: amused, emotion_intensity: medium, acts: {player: {act: tease, intensity: medium}}}
+  notes: Play is marked by the laugh (hard edge 5). Without it this is a threat.
+
+- line_id: guide-10-insult-not-tease
+  input: {speaker: Dot, speaker_kind: npc, to: Rita, targets: [Rita], text: "You're a terrible cook, you know that."}
+  tags: {emotion: contemptuous, emotion_intensity: low, acts: {Rita: {act: insult, intensity: low}}}
+  notes: No play in the words, so an insult at low intensity even if they are friends (hard edge 4). The meters soften it.
+
+- line_id: guide-11-demand-high
+  input: {speaker: Hamza, speaker_kind: npc, to: player, targets: [player], text: "Get out of my shop. Now."}
+  tags: {emotion: angry, emotion_intensity: medium, acts: {player: {act: demand, intensity: high}}}
+  notes: A demand at high intensity counts as hostile on the scorecard.
+
+- line_id: guide-12-demand-low
+  input: {speaker: Wynn, speaker_kind: npc, to: null, targets: [player, Fenna], text: "Keep your voices down, there are people sleeping upstairs."}
+  tags: {emotion: angry, emotion_intensity: low, acts: {player: {act: demand, intensity: low}, Fenna: {act: demand, intensity: low}}}
+  slices: [group]
+  notes: Said to the room and to both of them ("your voices").
+
+- line_id: guide-13-dismiss
+  input: {speaker: Vince, speaker_kind: npc, to: player, targets: [player], text: "Whatever. Go bother someone else."}
+  tags: {emotion: contemptuous, emotion_intensity: low, acts: {player: {act: dismiss, intensity: medium}}}
+
+- line_id: guide-14-dismiss-low
+  input: {speaker: Brenna, speaker_kind: npc, to: player, targets: [player], text: "Not now, love, I'm run off my feet."}
+  tags: {emotion: neutral, acts: {player: {act: dismiss, intensity: low}}}
+
+- line_id: guide-15-refusal
+  input: {speaker: Oskar, speaker_kind: npc, to: player, targets: [player], text: "No, I won't sell it. Not at any price.",
+          previous: "player: I'll give you twenty silver for the compass."}
+  tags: {emotion: neutral, acts: {player: {act: refusal, intensity: medium}}}
+
+- line_id: guide-16-request
+  input: {speaker: player, speaker_kind: player, to: Joe, targets: [Joe], text: "Could you hold the lantern for a moment?"}
+  tags: {emotion: neutral, acts: {Joe: {act: request, intensity: low}}}
+
+- line_id: guide-17-thanks
+  input: {speaker: Eli, speaker_kind: npc, to: player, targets: [player], text: "Thank you, truly. I don't know what I'd have done without you."}
+  tags: {emotion: happy, emotion_intensity: medium, acts: {player: {act: thanks, intensity: high}}}
+
+- line_id: guide-18-praise-bystander
+  input: {speaker: player, speaker_kind: player, to: Mara, targets: [Mara, Tomas], text: "Your stew is the best in town."}
+  tags: {emotion: happy, emotion_intensity: low, acts: {Mara: {act: praise, intensity: medium}, Tomas: {act: none}}}
+  slices: [group]
+
+- line_id: guide-19-apology
+  input: {speaker: Fenna, speaker_kind: npc, to: player, targets: [player], text: "I'm sorry about your brother. I should have been there."}
+  tags: {emotion: sad, emotion_intensity: medium, acts: {player: {act: apology, intensity: medium}}}
+
+- line_id: guide-20-comfort
+  input: {speaker: Ruth, speaker_kind: npc, to: player, targets: [player], text: "Hey, it's all right. You did everything you could."}
+  tags: {emotion: neutral, acts: {player: {act: comfort, intensity: medium}}}
+  notes: Sympathy is not sadness unless the line shows the speaker's own sorrow.
+
+- line_id: guide-21-warning-room
+  input: {speaker: Tomas, speaker_kind: npc, to: null, targets: [Mara, Wren, player], text: "Look out! The beam's coming down!"}
+  tags: {emotion: afraid, emotion_intensity: high, acts: {Mara: {act: warning, intensity: high}, Wren: {act: warning, intensity: high},
+         player: {act: warning, intensity: high}}}
+  slices: [group]
+  notes: A warning to the room is a warning toward every target (hard edge 2).
+
+- line_id: guide-22-warning-cut-off
+  input: {speaker: player, speaker_kind: player, to: Dot, targets: [Dot], text: "wait dont drink th"}
+  tags: {emotion: afraid, emotion_intensity: medium, acts: {Dot: {act: warning, intensity: medium}}}
+  slices: [interjection, noisy]
+  notes: Cut off by the speech-to-text endpoint. Still a warning (hard edge 13). Costs nothing when it interrupts.
+
+- line_id: guide-23-greeting
+  input: {speaker: Tomas, speaker_kind: npc, to: player, targets: [player], text: "Morning! Lovely day for it, isn't it?"}
+  tags: {emotion: happy, emotion_intensity: low, acts: {player: {act: none}}}
+
+- line_id: guide-24-question
+  input: {speaker: player, speaker_kind: player, to: Hamza, targets: [Hamza], text: "Where can I find the blacksmith?"}
+  tags: {emotion: neutral, acts: {Hamza: {act: none}}}
+  notes: A question asking for information is none (hard edge 10).
+
+- line_id: guide-25-backchannel
+  input: {speaker: player, speaker_kind: player, to: Oskar, targets: [Oskar], text: "mm-hm"}
+  tags: {emotion: neutral, acts: {Oskar: {act: none}}, backchannel: true}
+  slices: [interjection]
+
+- line_id: guide-26-backchannel-go-on
+  input: {speaker: player, speaker_kind: player, to: Wynn, targets: [Wynn, Fenna], text: "yeah go on"}
+  tags: {emotion: neutral, acts: {Wynn: {act: none}, Fenna: {act: none}}, backchannel: true}
+  slices: [interjection, group]
+
+- line_id: guide-27-impatient
+  input: {speaker: player, speaker_kind: player, to: Wynn, targets: [Wynn], text: "yeah yeah get on with it"}
+  tags: {emotion: angry, emotion_intensity: low, acts: {Wynn: {act: demand, intensity: medium}}}
+  slices: [interjection]
+  notes: Takes the turn and orders, so not a backchannel (hard edge 14).
+
+- line_id: guide-28-apology-interjection
+  input: {speaker: player, speaker_kind: player, to: Mara, targets: [Mara], text: "sorry sorry can I just ask one thing"}
+  tags: {emotion: neutral, acts: {Mara: {act: apology, intensity: low}}}
+  slices: [interjection]
+  notes: Apology outranks the request (hard edge 9). Costs little when it interrupts.
+
+- line_id: guide-29-sarcasm
+  input: {speaker: Mara, speaker_kind: npc, to: Tomas, targets: [Tomas], text: "Oh, marvellous. It only fell off twice on the way here.",
+          previous: "Tomas: I fixed the cart wheel for you."}
+  tags: {emotion: contemptuous, emotion_intensity: medium, acts: {Tomas: {act: insult, intensity: low}}}
+  slices: [sarcasm]
+  notes: Praise on the surface, mockery in meaning (hard edge 6).
+
+- line_id: guide-30-comparison
+  input: {speaker: Mara, speaker_kind: npc, to: Tomas, targets: [Tomas, Wren], text: "At least Wren knows how to pour a drink."}
+  tags: {emotion: contemptuous, emotion_intensity: low, acts: {Tomas: {act: insult, intensity: low}, Wren: {act: praise, intensity: low}}}
+  slices: [group]
+  notes: One line hurts one person and pleases another (hard edge 3).
+
+- line_id: guide-31-group-insult
+  input: {speaker: Brenna, speaker_kind: npc, to: null, targets: [Tomas, Wren, player], text: "You're all cowards, the lot of you."}
+  tags: {emotion: contemptuous, emotion_intensity: medium, acts: {Tomas: {act: insult, intensity: medium}, Wren: {act: insult, intensity: medium},
+         player: {act: insult, intensity: medium}}}
+  slices: [group]
+
+- line_id: guide-32-disgusted
+  input: {speaker: Ruth, speaker_kind: npc, to: player, targets: [player], text: "Ugh, you smell like a fish market. Stand over there."}
+  tags: {emotion: disgusted, emotion_intensity: medium, acts: {player: {act: insult, intensity: low}}}
+
+- line_id: guide-33-surprised
+  input: {speaker: Eli, speaker_kind: npc, to: player, targets: [player], text: "You came back? I never thought I'd see you again!"}
+  tags: {emotion: surprised, emotion_intensity: high, acts: {player: {act: none}}}
+
+- line_id: guide-34-afraid
+  input: {speaker: Joe, speaker_kind: npc, to: player, targets: [player], text: "Please, I don't want any trouble. Take what you like."}
+  tags: {emotion: afraid, emotion_intensity: high, acts: {player: {act: request, intensity: low}}}
+
+- line_id: guide-35-sad-self
+  input: {speaker: Dot, speaker_kind: npc, to: player, targets: [player], text: "She never came home. I keep the lamp lit anyway."}
+  tags: {emotion: sad, emotion_intensity: medium, acts: {player: {act: none}}}
+
+- line_id: guide-36-absent-person
+  input: {speaker: player, speaker_kind: player, to: Oskar, targets: [Oskar], text: "the mayors a crook everyone knows it"}
+  tags: {emotion: contemptuous, emotion_intensity: low, acts: {Oskar: {act: none}}}
+  slices: [noisy]
+  notes: About someone who is not in the scene (hard edge 11).

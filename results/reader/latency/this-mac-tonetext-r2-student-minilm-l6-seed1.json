@@ -1,0 +1,36 @@
+{
+ "machine": "Apple M1 Max",
+ "runs": 300,
+ "text": "You still owe me ten coins, you layabout, and don't think I've forgotten it.",
+ "previous": "Lovely day for it, isn't it?",
+ "threads": {
+  "1": {
+   "tonetext, with the line before": {
+    "p50_ms": 11.785,
+    "p95_ms": 11.874
+   },
+   "tonetext, without it": {
+    "p50_ms": 8.487,
+    "p95_ms": 8.551
+   },
+   "tonetext 16-bit, with the line before": {
+    "p50_ms": 11.789,
+    "p95_ms": 11.872
+   }
+  },
+  "4": {
+   "tonetext, with the line before": {
+    "p50_ms": 4.487,
+    "p95_ms": 5.03
+   },
+   "tonetext, without it": {
+    "p50_ms": 3.395,
+    "p95_ms": 3.671
+   },
+   "tonetext 16-bit, with the line before": {
+    "p50_ms": 5.379,
+    "p95_ms": 6.305
+   }
+  }
+ }
+}

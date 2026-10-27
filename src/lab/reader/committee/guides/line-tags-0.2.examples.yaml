@@ -1,0 +1,265 @@
+# Line tags 0.2: worked examples for the exchange move (tone r8, S1). Hand-written by the agent from the label guide,
+# contracts/taxonomy/line-tags-guide-0.2.md. Every example is a full line-tags-0.2 record (emotion and acts labelled by
+# guide 0.1's rules, plus the exchange move) and validates against contracts/schemas/line_tags.py
+# (tests/test_line_tags_exchange.py). Together they cover every exchange class at least three times and the guide's
+# exchange hard edges: NPC replies to a player's question (knows, rumour, secret kept, doesn't know), lines between
+# characters, closings and player lines. Some are the exchange committee's few-shot set (tone/lib/exchange.py); the
+# rest check the committee in the pilot. They never enter a training or test split.
+
+- line_id: ex-01-room-question
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: null, targets: [Mara, Tomas, Wren], text: "Who knows where the mill key is?"}
+  tags: {emotion: neutral, acts: {Mara: {act: none}, Tomas: {act: none}, Wren: {act: none}}, exchange: {label: asks}}
+  slices: [group]
+  notes: A question to the room wants a reply from everyone present.
+
+- line_id: ex-02-knows
+  schema_version: line-tags-0.2
+  input: {speaker: Wren, speaker_kind: npc, to: player, targets: [player, Mara, Tomas], text: "It's under the counter. Mara keeps it there.",
+          previous: "player: Who knows where the mill key is?"}
+  tags: {emotion: neutral, acts: {player: {act: none}, Mara: {act: none}, Tomas: {act: none}}, exchange: {label: answers}}
+  slices: [group]
+
+- line_id: ex-03-rumour
+  schema_version: line-tags-0.2
+  input: {speaker: Tomas, speaker_kind: npc, to: player, targets: [player, Mara, Wren], text: "I heard the miller had it last, but don't quote me.",
+          previous: "player: Who knows where the mill key is?"}
+  tags: {emotion: neutral, acts: {player: {act: none}, Mara: {act: none}, Wren: {act: none}}, exchange: {label: hedges}}
+  slices: [group]
+  notes: Second-hand and marked as unsure (exchange hard edge 5).
+
+- line_id: ex-04-secret-kept
+  schema_version: line-tags-0.2
+  input: {speaker: Mara, speaker_kind: npc, to: player, targets: [player, Tomas, Wren], text: "That's not something I'd talk about with strangers.",
+          previous: "player: Who knows where the mill key is?"}
+  tags: {emotion: neutral, acts: {player: {act: refusal, intensity: low}, Tomas: {act: none}, Wren: {act: none}}, exchange: {label: withholds}}
+  slices: [group]
+  notes: Declines to say. Toward the player the act is a refusal of what they asked for.
+
+- line_id: ex-05-doesnt-know
+  schema_version: line-tags-0.2
+  input: {speaker: Oskar, speaker_kind: npc, to: player, targets: [player], text: "No idea. Never been down that way.",
+          previous: "player: Where's the old mill?"}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: doesnt_know}}
+
+- line_id: ex-06-dodging-question
+  schema_version: line-tags-0.2
+  input: {speaker: Vince, speaker_kind: npc, to: player, targets: [player], text: "Why do you want to know?",
+          previous: "player: Where were you last night?"}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: withholds}}
+  notes: A question that dodges a question is withholds, not asks (exchange hard edge 1).
+
+- line_id: ex-07-request-for-action
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: Mara, targets: [Mara], text: "Pour me one, would you?"}
+  tags: {emotion: neutral, acts: {Mara: {act: request, intensity: low}}, exchange: {label: asks}}
+  notes: A request for an action is asks (exchange hard edge 2).
+
+- line_id: ex-08-order
+  schema_version: line-tags-0.2
+  input: {speaker: Hamza, speaker_kind: npc, to: player, targets: [player], text: "Get out of my shop. Now."}
+  tags: {emotion: angry, emotion_intensity: medium, acts: {player: {act: demand, intensity: high}}, exchange: {label: asks}}
+  notes: An order wants an action from the listener (exchange hard edge 2).
+
+- line_id: ex-09-couldnt-say
+  schema_version: line-tags-0.2
+  input: {speaker: Brenna, speaker_kind: npc, to: player, targets: [player], text: "I couldn't say, love.",
+          previous: "player: When does the ferry leave?"}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: doesnt_know}}
+  notes: No refusal shown in the line or the previous one (exchange hard edge 3).
+
+- line_id: ex-10-couldnt-say-refusal
+  schema_version: line-tags-0.2
+  input: {speaker: Brenna, speaker_kind: npc, to: player, targets: [player, Vince], text: "I couldn't say. Not with him sitting right there.",
+          previous: "player: Who was that man you were talking to?"}
+  tags: {emotion: afraid, emotion_intensity: low, acts: {player: {act: refusal, intensity: low}, Vince: {act: none}}, exchange: {label: withholds}}
+  slices: [group]
+  notes: The line shows a refusal, so withholds (exchange hard edge 3).
+
+- line_id: ex-11-npc-asks-npc
+  schema_version: line-tags-0.2
+  input: {speaker: Tomas, speaker_kind: npc, to: Wren, targets: [Wren, player, Mara], text: "Wren, you were there, weren't you?"}
+  tags: {emotion: neutral, acts: {Wren: {act: none}, player: {act: none}, Mara: {act: none}}, exchange: {label: asks}}
+  slices: [group, npc_to_npc]
+
+- line_id: ex-12-npc-answers-npc
+  schema_version: line-tags-0.2
+  input: {speaker: Wren, speaker_kind: npc, to: Tomas, targets: [Tomas, player, Mara], text: "Aye, I saw the whole thing. He went out the back.",
+          previous: "Tomas: Wren, you were there, weren't you?"}
+  tags: {emotion: neutral, acts: {Tomas: {act: none}, player: {act: none}, Mara: {act: none}}, exchange: {label: answers}}
+  slices: [group, npc_to_npc]
+
+- line_id: ex-13-npc-closes
+  schema_version: line-tags-0.2
+  input: {speaker: Tomas, speaker_kind: npc, to: Wren, targets: [Wren, player, Mara], text: "Fair enough. That settles it, then.",
+          previous: "Wren: Aye, I saw the whole thing. He went out the back."}
+  tags: {emotion: neutral, acts: {Wren: {act: none}, player: {act: none}, Mara: {act: none}}, exchange: {label: closes}}
+  slices: [group, npc_to_npc]
+  notes: Agreement that settles it and wants no reply.
+
+- line_id: ex-14-player-thanks-closes
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: Wren, targets: [Wren, Mara], text: "thanks, thats all i needed",
+          previous: "Wren: It's under the counter."}
+  tags: {emotion: happy, emotion_intensity: low, acts: {Wren: {act: thanks, intensity: low}, Mara: {act: none}}, exchange: {label: closes}}
+  slices: [group, noisy]
+
+- line_id: ex-15-farewell
+  schema_version: line-tags-0.2
+  input: {speaker: Mara, speaker_kind: npc, to: player, targets: [player], text: "Mind how you go, then.",
+          previous: "player: Right, I'm off."}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: closes}}
+  notes: A farewell. Act none, as for every greeting and farewell.
+
+- line_id: ex-16-reaction
+  schema_version: line-tags-0.2
+  input: {speaker: Brenna, speaker_kind: npc, to: Tomas, targets: [Tomas, player], text: "Ha! Typical.",
+          previous: "Tomas: The ale's gone sour again."}
+  tags: {emotion: amused, emotion_intensity: low, acts: {Tomas: {act: none}, player: {act: none}}, exchange: {label: other}}
+  slices: [group, npc_to_npc]
+
+- line_id: ex-17-greeting
+  schema_version: line-tags-0.2
+  input: {speaker: Tomas, speaker_kind: npc, to: player, targets: [player], text: "Morning!"}
+  tags: {emotion: happy, emotion_intensity: low, acts: {player: {act: none}}, exchange: {label: other}}
+
+- line_id: ex-18-greeting-with-question
+  schema_version: line-tags-0.2
+  input: {speaker: Mara, speaker_kind: npc, to: player, targets: [player], text: "Morning! What can I get you?"}
+  tags: {emotion: happy, emotion_intensity: low, acts: {player: {act: none}}, exchange: {label: asks}}
+  notes: A greeting with a question is asks (exchange hard edge 11).
+
+- line_id: ex-19-plain-yes
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: Tomas, targets: [Tomas], text: "yeah i did",
+          previous: "Tomas: Did you lock the cart?"}
+  tags: {emotion: neutral, acts: {Tomas: {act: none}}, exchange: {label: answers}}
+  slices: [noisy]
+  notes: A yes to a question is answers (exchange hard edge 7).
+
+- line_id: ex-20-no-thanks-closes
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: Mara, targets: [Mara], text: "No, that's all, thanks.",
+          previous: "Mara: Anything else, love?"}
+  tags: {emotion: neutral, acts: {Mara: {act: thanks, intensity: low}}, exchange: {label: closes}}
+  notes: Its job is to end the exchange (exchange hard edge 7).
+
+- line_id: ex-21-guess
+  schema_version: line-tags-0.2
+  input: {speaker: Oskar, speaker_kind: npc, to: player, targets: [player], text: "Tuesday, I think. Maybe Wednesday.",
+          previous: "player: When did the miller leave?"}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: hedges}}
+
+- line_id: ex-22-news-offered
+  schema_version: line-tags-0.2
+  input: {speaker: Fenna, speaker_kind: npc, to: player, targets: [player], text: "The bridge washed out last night, so you'll have to go round by the ford."}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: answers}}
+  notes: Information nobody asked for is answers (exchange hard edge 10).
+
+- line_id: ex-23-opinion-asked-for
+  schema_version: line-tags-0.2
+  input: {speaker: Dot, speaker_kind: npc, to: player, targets: [player], text: "Can't stand him, if I'm honest.",
+          previous: "player: What do you think of the new mayor?"}
+  tags: {emotion: contemptuous, emotion_intensity: low, acts: {player: {act: none}}, exchange: {label: answers}}
+  notes: The opinion was asked for (exchange hard edge 10). The mayor is not in the scene.
+
+- line_id: ex-24-remark
+  schema_version: line-tags-0.2
+  input: {speaker: Dot, speaker_kind: npc, to: player, targets: [player], text: "Too cold for my liking.",
+          previous: "player: Lovely evening."}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: other}}
+  notes: An opinion nobody asked for (exchange hard edge 10).
+
+- line_id: ex-25-points-elsewhere
+  schema_version: line-tags-0.2
+  input: {speaker: Tomas, speaker_kind: npc, to: player, targets: [player, Mara, Wren], text: "Not me. Ask Mara, she'd know.",
+          previous: "player: Who knows where the mill key is?"}
+  tags: {emotion: neutral, acts: {player: {act: none}, Mara: {act: none}, Wren: {act: none}}, exchange: {label: doesnt_know}}
+  slices: [group]
+  notes: Points elsewhere and gives nothing; the question stays open (exchange hard edge 4).
+
+- line_id: ex-26-declines-request
+  schema_version: line-tags-0.2
+  input: {speaker: Mara, speaker_kind: npc, to: player, targets: [player], text: "No, love, you've had enough.",
+          previous: "player: Pour me another."}
+  tags: {emotion: neutral, acts: {player: {act: refusal, intensity: medium}}, exchange: {label: withholds}}
+  notes: Declining a request is withholds (exchange hard edge 6).
+
+- line_id: ex-27-grants-request
+  schema_version: line-tags-0.2
+  input: {speaker: Mara, speaker_kind: npc, to: player, targets: [player], text: "Coming right up.",
+          previous: "player: Pour me one, would you?"}
+  tags: {emotion: happy, emotion_intensity: low, acts: {player: {act: none}}, exchange: {label: answers}}
+  notes: Agreeing to do what was asked is answers (exchange hard edge 6).
+
+- line_id: ex-28-statement-that-asks
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: Mara, targets: [Mara], text: "I need a room for the night."}
+  tags: {emotion: neutral, acts: {Mara: {act: request, intensity: low}}, exchange: {label: asks}}
+  notes: A statement that asks (exchange hard edge 9).
+
+- line_id: ex-29-rhetorical
+  schema_version: line-tags-0.2
+  input: {speaker: Brenna, speaker_kind: npc, to: Wren, targets: [Wren, player], text: "Honestly, who does that?",
+          previous: "Wren: He left the gate open again."}
+  tags: {emotion: angry, emotion_intensity: low, acts: {Wren: {act: none}, player: {act: none}}, exchange: {label: other}}
+  slices: [group, npc_to_npc]
+  notes: A rhetorical question wants no reply (exchange hard edge 9). The one who left the gate is not in the scene.
+
+- line_id: ex-30-backchannel
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: Oskar, targets: [Oskar], text: "mm-hm",
+          previous: "Oskar: So I says to him, I says, you can keep your horse."}
+  tags: {emotion: neutral, acts: {Oskar: {act: none}}, backchannel: true, exchange: {label: other}}
+  slices: [interjection]
+  notes: A backchannel is other (exchange hard edge 12).
+
+- line_id: ex-31-subject-change
+  schema_version: line-tags-0.2
+  input: {speaker: Vince, speaker_kind: npc, to: player, targets: [player], text: "Lovely weather we're having, isn't it?",
+          previous: "player: Where's the shipment?"}
+  tags: {emotion: amused, emotion_intensity: low, acts: {player: {act: none}}, exchange: {label: withholds}}
+  notes: Changes the subject to avoid the question (exchange hard edge 13), so not asks.
+
+- line_id: ex-32-noisy-room-question
+  schema_version: line-tags-0.2
+  input: {speaker: player, speaker_kind: player, to: null, targets: [Hale, Mara], text: "anyone seen a guy with a red hat"}
+  tags: {emotion: neutral, acts: {Hale: {act: none}, Mara: {act: none}}, exchange: {label: asks}}
+  slices: [group, noisy]
+  notes: Speech-to-text output with no question mark (exchange hard edge 14).
+
+- line_id: ex-33-npc-hedges-npc
+  schema_version: line-tags-0.2
+  input: {speaker: Wren, speaker_kind: npc, to: Tomas, targets: [Tomas, player], text: "Last I heard, aye, but the river's been high.",
+          previous: "Tomas: Is the ferry running tomorrow?"}
+  tags: {emotion: neutral, acts: {Tomas: {act: none}, player: {act: none}}, exchange: {label: hedges}}
+  slices: [group, npc_to_npc]
+
+- line_id: ex-34-answers-then-asks
+  schema_version: line-tags-0.2
+  input: {speaker: Mara, speaker_kind: npc, to: player, targets: [player], text: "Under the counter. Why, are you heading out there?",
+          previous: "player: Where's the mill key?"}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: answers}}
+  notes: Several moves; answers comes first in the order (exchange hard edge 8).
+
+- line_id: ex-35-question-back-that-helps
+  schema_version: line-tags-0.2
+  input: {speaker: Mara, speaker_kind: npc, to: player, targets: [player], text: "The brass one or the iron one?",
+          previous: "player: Can I have the key?"}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: asks}}
+  notes: A question back that helps answer is asks, not a dodge (exchange hard edge 1).
+
+- line_id: ex-36-no-contact
+  schema_version: line-tags-0.2
+  input: {speaker: Novak, speaker_kind: npc, to: player, targets: [player, Sato], text: "Negative, no contact on my side.",
+          previous: "player: Anyone see the technical?"}
+  tags: {emotion: neutral, acts: {player: {act: none}, Sato: {act: none}}, exchange: {label: doesnt_know}}
+  slices: [group]
+  notes: A no to 'have you seen' leaves the question open (exchange hard edge 7). Added after the pilot (exp-243).
+
+- line_id: ex-37-parting-advice
+  schema_version: line-tags-0.2
+  input: {speaker: Amos, speaker_kind: npc, to: player, targets: [player], text: "You're welcome. Mind the door on your way out.",
+          previous: "player: Thanks for your time."}
+  tags: {emotion: neutral, acts: {player: {act: none}}, exchange: {label: closes}}
+  notes: Parting advice inside a farewell wants no reply (exchange hard edge 2). Added after the pilot (exp-243).

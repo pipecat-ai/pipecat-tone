@@ -1,0 +1,106 @@
+# Canonical labels and, per TTS, the names that perform them, best first. A TTS that takes
+# free text also takes the canonical name, tried last. A label with no name left is masked.
+# breath is offered only when the policy's guidance has the tagger's BREATHE preset.
+
+deliveries:
+  calm:
+    cartesia: [calm, peaceful, serene]
+    minimax: [calm]
+    elevenlabs: [calm, reassuring]
+    fish: [calm, relaxed]
+  sympathetic:
+    cartesia: [sympathetic]
+    minimax: []
+    elevenlabs: [sympathetic]
+    fish: [sympathetic, empathetic, compassionate]
+  apologetic:
+    cartesia: [apologetic]
+    minimax: []
+    elevenlabs: [apologetic, sheepishly]
+    fish: [regretful]
+  warm:
+    cartesia: [content, happy]
+    minimax: [happy]
+    elevenlabs: [warmly]
+    fish: [happy, relaxed]
+  excited:
+    cartesia: [excited, enthusiastic]
+    minimax: [happy]
+    elevenlabs: [excited, delighted]
+    fish: [excited, delighted]
+  surprised:
+    cartesia: [surprised]
+    minimax: [surprised]
+    elevenlabs: [surprised]
+    fish: [surprised]
+  sad:
+    cartesia: [sad, disappointed]
+    minimax: [sad]
+    elevenlabs: [sad]
+    fish: [sad]
+  grateful:
+    cartesia: [grateful]
+    minimax: []
+    elevenlabs: [grateful, warmly]
+    fish: [grateful]
+  curious:
+    cartesia: [curious]
+    minimax: []
+    elevenlabs: [curious]
+    fish: [curious]
+  confident:
+    cartesia: [confident]
+    minimax: []
+    elevenlabs: [confident, professional]
+    fish: [confident]
+  slow:
+    cartesia: [slow]
+    minimax: [slow]
+    elevenlabs: [slow]
+    fish: [slow]
+  fast:
+    cartesia: [fast]
+    minimax: [fast]
+    elevenlabs: [fast]
+    fish: [fast]
+
+sounds:
+  laugh:
+    cartesia: [laughter]
+    minimax: [laughs]
+    elevenlabs: [laughs]
+    fish: [laughing]
+  chuckle:
+    cartesia: [laughter]
+    minimax: [chuckle]
+    elevenlabs: [chuckles]
+    fish: [chuckling]
+  sigh:
+    cartesia: []
+    minimax: [sighs]
+    elevenlabs: [sighs]
+    fish: [sighing]
+  breath:
+    cartesia: []
+    minimax: [breath, inhale]
+    elevenlabs: [inhales deeply]
+    fish: [inhaling]
+
+# The kinds a breath can be drawn as, for a model whose config gives their shares. ElevenLabs' names were
+# picked by ear on Eleven v4; MiniMax's and Fish's aren't checked by ear.
+breaths:
+  light breath:
+    cartesia: []
+    minimax: [breath]
+    elevenlabs: [quick breath]
+    fish: [inhaling]
+  deep breath:
+    cartesia: []
+    minimax: [inhale]
+    elevenlabs: [deep breath]
+    fish: [deep breath]
+  exhale:
+    cartesia: []
+    minimax: [exhale]
+    elevenlabs: [exhales softly]
+    fish: [exhaling]

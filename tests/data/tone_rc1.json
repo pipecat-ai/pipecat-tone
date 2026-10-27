@@ -1,0 +1,507 @@
+{
+ "emotions": [
+  "neutral",
+  "happy",
+  "amused",
+  "angry",
+  "sad",
+  "afraid",
+  "surprised",
+  "disgusted",
+  "contemptuous"
+ ],
+ "turns": [
+  {
+   "text": "I got the job!",
+   "previous": null,
+   "fp16": {
+    "emotion": {
+     "label": "happy",
+     "intensity": "medium",
+     "confidence": 0.9487,
+     "probabilities": {
+      "neutral": 0.0037,
+      "happy": 0.9487,
+      "amused": 0.0021,
+      "angry": 0.0035,
+      "sad": 0.006,
+      "afraid": 0.0086,
+      "surprised": 0.0079,
+      "disgusted": 0.0172,
+      "contemptuous": 0.0023
+     }
+    },
+    "move": {
+     "label": "answers",
+     "confidence": 0.9503,
+     "probabilities": {
+      "asks": 0.0029,
+      "answers": 0.9503,
+      "hedges": 0.011,
+      "doesnt_know": 0.0121,
+      "withholds": 0.0107,
+      "closes": 0.0056,
+      "other": 0.0074
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0169
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0001
+    }
+   },
+   "fp32": {
+    "emotion": {
+     "label": "happy",
+     "intensity": "medium",
+     "confidence": 0.9487,
+     "probabilities": {
+      "neutral": 0.0037,
+      "happy": 0.9487,
+      "amused": 0.0021,
+      "angry": 0.0035,
+      "sad": 0.006,
+      "afraid": 0.0086,
+      "surprised": 0.0079,
+      "disgusted": 0.0173,
+      "contemptuous": 0.0023
+     }
+    },
+    "move": {
+     "label": "answers",
+     "confidence": 0.9503,
+     "probabilities": {
+      "asks": 0.0029,
+      "answers": 0.9503,
+      "hedges": 0.011,
+      "doesnt_know": 0.0121,
+      "withholds": 0.0107,
+      "closes": 0.0056,
+      "other": 0.0074
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0169
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0001
+    }
+   }
+  },
+  {
+   "text": "This is the third time I've called about this.",
+   "previous": "Thanks for calling, how can I help?",
+   "fp16": {
+    "emotion": {
+     "label": "angry",
+     "intensity": "low",
+     "confidence": 0.944,
+     "probabilities": {
+      "neutral": 0.0027,
+      "happy": 0.0025,
+      "amused": 0.0026,
+      "angry": 0.944,
+      "sad": 0.0081,
+      "afraid": 0.0094,
+      "surprised": 0.0072,
+      "disgusted": 0.0215,
+      "contemptuous": 0.002
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.5329,
+     "probabilities": {
+      "asks": 0.0382,
+      "answers": 0.0655,
+      "hedges": 0.037,
+      "doesnt_know": 0.0361,
+      "withholds": 0.2589,
+      "closes": 0.0314,
+      "other": 0.5329
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0174
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   },
+   "fp32": {
+    "emotion": {
+     "label": "angry",
+     "intensity": "low",
+     "confidence": 0.944,
+     "probabilities": {
+      "neutral": 0.0027,
+      "happy": 0.0025,
+      "amused": 0.0026,
+      "angry": 0.944,
+      "sad": 0.0081,
+      "afraid": 0.0094,
+      "surprised": 0.0072,
+      "disgusted": 0.0215,
+      "contemptuous": 0.002
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.5328,
+     "probabilities": {
+      "asks": 0.0382,
+      "answers": 0.0655,
+      "hedges": 0.037,
+      "doesnt_know": 0.0361,
+      "withholds": 0.259,
+      "closes": 0.0314,
+      "other": 0.5328
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0174
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   }
+  },
+  {
+   "text": "Great. Just great.",
+   "previous": "Your flight has been cancelled.",
+   "fp16": {
+    "emotion": {
+     "label": "angry",
+     "intensity": "low",
+     "confidence": 0.9338,
+     "probabilities": {
+      "neutral": 0.0012,
+      "happy": 0.0074,
+      "amused": 0.0027,
+      "angry": 0.9338,
+      "sad": 0.0106,
+      "afraid": 0.0102,
+      "surprised": 0.0064,
+      "disgusted": 0.0227,
+      "contemptuous": 0.0051
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.879,
+     "probabilities": {
+      "asks": 0.0045,
+      "answers": 0.0145,
+      "hedges": 0.0142,
+      "doesnt_know": 0.0194,
+      "withholds": 0.0147,
+      "closes": 0.0536,
+      "other": 0.879
+     }
+    },
+    "sarcasm": {
+     "sarcastic": true,
+     "probability": 0.9951
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   },
+   "fp32": {
+    "emotion": {
+     "label": "angry",
+     "intensity": "low",
+     "confidence": 0.9338,
+     "probabilities": {
+      "neutral": 0.0012,
+      "happy": 0.0074,
+      "amused": 0.0027,
+      "angry": 0.9338,
+      "sad": 0.0106,
+      "afraid": 0.0102,
+      "surprised": 0.0064,
+      "disgusted": 0.0227,
+      "contemptuous": 0.0051
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.879,
+     "probabilities": {
+      "asks": 0.0045,
+      "answers": 0.0145,
+      "hedges": 0.0142,
+      "doesnt_know": 0.0194,
+      "withholds": 0.0147,
+      "closes": 0.0536,
+      "other": 0.879
+     }
+    },
+    "sarcasm": {
+     "sarcastic": true,
+     "probability": 0.9951
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   }
+  },
+  {
+   "text": "Oh no, my dog is sick.",
+   "previous": null,
+   "fp16": {
+    "emotion": {
+     "label": "sad",
+     "intensity": "medium",
+     "confidence": 0.4159,
+     "probabilities": {
+      "neutral": 0.0199,
+      "happy": 0.0789,
+      "amused": 0.0087,
+      "angry": 0.0046,
+      "sad": 0.4159,
+      "afraid": 0.079,
+      "surprised": 0.0253,
+      "disgusted": 0.3646,
+      "contemptuous": 0.0031
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.8989,
+     "probabilities": {
+      "asks": 0.0032,
+      "answers": 0.0385,
+      "hedges": 0.0131,
+      "doesnt_know": 0.0119,
+      "withholds": 0.0271,
+      "closes": 0.0072,
+      "other": 0.8989
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0176
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   },
+   "fp32": {
+    "emotion": {
+     "label": "sad",
+     "intensity": "medium",
+     "confidence": 0.4162,
+     "probabilities": {
+      "neutral": 0.0199,
+      "happy": 0.0788,
+      "amused": 0.0087,
+      "angry": 0.0046,
+      "sad": 0.4162,
+      "afraid": 0.079,
+      "surprised": 0.0253,
+      "disgusted": 0.3643,
+      "contemptuous": 0.0031
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.8989,
+     "probabilities": {
+      "asks": 0.0032,
+      "answers": 0.0385,
+      "hedges": 0.0131,
+      "doesnt_know": 0.0119,
+      "withholds": 0.0272,
+      "closes": 0.0072,
+      "other": 0.8989
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0176
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   }
+  },
+  {
+   "text": "mm-hmm",
+   "previous": "So the refund goes back to your card.",
+   "fp16": {
+    "emotion": {
+     "label": "neutral",
+     "intensity": "low",
+     "confidence": 0.8894,
+     "probabilities": {
+      "neutral": 0.8894,
+      "happy": 0.0056,
+      "amused": 0.0056,
+      "angry": 0.0047,
+      "sad": 0.017,
+      "afraid": 0.0196,
+      "surprised": 0.0147,
+      "disgusted": 0.0396,
+      "contemptuous": 0.0038
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.5775,
+     "probabilities": {
+      "asks": 0.0073,
+      "answers": 0.0196,
+      "hedges": 0.0222,
+      "doesnt_know": 0.024,
+      "withholds": 0.0219,
+      "closes": 0.3275,
+      "other": 0.5775
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0172
+    },
+    "backchannel": {
+     "is_backchannel": true,
+     "probability": 1.0
+    }
+   },
+   "fp32": {
+    "emotion": {
+     "label": "neutral",
+     "intensity": "low",
+     "confidence": 0.8894,
+     "probabilities": {
+      "neutral": 0.8894,
+      "happy": 0.0056,
+      "amused": 0.0056,
+      "angry": 0.0047,
+      "sad": 0.017,
+      "afraid": 0.0196,
+      "surprised": 0.0147,
+      "disgusted": 0.0396,
+      "contemptuous": 0.0038
+     }
+    },
+    "move": {
+     "label": "other",
+     "confidence": 0.5775,
+     "probabilities": {
+      "asks": 0.0073,
+      "answers": 0.0195,
+      "hedges": 0.0222,
+      "doesnt_know": 0.024,
+      "withholds": 0.0219,
+      "closes": 0.3275,
+      "other": 0.5775
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0172
+    },
+    "backchannel": {
+     "is_backchannel": true,
+     "probability": 1.0
+    }
+   }
+  },
+  {
+   "text": "Could you say that again, slower?",
+   "previous": "Your code is 4 8 2 6 3.",
+   "fp16": {
+    "emotion": {
+     "label": "neutral",
+     "intensity": "low",
+     "confidence": 0.8852,
+     "probabilities": {
+      "neutral": 0.8852,
+      "happy": 0.0043,
+      "amused": 0.0056,
+      "angry": 0.0096,
+      "sad": 0.0157,
+      "afraid": 0.017,
+      "surprised": 0.0146,
+      "disgusted": 0.0417,
+      "contemptuous": 0.0063
+     }
+    },
+    "move": {
+     "label": "asks",
+     "confidence": 0.9557,
+     "probabilities": {
+      "asks": 0.9557,
+      "answers": 0.0017,
+      "hedges": 0.0099,
+      "doesnt_know": 0.0107,
+      "withholds": 0.0102,
+      "closes": 0.0063,
+      "other": 0.0055
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0178
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   },
+   "fp32": {
+    "emotion": {
+     "label": "neutral",
+     "intensity": "low",
+     "confidence": 0.8852,
+     "probabilities": {
+      "neutral": 0.8852,
+      "happy": 0.0043,
+      "amused": 0.0056,
+      "angry": 0.0096,
+      "sad": 0.0157,
+      "afraid": 0.017,
+      "surprised": 0.0146,
+      "disgusted": 0.0417,
+      "contemptuous": 0.0063
+     }
+    },
+    "move": {
+     "label": "asks",
+     "confidence": 0.9557,
+     "probabilities": {
+      "asks": 0.9557,
+      "answers": 0.0017,
+      "hedges": 0.0099,
+      "doesnt_know": 0.0107,
+      "withholds": 0.0102,
+      "closes": 0.0063,
+      "other": 0.0055
+     }
+    },
+    "sarcasm": {
+     "sarcastic": false,
+     "probability": 0.0178
+    },
+    "backchannel": {
+     "is_backchannel": false,
+     "probability": 0.0
+    }
+   }
+  }
+ ]
+}

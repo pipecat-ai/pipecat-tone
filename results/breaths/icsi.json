@@ -1,0 +1,113 @@
+{
+  "source": {
+    "url": "https://groups.inf.ed.ac.uk/ami/ICSICorpusAnnotations/ICSI_original_transcripts.zip",
+    "sha256": "9db98ebdd61a085b4f45f24f46e9c9f6c6f26c3c9cd41643a3b9e74362c85de7",
+    "licence": "CC-BY-4.0"
+  },
+  "turns": 34933,
+  "sentences": 104174,
+  "words": 739704,
+  "turns_with_breath": 0.119,
+  "turns_with_breath_before_a_sentence": 0.1025,
+  "turns_opening_with_breath": 0.0643,
+  "turns_with_two_or_more": 0.0365,
+  "breaths_per_100_words": 1.13,
+  "breaths_inside_sentences": 0.3796,
+  "by_turn_length": {
+    "1-5": {
+      "turns": 12182,
+      "with_breath": 0.0451,
+      "before_a_sentence": 0.0444,
+      "opening": 0.0406,
+      "two_or_more": 0.0008
+    },
+    "6-15": {
+      "turns": 10772,
+      "with_breath": 0.0705,
+      "before_a_sentence": 0.0654,
+      "opening": 0.052,
+      "two_or_more": 0.0047
+    },
+    "16-30": {
+      "turns": 5825,
+      "with_breath": 0.1447,
+      "before_a_sentence": 0.1188,
+      "opening": 0.079,
+      "two_or_more": 0.0175
+    },
+    "31-60": {
+      "turns": 3490,
+      "with_breath": 0.2605,
+      "before_a_sentence": 0.2046,
+      "opening": 0.1129,
+      "two_or_more": 0.1037
+    },
+    "61+": {
+      "turns": 2664,
+      "with_breath": 0.4118,
+      "before_a_sentence": 0.3491,
+      "opening": 0.1265,
+      "two_or_more": 0.2819
+    }
+  },
+  "sentences_by_length": {
+    "first": {
+      "1-5": {
+        "sentences": 23246,
+        "breath_before": 0.0577,
+        "breath_before_or_inside": 0.0592
+      },
+      "6-10": {
+        "sentences": 6638,
+        "breath_before": 0.0631,
+        "breath_before_or_inside": 0.0694
+      },
+      "11-20": {
+        "sentences": 3827,
+        "breath_before": 0.0912,
+        "breath_before_or_inside": 0.1095
+      },
+      "21+": {
+        "sentences": 1222,
+        "breath_before": 0.1105,
+        "breath_before_or_inside": 0.171
+      }
+    },
+    "later": {
+      "1-5": {
+        "sentences": 36056,
+        "breath_before": 0.0364,
+        "breath_before_or_inside": 0.0415
+      },
+      "6-10": {
+        "sentences": 15556,
+        "breath_before": 0.0413,
+        "breath_before_or_inside": 0.0643
+      },
+      "11-20": {
+        "sentences": 12262,
+        "breath_before": 0.0542,
+        "breath_before_or_inside": 0.1107
+      },
+      "21+": {
+        "sentences": 5367,
+        "breath_before": 0.0583,
+        "breath_before_or_inside": 0.1858
+      }
+    }
+  },
+  "words_between_breaths": {
+    "p10": 3.0,
+    "p25": 8.0,
+    "p50": 15.0,
+    "p75": 23.0
+  },
+  "breath_after_breathing_turn": 0.3164,
+  "breath_after_breathing_turn_by_chance": 0.271,
+  "breath_after_plain_turn": 0.0923,
+  "breath_kinds": {
+    "light breath": 0.59,
+    "deep breath": 0.359,
+    "exhale": 0.051
+  }
+}
