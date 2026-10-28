@@ -56,5 +56,105 @@
    "agree": 23224,
    "disagree": 821
   }
+ },
+ "trained tonetext-r3-teacher-ettin-1b-seed0": {
+  "at_seconds": 7794
+ },
+ "trained tonetext-r3-teacher-ettin-1b-seed1": {
+  "at_seconds": 7797
+ },
+ "trained tonetext-r3-teacher-ettin-1b-seed2": {
+  "at_seconds": 7799
+ },
+ "trained tonetext-r3-teacher-ettin-1b-seed3": {
+  "at_seconds": 7801
+ },
+ "trained tonetext-r3-teacher-ettin-1b-seed4": {
+  "at_seconds": 7805
+ },
+ "trained tonetext-r3-student-minilm-l6-r2teachers-seed1": {
+  "at_seconds": 12809
+ },
+ "trained tonetext-r3-student-minilm-l6-seed1": {
+  "at_seconds": 19606
+ },
+ "trained tonetext-r3-student-minilm-l6-seed2": {
+  "at_seconds": 19946
+ },
+ "exported tonetext-r3-student-minilm-l6-seed1": {
+  "at_seconds": 20108
+ },
+ "exported tonetext-r3-student-minilm-l6-seed2": {
+  "at_seconds": 20252
+ },
+ "exported tonetext-r3-student-minilm-l6-r2teachers-seed1": {
+  "at_seconds": 20389
+ },
+ "compared tonetext-r3-student-minilm-l6-seed1": {
+  "at_seconds": 20625,
+  "worse_beyond_noise": [],
+  "better_beyond_noise": [
+   "emotion_voice",
+   "emotion_support",
+   "sarcasm_support_f1",
+   "sarcasm_support_after_plain_f1",
+   "sarcasm_support_after_news_f1",
+   "sarcasm_support_held_domains_f1",
+   "sarcasm_support_built_f1",
+   "sarcasm_support_built_after_plain_f1",
+   "sarcasm_support_built_after_news_f1",
+   "emotion_sarcastic_support"
+  ],
+  "false_sarcasm_or_face_value_rises": [],
+  "probes_right": {
+   "ref": 8,
+   "var": 8
+  }
+ },
+ "compared tonetext-r3-student-minilm-l6-seed2": {
+  "at_seconds": 20844,
+  "worse_beyond_noise": [
+   "move_voice_macro_f1",
+   "emotion_sarcastic_voice"
+  ],
+  "better_beyond_noise": [
+   "emotion_support",
+   "sarcasm_support_f1",
+   "sarcasm_support_after_plain_f1",
+   "sarcasm_support_after_news_f1",
+   "sarcasm_support_held_domains_f1",
+   "sarcasm_support_built_f1",
+   "sarcasm_support_built_after_plain_f1",
+   "sarcasm_support_built_after_news_f1",
+   "emotion_sarcastic_support"
+  ],
+  "false_sarcasm_or_face_value_rises": [],
+  "probes_right": {
+   "ref": 8,
+   "var": 8
+  }
+ },
+ "compared tonetext-r3-student-minilm-l6-r2teachers-seed1": {
+  "at_seconds": 21066,
+  "worse_beyond_noise": [],
+  "better_beyond_noise": [
+   "emotion_support",
+   "sarcasm_support_f1",
+   "sarcasm_support_after_plain_f1",
+   "sarcasm_support_after_news_f1",
+   "sarcasm_support_held_domains_f1",
+   "sarcasm_support_built_f1",
+   "sarcasm_support_built_after_plain_f1",
+   "sarcasm_support_built_after_news_f1",
+   "emotion_sarcastic_support"
+  ],
+  "false_sarcasm_or_face_value_rises": [],
+  "probes_right": {
+   "ref": 8,
+   "var": 9
+  }
+ },
+ "done": {
+  "at_seconds": 21067
  }
 }

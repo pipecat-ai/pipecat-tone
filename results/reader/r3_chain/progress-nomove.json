@@ -1,0 +1,70 @@
+{
+ "teachers": {
+  "at_seconds": 5780
+ },
+ "trained tonetext-r3-student-minilm-l6-nomove-seed1": {
+  "at_seconds": 12256
+ },
+ "exported tonetext-r3-student-minilm-l6-nomove-seed1": {
+  "at_seconds": 12523
+ },
+ "compared tonetext-r3-student-minilm-l6-nomove-seed1 with tonetext-r2-student-minilm-l6-seed1": {
+  "at_seconds": 12758,
+  "worse_beyond_noise": [
+   "emotion_player_speech",
+   "emotion_unseen",
+   "move_macro_f1",
+   "move_answered_or_open",
+   "move_asks_or_not",
+   "move_voice_macro_f1",
+   "move_voice_answered_or_open",
+   "move_voice_asks_or_not",
+   "move_voice_real_macro_f1",
+   "move_voice_real_macro_f1_30",
+   "move_voice_real_answered_or_open",
+   "move_voice_real_asks_or_not"
+  ],
+  "better_beyond_noise": [
+   "emotion_support",
+   "sarcasm_support_f1",
+   "sarcasm_support_after_plain_f1",
+   "sarcasm_support_after_news_f1",
+   "sarcasm_support_held_domains_f1",
+   "sarcasm_support_built_f1",
+   "sarcasm_support_built_after_plain_f1",
+   "sarcasm_support_built_after_news_f1",
+   "emotion_sarcastic_support"
+  ],
+  "probes_right": {
+   "ref": 8,
+   "var": 8
+  }
+ },
+ "compared tonetext-r3-student-minilm-l6-nomove-seed1 with tonetext-r3-student-minilm-l6-seed1": {
+  "at_seconds": 18357,
+  "worse_beyond_noise": [
+   "emotion_unseen",
+   "emotion_voice_real_agent",
+   "move_macro_f1",
+   "move_answered_or_open",
+   "move_asks_or_not",
+   "move_voice_macro_f1",
+   "move_voice_answered_or_open",
+   "move_voice_asks_or_not",
+   "move_voice_real_macro_f1",
+   "move_voice_real_macro_f1_30",
+   "move_voice_real_answered_or_open",
+   "move_voice_real_asks_or_not"
+  ],
+  "better_beyond_noise": [
+   "sarcasm_support_built_f1"
+  ],
+  "probes_right": {
+   "ref": 8,
+   "var": 8
+  }
+ },
+ "done": {
+  "at_seconds": 18358
+ }
+}

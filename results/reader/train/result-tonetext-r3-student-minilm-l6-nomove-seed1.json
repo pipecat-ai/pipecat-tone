@@ -1,0 +1,1139 @@
+{
+ "run_id": "tonetext-r3-student-minilm-l6-nomove-seed1",
+ "role": "student",
+ "recipe": "r3",
+ "encoder": "minilm-l6",
+ "repo": "sentence-transformers/all-MiniLM-L6-v2",
+ "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+ "render": "tonetext-input-0.1",
+ "max_len": 160,
+ "contract": "tone-text-0.1",
+ "outputs": [
+  "emotion",
+  "emotion_intensity",
+  "backchannel",
+  "move",
+  "sarcasm"
+ ],
+ "emotions": [
+  "neutral",
+  "happy",
+  "amused",
+  "angry",
+  "sad",
+  "afraid",
+  "surprised",
+  "disgusted",
+  "contemptuous"
+ ],
+ "intensities": [
+  "low",
+  "medium",
+  "high"
+ ],
+ "moves": [
+  "asks",
+  "answers",
+  "hedges",
+  "doesnt_know",
+  "withholds",
+  "closes",
+  "other"
+ ],
+ "teachers": [
+  "teacher-ettin-1b-seed0",
+  "teacher-ettin-1b-seed1",
+  "teacher-ettin-1b-seed2",
+  "teacher-ettin-1b-seed3",
+  "teacher-ettin-1b-seed4"
+ ],
+ "move_trained": false,
+ "soft_id": "tonetext-r3-soft-0.1",
+ "exclude_sources": [],
+ "speech": true,
+ "seed": 1,
+ "epochs": 15,
+ "lr": 0.0001,
+ "head_lr": 0.001,
+ "batch": 64,
+ "smoothing": 0.1,
+ "drop_previous": 0.2,
+ "limit": 0,
+ "sha256": "57d25085053f98d77c41bcdf070a3cc7c652ba52f1e6d278f3d779ed4e7a6f93",
+ "bytes": 96839313,
+ "history": [
+  {
+   "epoch": 1,
+   "loss": 3.9727,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6271,
+     "macro_f1_30": 0.6274
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0997,
+     "macro_f1_30": 0.0997
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7289,
+     "false_sarcasm_rate": 0.058
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.4858,
+     "macro_f1_30": 0.9105
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0904,
+     "macro_f1_30": 0.154
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0013
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6573,
+     "macro_f1_30": 0.722
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9638,
+     "false_sarcasm_rate": 0.0298
+    }
+   },
+   "selection": 0.7942,
+   "seconds": 450
+  },
+  {
+   "epoch": 2,
+   "loss": 3.5557,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6477,
+     "macro_f1_30": 0.6584
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0619,
+     "macro_f1_30": 0.0619
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7554,
+     "false_sarcasm_rate": 0.0402
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5194,
+     "macro_f1_30": 0.9105
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0839,
+     "macro_f1_30": 0.1343
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0007
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6679,
+     "macro_f1_30": 0.7428
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9536,
+     "false_sarcasm_rate": 0.0202
+    }
+   },
+   "selection": 0.806,
+   "seconds": 907
+  },
+  {
+   "epoch": 3,
+   "loss": 3.3781,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6639,
+     "macro_f1_30": 0.6676
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0709,
+     "macro_f1_30": 0.0709
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7254,
+     "false_sarcasm_rate": 0.0139
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.6756,
+     "macro_f1_30": 0.91
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0803,
+     "macro_f1_30": 0.138
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6375,
+     "macro_f1_30": 0.7295
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9623,
+     "false_sarcasm_rate": 0.0202
+    }
+   },
+   "selection": 0.8023,
+   "seconds": 1279
+  },
+  {
+   "epoch": 4,
+   "loss": 3.237,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6523,
+     "macro_f1_30": 0.6803
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.054,
+     "macro_f1_30": 0.054
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7621,
+     "false_sarcasm_rate": 0.029
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.475,
+     "macro_f1_30": 0.913
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0777,
+     "macro_f1_30": 0.136
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6639,
+     "macro_f1_30": 0.7402
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9586,
+     "false_sarcasm_rate": 0.0298
+    }
+   },
+   "selection": 0.8101,
+   "seconds": 1649
+  },
+  {
+   "epoch": 5,
+   "loss": 3.1151,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6808,
+     "macro_f1_30": 0.689
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0623,
+     "macro_f1_30": 0.0623
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7678,
+     "false_sarcasm_rate": 0.0429
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5936,
+     "macro_f1_30": 0.91
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0777,
+     "macro_f1_30": 0.1343
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6784,
+     "macro_f1_30": 0.7775
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9624,
+     "false_sarcasm_rate": 0.0351
+    }
+   },
+   "selection": 0.8172,
+   "seconds": 2017
+  },
+  {
+   "epoch": 6,
+   "loss": 3.0226,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6751,
+     "macro_f1_30": 0.6881
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0646,
+     "macro_f1_30": 0.0646
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7597,
+     "false_sarcasm_rate": 0.027
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.6334,
+     "macro_f1_30": 0.9115
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0794,
+     "macro_f1_30": 0.137
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0007
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.5986,
+     "macro_f1_30": 0.7665
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9623,
+     "false_sarcasm_rate": 0.0202
+    }
+   },
+   "selection": 0.8145,
+   "seconds": 2391
+  },
+  {
+   "epoch": 7,
+   "loss": 2.9529,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6884,
+     "macro_f1_30": 0.7014
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0834,
+     "macro_f1_30": 0.0834
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.8006,
+     "false_sarcasm_rate": 0.0468
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5653,
+     "macro_f1_30": 0.921
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0819,
+     "macro_f1_30": 0.1415
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0013
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6743,
+     "macro_f1_30": 0.753
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9661,
+     "false_sarcasm_rate": 0.0255
+    }
+   },
+   "selection": 0.8327,
+   "seconds": 2765
+  },
+  {
+   "epoch": 8,
+   "loss": 2.8773,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.7002,
+     "macro_f1_30": 0.7087
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0633,
+     "macro_f1_30": 0.0633
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7921,
+     "false_sarcasm_rate": 0.0376
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5476,
+     "macro_f1_30": 0.925
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0797,
+     "macro_f1_30": 0.1378
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0013
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.7041,
+     "macro_f1_30": 0.7797
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9686,
+     "false_sarcasm_rate": 0.0245
+    }
+   },
+   "selection": 0.8356,
+   "seconds": 3140
+  },
+  {
+   "epoch": 9,
+   "loss": 2.8316,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6824,
+     "macro_f1_30": 0.6973
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0599,
+     "macro_f1_30": 0.0599
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7888,
+     "false_sarcasm_rate": 0.0323
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5926,
+     "macro_f1_30": 0.922
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.08,
+     "macro_f1_30": 0.1383
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.002
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6655,
+     "macro_f1_30": 0.7508
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9693,
+     "false_sarcasm_rate": 0.0213
+    }
+   },
+   "selection": 0.8288,
+   "seconds": 3513
+  },
+  {
+   "epoch": 10,
+   "loss": 2.7911,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6993,
+     "macro_f1_30": 0.7136
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0766,
+     "macro_f1_30": 0.0766
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7888,
+     "false_sarcasm_rate": 0.0323
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5535,
+     "macro_f1_30": 0.9245
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.08,
+     "macro_f1_30": 0.1385
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0013
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.5908,
+     "macro_f1_30": 0.7448
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9684,
+     "false_sarcasm_rate": 0.0213
+    }
+   },
+   "selection": 0.8343,
+   "seconds": 3942
+  },
+  {
+   "epoch": 11,
+   "loss": 2.7537,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.6959,
+     "macro_f1_30": 0.7105
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0569,
+     "macro_f1_30": 0.0569
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7951,
+     "false_sarcasm_rate": 0.033
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5071,
+     "macro_f1_30": 0.9155
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.08,
+     "macro_f1_30": 0.1385
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0013
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6825,
+     "macro_f1_30": 0.7672
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9676,
+     "false_sarcasm_rate": 0.0223
+    }
+   },
+   "selection": 0.8305,
+   "seconds": 4426
+  },
+  {
+   "epoch": 12,
+   "loss": 2.7348,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.7027,
+     "macro_f1_30": 0.7113
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0557,
+     "macro_f1_30": 0.0557
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7919,
+     "false_sarcasm_rate": 0.0297
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5182,
+     "macro_f1_30": 0.923
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0799,
+     "macro_f1_30": 0.1383
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.002
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6976,
+     "macro_f1_30": 0.7543
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9695,
+     "false_sarcasm_rate": 0.0255
+    }
+   },
+   "selection": 0.8352,
+   "seconds": 4911
+  },
+  {
+   "epoch": 13,
+   "loss": 2.7175,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.699,
+     "macro_f1_30": 0.7107
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0636,
+     "macro_f1_30": 0.0636
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.792,
+     "false_sarcasm_rate": 0.0336
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.4764,
+     "macro_f1_30": 0.922
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0803,
+     "macro_f1_30": 0.139
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0013
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6815,
+     "macro_f1_30": 0.7658
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9726,
+     "false_sarcasm_rate": 0.0191
+    }
+   },
+   "selection": 0.8337,
+   "seconds": 5399
+  },
+  {
+   "epoch": 14,
+   "loss": 2.6954,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.7028,
+     "macro_f1_30": 0.715
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0643,
+     "macro_f1_30": 0.0643
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7926,
+     "false_sarcasm_rate": 0.0343
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.4902,
+     "macro_f1_30": 0.917
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0806,
+     "macro_f1_30": 0.1395
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.002
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.707,
+     "macro_f1_30": 0.7875
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9686,
+     "false_sarcasm_rate": 0.0245
+    }
+   },
+   "selection": 0.8324,
+   "seconds": 5854
+  },
+  {
+   "epoch": 15,
+   "loss": 2.6893,
+   "dev": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.702,
+     "macro_f1_30": 0.7124
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0737,
+     "macro_f1_30": 0.0737
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.784,
+     "false_sarcasm_rate": 0.035
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5314,
+     "macro_f1_30": 0.918
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0813,
+     "macro_f1_30": 0.1408
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.002
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.7076,
+     "macro_f1_30": 0.7772
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9661,
+     "false_sarcasm_rate": 0.0266
+    }
+   },
+   "selection": 0.8305,
+   "seconds": 6269
+  }
+ ],
+ "best_epoch": 8,
+ "dev_selection": 0.8356,
+ "train_lines": 1108627,
+ "dev_lines": 6776,
+ "device": "cuda",
+ "steps": 259845,
+ "data": {
+  "lines": 1126475,
+  "train": 1108627,
+  "dev": 6776,
+  "test": 11072,
+  "split_clash": 0,
+  "train_with": {
+   "emotion": 1108627,
+   "move": 1108627,
+   "sarcasm": 1108627
+  },
+  "train_with_previous": 950930,
+  "counts": {
+   "hard_emotion_test": 9074,
+   "hard_emotion_train": 49664,
+   "hard_emotion_dev": 6020,
+   "hard_move_train": 9097,
+   "hard_move_test": 2662,
+   "hard_move_dev": 2190,
+   "hard_sarcasm_train": 34707,
+   "hard_sarcasm_dev": 4898,
+   "hard_sarcasm_test": 7933,
+   "r2_committee_new_lines": 9000,
+   "r2_exchange_new_lines": 0,
+   "r2_sarcasm_new_lines": 0,
+   "support_new_lines": 30000,
+   "pool_lines": 392129,
+   "move_pool_lines": 4523,
+   "open_lines": 625787,
+   "speech_twins": 31939,
+   "teacher_labelled": 1056721,
+   "dropped_without_targets": 0
+  }
+ },
+ "reads": {
+  "test": {
+   "with_previous": {
+    "emotion_main": {
+     "lines": 1905,
+     "macro_f1": 0.6618,
+     "macro_f1_30": 0.6695
+    },
+    "emotion_player_speech": {
+     "lines": 870,
+     "macro_f1": 0.6764,
+     "macro_f1_30": 0.6828
+    },
+    "emotion_unseen": {
+     "lines": 874,
+     "macro_f1": 0.6558,
+     "macro_f1_30": 0.7003
+    },
+    "move": {
+     "lines": 824,
+     "macro_f1": 0.0804,
+     "macro_f1_30": 0.0804
+    },
+    "sarcasm_hard": {
+     "lines": 900,
+     "sarcastic": 263,
+     "f1": 0.8359,
+     "false_sarcasm_rate": 0.0659
+    },
+    "sarcasm_chain": {
+     "lines": 300,
+     "sarcastic": 8,
+     "f1": 0.8235,
+     "false_sarcasm_rate": 0.0068
+    },
+    "sarcasm_natural": {
+     "lines": 1781,
+     "sarcastic": 34,
+     "f1": 0.3529,
+     "false_sarcasm_rate": 0.0126
+    },
+    "voice_emotion": {
+     "lines": 1496,
+     "macro_f1": 0.5963,
+     "macro_f1_30": 0.935
+    },
+    "voice_move": {
+     "lines": 1470,
+     "macro_f1": 0.08,
+     "macro_f1_30": 0.14
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 4,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.002
+    },
+    "support_emotion": {
+     "lines": 3688,
+     "macro_f1": 0.712,
+     "macro_f1_30": 0.7263
+    },
+    "support_sarcasm": {
+     "lines": 3752,
+     "sarcastic": 1435,
+     "f1": 0.9673,
+     "false_sarcasm_rate": 0.0281
+    },
+    "support_sarcasm_after_plain": {
+     "lines": 2116,
+     "sarcastic": 988,
+     "f1": 0.975,
+     "false_sarcasm_rate": 0.0328
+    },
+    "support_sarcasm_after_news": {
+     "lines": 890,
+     "sarcastic": 418,
+     "f1": 0.9621,
+     "false_sarcasm_rate": 0.0424
+    },
+    "support_sarcasm_held_domains": {
+     "lines": 3052,
+     "sarcastic": 1164,
+     "f1": 0.9694,
+     "false_sarcasm_rate": 0.026
+    }
+   },
+   "without_previous": {
+    "emotion_main": {
+     "lines": 1905,
+     "macro_f1": 0.6653,
+     "macro_f1_30": 0.6735
+    },
+    "emotion_player_speech": {
+     "lines": 870,
+     "macro_f1": 0.6899,
+     "macro_f1_30": 0.6943
+    },
+    "emotion_unseen": {
+     "lines": 874,
+     "macro_f1": 0.6558,
+     "macro_f1_30": 0.7003
+    },
+    "move": {
+     "lines": 824,
+     "macro_f1": 0.0791,
+     "macro_f1_30": 0.0791
+    },
+    "sarcasm_hard": {
+     "lines": 900,
+     "sarcastic": 263,
+     "f1": 0.8103,
+     "false_sarcasm_rate": 0.0597
+    },
+    "sarcasm_chain": {
+     "lines": 300,
+     "sarcastic": 8,
+     "f1": 0.875,
+     "false_sarcasm_rate": 0.0034
+    },
+    "sarcasm_natural": {
+     "lines": 1781,
+     "sarcastic": 34,
+     "f1": 0.3,
+     "false_sarcasm_rate": 0.0097
+    },
+    "voice_emotion": {
+     "lines": 1496,
+     "macro_f1": 0.5679,
+     "macro_f1_30": 0.932
+    },
+    "voice_move": {
+     "lines": 1470,
+     "macro_f1": 0.0813,
+     "macro_f1_30": 0.1423
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 4,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0033
+    },
+    "support_emotion": {
+     "lines": 3688,
+     "macro_f1": 0.6267,
+     "macro_f1_30": 0.7179
+    },
+    "support_sarcasm": {
+     "lines": 3752,
+     "sarcastic": 1435,
+     "f1": 0.9646,
+     "false_sarcasm_rate": 0.0306
+    },
+    "support_sarcasm_after_plain": {
+     "lines": 2116,
+     "sarcastic": 988,
+     "f1": 0.975,
+     "false_sarcasm_rate": 0.0337
+    },
+    "support_sarcasm_after_news": {
+     "lines": 890,
+     "sarcastic": 418,
+     "f1": 0.9562,
+     "false_sarcasm_rate": 0.0487
+    },
+    "support_sarcasm_held_domains": {
+     "lines": 3052,
+     "sarcastic": 1164,
+     "f1": 0.9661,
+     "false_sarcasm_rate": 0.0297
+    }
+   }
+  },
+  "dev": {
+   "with_previous": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.7002,
+     "macro_f1_30": 0.7087
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0633,
+     "macro_f1_30": 0.0633
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7921,
+     "false_sarcasm_rate": 0.0376
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5476,
+     "macro_f1_30": 0.925
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0797,
+     "macro_f1_30": 0.1378
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0013
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.7041,
+     "macro_f1_30": 0.7797
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9686,
+     "false_sarcasm_rate": 0.0245
+    }
+   },
+   "without_previous": {
+    "emotion": {
+     "lines": 2793,
+     "macro_f1": 0.675,
+     "macro_f1_30": 0.6917
+    },
+    "move": {
+     "lines": 680,
+     "macro_f1": 0.0736,
+     "macro_f1_30": 0.0736
+    },
+    "sarcasm": {
+     "lines": 1857,
+     "sarcastic": 341,
+     "f1": 0.7455,
+     "false_sarcasm_rate": 0.0303
+    },
+    "voice_emotion": {
+     "lines": 1499,
+     "macro_f1": 0.5211,
+     "macro_f1_30": 0.9125
+    },
+    "voice_move": {
+     "lines": 1471,
+     "macro_f1": 0.0799,
+     "macro_f1_30": 0.138
+    },
+    "voice_sarcasm": {
+     "lines": 1500,
+     "sarcastic": 1,
+     "f1": 0.0,
+     "false_sarcasm_rate": 0.0027
+    },
+    "support_emotion": {
+     "lines": 1528,
+     "macro_f1": 0.6923,
+     "macro_f1_30": 0.7763
+    },
+    "support_sarcasm": {
+     "lines": 1541,
+     "sarcastic": 601,
+     "f1": 0.9644,
+     "false_sarcasm_rate": 0.0266
+    }
+   }
+  }
+ },
+ "params": 24200471,
+ "seconds": 6467
+}
