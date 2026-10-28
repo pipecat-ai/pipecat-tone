@@ -129,6 +129,10 @@ VOICE_SETS = {
 SUPPORT_ID = "tonetext-support-0.1"
 SUPPORT_SETS = {q: f"{SUPPORT_ID}-{q}" for q in ("committee", "sarcasm")}
 R3_SOFT_ID = "tonetext-r3-soft-0.1"
+# r3c: r3 with the contrast pairs (``support.select_contrast``), one turn of praise or thanks after two lines of the
+# agent's, one it is meant after and one it is sarcastic after; read with r2's teachers.
+CONTRAST_ID = "tonetext-support-contrast-0.1"
+CONTRAST_SETS = {q: f"{CONTRAST_ID}-{q}" for q in ("committee", "sarcasm")}
 
 
 def open_raw_key(source: str, name: str) -> str:
@@ -147,8 +151,12 @@ def voice_key(name: str) -> str:
     return f"runs/tonetext/generated/{VOICE_ID}/{name}"
 
 
-def support_key(name: str) -> str:
-    return f"runs/tonetext/generated/{SUPPORT_ID}/{name}"
+def support_key(name: str, set_id: str = SUPPORT_ID) -> str:
+    return f"runs/tonetext/generated/{set_id}/{name}"
+
+
+def contrast_key(name: str) -> str:
+    return support_key(name, CONTRAST_ID)
 
 
 def speech_key(name: str = "lines.jsonl") -> str:

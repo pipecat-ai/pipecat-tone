@@ -192,3 +192,69 @@ def test_the_table_shows_each_item_read_and_the_probes():
     )
     assert "Sarcasm F1, turn alone" not in table  # an item not read is left out
     assert "Cases read right: rc1 4, cand 6 of 10." in table
+
+
+class _AfterBad:
+    """A reader that calls a turn sarcastic after a line with "fee" in it and nowhere else."""
+
+    def tag(self, text, previous=None):
+        sarcastic = "fee" in (previous or "")
+        return {
+            "emotion": {"label": "angry" if sarcastic else "happy"},
+            "sarcasm": {"probability": 0.9 if sarcastic else 0.1, "sarcastic": sarcastic},
+        }
+
+
+def _pair_rows(n: int, opposite_sarcastic: bool = True, prompt: str = "tc1-online_shop-0000") -> list[dict]:
+    rows = []
+    for k in range(n):
+        for side, prev, label in (
+            ("meant", "Agent: I've waived it.", 0),
+            ("opposite", "Agent: There's a fee.", int(opposite_sarcastic)),
+        ):
+            rows.append(
+                {
+                    "line": {
+                        "source_ref": f"{prompt}#{k}/{side}",
+                        "input": {"text": f"Lovely {k}.", "previous": prev},
+                    },
+                    "sarcasm": {"label": label},
+                }
+            )
+    return rows
+
+
+def test_contrast_pairs_are_read_on_both_lines_and_alone():
+    from lab.reader.pipeline.compare import contrast_items
+
+    items = contrast_items(
+        scoring.Paired(_Model(True), _AfterBad()),
+        _pair_rows(30) + _pair_rows(2, False, "tc1-online_shop-0001"),
+    )
+    assert items["contrast_pairs_right"]["lines"] == 30  # pairs the committee reads alike are left out
+    assert (items["contrast_pairs_right"]["ref"], items["contrast_pairs_right"]["var"]) == (0.0, 1.0)
+    assert items["contrast_pairs_right_at_act"]["var"] == 1.0
+    alone = items["contrast_alone_sincere_called_sarcastic"]
+    assert (alone["ref"], alone["var"]) == (1.0, 0.0)
+    assert scoring.counts_mistakes("contrast_alone_sincere_called_sarcastic")
+    assert contrast_items(scoring.Paired(_Model(True), _AfterBad()), []) == {}
+
+
+def test_the_praise_cases_are_read_by_group_without_their_text():
+    from lab.reader.pipeline.compare import markdown, praise_reads
+    from lab.reader.support import PRAISE_PROBES
+
+    out = praise_reads(_Model(False), _Model(True))
+    g = out["groups"]
+    assert g["after_good"]["lines"] == 13 and g["after_good"]["should_read"] == "sincere"
+    assert g["after_good"]["ref"] == {"right": 13, "right_at_act": 13, "mean_chance": 0.1}
+    assert g["after_bad"]["var"] == {"right": 8, "right_at_act": 8, "mean_chance": 0.9}
+    assert len(out["cases"]) == len(PRAISE_PROBES)
+    assert not any(t in str(out) for _, t, _, _ in PRAISE_PROBES)
+    res = {
+        "columns": {"with_previous": {"items": {}}, "without_previous": {"items": {}}},
+        "probes": {"_right": {"ref": 0, "var": 0}, "_cases": 0},
+        "praise": out,
+    }
+    table = markdown(res, "rc1", "cand")
+    assert "| after_good | sincere | 13 | 13 (13), 0.1 | 0 (0), 0.9 |" in table

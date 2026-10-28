@@ -1,6 +1,7 @@
-"""The committee's labels on r3's support-call set (``lab.reader.pipeline.support_generate``), asked under the Realtime
-Context Standard's perception (``committee.perception_emotion`` and ``committee.perception_sarcasm``): emotion with its
-intensity, the act toward the agent and backchannel, and sarcasm; the move is left to the teachers. Local results keep
+"""The committee's labels on r3's support-call set (``lab.reader.pipeline.support_generate``), and on r3c's contrast
+pairs, asked under the Realtime Context Standard's perception (``committee.perception_emotion`` and
+``committee.perception_sarcasm``): emotion with its intensity, the act toward the agent and backchannel, and sarcasm;
+the move is left to the teachers. Every step takes the set's id, the support set's by default. Local results keep
 counts, scores and costs only.
 
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.support_label::pilot
@@ -19,40 +20,72 @@ from lab.reader.committee import label as committee_label
 from lab.reader.committee import perception_emotion, perception_sarcasm
 
 STAGE = "support_label"
-LINES_KEY = sources.support_key("lines.jsonl")
-META_KEY = sources.support_key("meta.jsonl")
 QUESTIONS = {"committee": perception_emotion, "sarcasm": perception_sarcasm}
 BATCHED = ("committee", "sarcasm")  # A answers both by batch
-SETS = dict(sources.SUPPORT_SETS)
-PILOT_SETS = {q: f"{sources.SUPPORT_ID}-pilot-{q}" for q in SETS}
-SAMPLES_KEY = sources.tonetext_labels_key(SETS["committee"], "samples.json")
-WORK = committee_label.Work(f"{sources.SUPPORT_ID}-work", QUESTIONS, BATCHED)
-KEYS = {"lines_key": LINES_KEY}
 A_CHUNK = 3000  # lines per A batch
 B_CONCURRENCY = 12  # B's two questions at once: 24 calls in flight
-PILOT_PER_KIND = 3
+# Lines of each kind (each moment and answer kind, or each contrast side and turn kind) in a set's pilot.
+PILOT_PER_KIND = {sources.SUPPORT_ID: 3, sources.CONTRAST_ID: 8}
 
 
-def load() -> tuple[list, list]:
+def sets_of(set_id: str) -> dict:
+    return {q: f"{set_id}-{q}" for q in QUESTIONS}
+
+
+def pilot_sets_of(set_id: str) -> dict:
+    return {q: f"{set_id}-pilot-{q}" for q in QUESTIONS}
+
+
+def lines_key_of(set_id: str) -> str:
+    return sources.support_key("lines.jsonl", set_id)
+
+
+def meta_key_of(set_id: str) -> str:
+    return sources.support_key("meta.jsonl", set_id)
+
+
+def samples_key_of(set_id: str) -> str:
+    return sources.tonetext_labels_key(sets_of(set_id)["committee"], "samples.json")
+
+
+def keys_of(set_id: str) -> dict:
+    return {"lines_key": lines_key_of(set_id)}
+
+
+def work_of(set_id: str):
+    return committee_label.Work(f"{set_id}-work", QUESTIONS, BATCHED)
+
+
+LINES_KEY = lines_key_of(sources.SUPPORT_ID)
+META_KEY = meta_key_of(sources.SUPPORT_ID)
+SETS = sets_of(sources.SUPPORT_ID)
+PILOT_SETS = pilot_sets_of(sources.SUPPORT_ID)
+SAMPLES_KEY = samples_key_of(sources.SUPPORT_ID)
+KEYS = keys_of(sources.SUPPORT_ID)
+
+
+def load(set_id: str = sources.SUPPORT_ID) -> tuple[list, list]:
     """Every line of the set, and (custom id, input) for each."""
     from lab.reader.voice import CorpusLine
 
-    return committee_label.load_lines(LINES_KEY, CorpusLine)
+    return committee_label.load_lines(lines_key_of(set_id), CorpusLine)
 
 
-def pilot_ids(lines: list) -> list[int]:
-    """PILOT_PER_KIND lines of each moment and answer kind, and of the person's other turns, from dev and train only."""
+def pilot_ids(lines: list, per_kind: int = PILOT_PER_KIND[sources.SUPPORT_ID]) -> list[int]:
+    """`per_kind` lines of each kind the set's lines were written as, from dev and train only."""
     rng = random.Random(611)
     by: dict[str, list[int]] = {}
     for i, ln in enumerate(lines):
         if ln.split != "test":
             by.setdefault(ln.generator, []).append(i)
-    return sorted(i for g in sorted(by) for i in rng.sample(by[g], min(PILOT_PER_KIND, len(by[g]))))
+    return sorted(i for g in sorted(by) for i in rng.sample(by[g], min(per_kind, len(by[g]))))
 
 
-def samples(lines: list, act_l: list, _xch_l, sar_l: list, n: int | str = 60) -> list[dict]:
+def samples(
+    lines: list, act_l: list, _xch_l, sar_l: list, n: int | str = 60, meta_key: str = META_KEY
+) -> list[dict]:
     """About `n` lines, or "all", with their labels, every vote and what each was written to be."""
-    meta = {m["line_id"]: m for m in storage.jsonl(META_KEY)}
+    meta = {m["line_id"]: m for m in storage.jsonl(meta_key)}
     idx = list(range(len(lines)))
     picked = idx if n == "all" else sorted(random.Random(6111).sample(idx, min(int(n), len(idx))))
     out = []
@@ -80,10 +113,10 @@ def samples(lines: list, act_l: list, _xch_l, sar_l: list, n: int | str = 60) ->
     return out
 
 
-def construction_agreement(sar_l: list) -> dict:
+def construction_agreement(sar_l: list, meta_key: str = META_KEY) -> dict:
     """The committee's sarcasm against what each line was written to be, by moment and answer kind: how many of each
     kind it calls sarcastic, sincere, or gives no majority."""
-    meta = {m["line_id"]: m for m in storage.jsonl(META_KEY)}
+    meta = {m["line_id"]: m for m in storage.jsonl(meta_key)}
     out: dict[str, Counter] = {}
     for r in sar_l:
         m = meta.get(r["line"]["line_id"], {})
@@ -99,58 +132,62 @@ def construction_agreement(sar_l: list) -> dict:
     return {k: dict(v) for k, v in sorted(out.items())}
 
 
-def summaries() -> dict:
+def summaries(meta_key: str = META_KEY) -> dict:
     """The voice-agent set's summaries: every line is the person's."""
     return {
         "committee": lambda rows: committee_label.act_emotion_summary(rows),
         "sarcasm": lambda rows: {
             **committee_label.sarcasm_summary(rows),
-            "by_construction": committee_label.guarded(construction_agreement, rows),
+            "by_construction": committee_label.guarded(construction_agreement, rows, meta_key),
         },
     }
 
 
 @job(DATA, cpu=2.0, memory=8192, timeout=2 * 3600)
-def label_pilot(systems: dict, meta: dict) -> dict:
+def label_pilot(systems: dict, meta: dict, set_id: str = sources.SUPPORT_ID) -> dict:
     """PILOT_PER_KIND lines of each kind through both questions synchronously, into the pilot's own sets; every pilot
     line's labels beside them."""
     storage.reload()
-    lines, items = load()
-    idx = pilot_ids(lines)
+    lines, items = load(set_id)
+    idx = pilot_ids(lines, PILOT_PER_KIND[set_id])
     lines, items = [lines[i] for i in idx], [items[i] for i in idx]
     answers = committee_label.ask_all(items, systems, committee_label.models(), questions=QUESTIONS)
+    pilot_sets, meta_key = pilot_sets_of(set_id), meta_key_of(set_id)
     return committee_label.write_sets(
-        PILOT_SETS,
+        pilot_sets,
         lines,
         items,
         answers,
         {},
         meta,
-        sources.tonetext_labels_key(PILOT_SETS["committee"], "pilot_lines.json"),
-        lambda ls, a, x, s: samples(ls, a, x, s, "all"),
-        summaries(),
+        sources.tonetext_labels_key(pilot_sets["committee"], "pilot_lines.json"),
+        lambda ls, a, x, s: samples(ls, a, x, s, "all", meta_key),
+        summaries(meta_key),
         batched=BATCHED,
     )
 
 
 @job(DATA, cpu=4.0, memory=16384, timeout=24 * 3600, nonpreemptible=True)
-def label_all(systems: dict, meta: dict, wait_s: float = 6 * 3600.0) -> dict:
+def label_all(
+    systems: dict, meta: dict, wait_s: float = 6 * 3600.0, set_id: str = sources.SUPPORT_ID
+) -> dict:
     """Every line through both questions, checkpointed from the start: A's batches, sent once and waited for until the
     first sent plus `wait_s`, then what they left; B and D synchronously; then one more pass for any line a member left
     unanswered."""
     storage.reload()
     t0 = time.time()
-    lines, items = load()
+    lines, items = load(set_id)
     models = committee_label.models()
-    sent = WORK.send_once(items, systems, models, ("a",), wait_s, SETS, A_CHUNK)
+    work, sets, meta_key = work_of(set_id), sets_of(set_id), meta_key_of(set_id)
+    sent = work.send_once(items, systems, models, ("a",), wait_s, sets, A_CHUNK)
     runners = committee_label.runners(systems, models, B_CONCURRENCY, QUESTIONS)
     batched = [(q, "a") for q in BATCHED]
-    done, from_batch = WORK.answer_all(items, runners, batched, lambda: WORK.collect_batches(sent, items))
+    done, from_batch = work.answer_all(items, runners, batched, lambda: work.collect_batches(sent, items))
     retried = {}
     for k in runners:
         missing = sum(1 for cid, _ in items if done[k].get(cid, (None,))[0] is None)
         if missing:
-            done[k], asked = WORK.ask_chunked(*k, items, runners[k], have=dict(done[k]))
+            done[k], asked = work.ask_chunked(*k, items, runners[k], have=dict(done[k]))
             retried[f"{k[0]}-{k[1]}"] = {
                 "missing": missing,
                 "answered_now": sum(1 for r in asked.values() if r[0] is not None),
@@ -164,15 +201,15 @@ def label_all(systems: dict, meta: dict, wait_s: float = 6 * 3600.0) -> dict:
     }
     ids = {q: {"a": sent["a"][q], "b": "synchronous"} for q in BATCHED}
     return committee_label.write_sets(
-        SETS,
+        sets,
         lines,
         items,
         committee_label.answers(done, from_batch, ids, QUESTIONS),
         {"a": True},
         meta,
-        SAMPLES_KEY,
-        samples,
-        summaries(),
+        samples_key_of(set_id),
+        lambda ls, a, x, s: samples(ls, a, x, s, meta_key=meta_key),
+        summaries(meta_key),
         batched=BATCHED,
     )
 
@@ -198,30 +235,35 @@ def digest(res: dict) -> dict:
                 "a_b": res[q].get("a_b"),
                 **({"by_construction": res[q].get("by_construction")} if q == "sarcasm" else {}),
             }
-            for q in SETS
+            for q in QUESTIONS
         },
     }
 
 
+def stage_name(set_id: str, name: str) -> str:
+    """A results file's name: the support set's as it was, another set's with its id."""
+    return name if set_id == sources.SUPPORT_ID else f"{set_id}-{name}"
+
+
 @app.local_entrypoint()
-def pilot():
+def pilot(set_id: str = sources.SUPPORT_ID):
     """PILOT_PER_KIND lines of each kind, both questions, synchronously."""
-    systems, meta = committee_label.prepare("pilot", QUESTIONS, **KEYS)
-    res = label_pilot.remote(systems, meta)
-    save(STAGE, "pilot.json", res)
+    systems, meta = committee_label.prepare("pilot", QUESTIONS, **keys_of(set_id))
+    res = label_pilot.remote(systems, meta, set_id)
+    save(STAGE, stage_name(set_id, "pilot.json"), res)
     print(json.dumps(digest(res), indent=1, default=str))
     show(json.loads(storage.get(res["samples_key"])))
 
 
 @app.local_entrypoint()
-def label(wait_s: float = 6 * 3600.0):
+def label(wait_s: float = 6 * 3600.0, set_id: str = sources.SUPPORT_ID):
     """Every line in one spawned call."""
-    systems, meta = committee_label.prepare("label", QUESTIONS, **KEYS)
-    call = label_all.spawn(systems, meta, wait_s=wait_s)
-    save(STAGE, "label-spawned.json", {"call": call.object_id, **meta, "wait_s": wait_s})
+    systems, meta = committee_label.prepare("label", QUESTIONS, **keys_of(set_id))
+    call = label_all.spawn(systems, meta, wait_s=wait_s, set_id=set_id)
+    save(STAGE, stage_name(set_id, "label-spawned.json"), {"call": call.object_id, **meta, "wait_s": wait_s})
     print("spawned", call.object_id)
 
 
 @app.local_entrypoint()
-def collect():
-    committee_label.collect(STAGE, SETS, SAMPLES_KEY, show, digest)
+def collect(set_id: str = sources.SUPPORT_ID):
+    committee_label.collect(STAGE, sets_of(set_id), samples_key_of(set_id), show, digest)

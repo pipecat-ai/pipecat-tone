@@ -192,8 +192,10 @@ def student_r2(
     open sets' draws and the speech twins (``data.build_r2``), the best epoch chosen by r2's rule (Tone's dev sets and
     the voice-agent dev set weigh the same), dev and test read with and without the line before. `exclude goemotions`
     with the `nogo` teachers leaves that source out. `recipe="r3"` adds the support-call set's committee labels and
-    reads r3's teachers' labels. Without `move`, the move head is kept, so the export loads where rc1's does, but never
-    trained, and the epoch is chosen on emotion and sarcasm alone."""
+    reads r3's teachers' labels; `recipe="r3c"` adds the contrast pairs' too and keeps the line before for every line
+    whose sarcasm it carries (``data.build_r2``), and is run with r2's teachers' labels (`soft_id`). Without `move`, the
+    move head is kept, so the export loads where rc1's does, but never trained, and the epoch is chosen on emotion and
+    sarcasm alone."""
     import time
 
     from lab.reader import model
@@ -214,7 +216,8 @@ def student_r2(
         speech=speech,
         exclude_sources=excluded,
         soft_id=sid,
-        support=recipe == "r3",
+        support=recipe in ("r3", "r3c"),
+        contrast=recipe == "r3c",
     )
     summary = lines.summary()
     print(json.dumps(summary), flush=True)

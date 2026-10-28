@@ -992,22 +992,28 @@ class Keeper:
     reads them, the set's own dev and test lines included)."""
 
     def __init__(
-        self, banned_texts: set[str] = frozenset(), banned_pairs: set[tuple[str, str]] = frozenset()
+        self,
+        banned_texts: set[str] = frozenset(),
+        banned_pairs: set[tuple[str, str]] = frozenset(),
+        max_short: int = MAX_SHORT,
+        max_long: int = MAX_LONG,
     ):
         self.pairs: set[tuple[str, str]] = set()
         self.texts: Counter = Counter()
         self.banned_texts, self.banned_pairs = set(banned_texts), set(banned_pairs)
+        self.max_short, self.max_long = max_short, max_long
         self.dropped: Counter = Counter()
 
-    def fresh(self, cand: dict, split: str) -> bool:
+    def fresh(self, cand: dict, split: str, n: int = 1) -> bool:
+        """Whether the line can be taken, with room for `n` lines of its text (both of a contrast pair's)."""
         k, prev = norm_key(cand["text"]), norm_key(cand["previous"] or "")
         if not k:
             return False
         if split == "train" and ((k, prev) in self.banned_pairs or k in self.banned_texts):
             self.dropped["in_an_evaluation_set"] += 1
             return False
-        cap = MAX_SHORT if len(k.split()) <= SHORT_WORDS else MAX_LONG
-        if (k, prev) in self.pairs or self.texts[k] >= cap:
+        cap = self.max_short if len(k.split()) <= SHORT_WORDS else self.max_long
+        if (k, prev) in self.pairs or self.texts[k] + n > cap:
             self.dropped["repeat"] += 1
             return False
         return True
@@ -1071,6 +1077,432 @@ def select(calls: list[dict], keeper: Keeper, max_lines: int, seed: int = SEED) 
     return lines, metas, dict(counts)
 
 
+# --- the contrast pairs (r3c) ------------------------------------------------------------------------------------------
+# What r3's set taught besides the fix: in its training lines a turn opening on a praise word is sarcastic four times in
+# five, even after good news, so r3 reads a bare "Oh, wonderful." as sarcastic on its own; and thanks with "helpful" is
+# sincere nine times in ten, so it reads that turn after a refusal as sincere. Each prompt here asks, in one call's
+# setting, for CONTRAST_ITEMS turns of praise or thanks, each with two of the agent's lines: one after which the turn is
+# meant, and one after which the same words plainly mean the opposite. Both lines of a pair are kept, so only the
+# agent's line tells them apart; the committee decides every label.
+
+CONTRAST_PREFIX = "tc1"
+CONTRAST_SEED = 701
+CONTRAST_ITEMS = 6
+CONTRAST_MAX_SHORT = 8  # lines of one short turn: four pairs; a longer turn comes up in one pair
+CONTRAST_MAX_WORDS = 14
+
+# The person's turn: what it is, and the words it is built around (one drawn from each list named in `words`).
+CONTRAST_TURNS: dict[str, dict] = {
+    "bare_praise": {
+        "weight": 1.0,
+        "does": "one to three words of praise and nothing else",
+        "words": ("praise",),
+        "examples": ("Oh, marvellous.", "Splendid.", "Oh, superb.", "Terrific.", "Oh, fab.", "Excellent."),
+    },
+    "praise_thanks": {
+        "weight": 1.2,
+        "does": "a word or two of praise with thanks",
+        "words": ("praise", "thanks"),
+        "examples": (
+            "Great, thank you.",
+            "Oh, brilliant, cheers.",
+            "Perfect, thanks so much.",
+            "Wonderful, thank you.",
+        ),
+    },
+    "thanks_helpful": {
+        "weight": 1.6,
+        "does": "thanks, and that the agent has been a help",
+        "words": ("thanks", "help"),
+        "examples": (
+            "Thanks, that's super helpful.",
+            "Oh, thank you, that helps a lot.",
+            "Cheers, that's really useful.",
+            "Thank you, you've been a great help.",
+        ),
+    },
+    "praise_more": {
+        "weight": 1.2,
+        "does": "praise with a few more words that still name nothing of what happened",
+        "words": ("praise",),
+        "examples": (
+            "Oh, perfect, that's just what I needed.",
+            "Great, you've made my day.",
+            "Wonderful, that's exactly what I wanted to hear.",
+            "Brilliant, best news all week.",
+        ),
+    },
+}
+CONTRAST_WORDS = {
+    "praise": (
+        "wonderful",
+        "lovely",
+        "perfect",
+        "brilliant",
+        "fantastic",
+        "great",
+        "amazing",
+        "marvellous",
+        "superb",
+        "excellent",
+        "terrific",
+        "fab",
+        "splendid",
+        "awesome",
+        "cool",
+        "nice",
+        "sweet",
+        "outstanding",
+        "magic",
+        "beautiful",
+        "glorious",
+        "delightful",
+    ),
+    "thanks": (
+        "thanks",
+        "thank you",
+        "cheers",
+        "thanks so much",
+        "thank you so much",
+        "much appreciated",
+        "thanks a million",
+        "many thanks",
+        "appreciate it",
+        "thanks a lot",
+    ),
+    "help": (
+        "helpful",
+        "useful",
+        "a big help",
+        "a lifesaver",
+        "so kind",
+        "a star",
+        "a great help",
+        "very clear",
+    ),
+}
+# The agent's line after which the turn is meant, and the one after which the same words mean the opposite.
+CONTRAST_MEANT: dict[str, dict] = {
+    "good_news": {
+        "weight": 1.2,
+        "does": "gives good news: a refund or approval, something sooner than expected, or a problem fixed",
+        "examples": (
+            "Good news, the replacement is already on its way.",
+            "Your claim's been approved this afternoon.",
+            "It's arriving tomorrow, a day early.",
+        ),
+    },
+    "done": {
+        "weight": 1.2,
+        "does": "has just done what the person asked",
+        "examples": (
+            "I've updated the address for you.",
+            "That's booked in for Thursday morning.",
+            "I've sent the link to your email just now.",
+        ),
+    },
+    "answer": {
+        "weight": 0.8,
+        "does": "gives the person the answer or the information they were after",
+        "examples": (
+            "Your plan renews on the fifth of next month.",
+            "The branch is open until eight tonight.",
+            "You've got about forty minutes of data left.",
+        ),
+    },
+    "favour": {
+        "weight": 0.8,
+        "does": "does the person a favour: waives a fee, adds a credit, or upgrades them",
+        "examples": (
+            "I've waived the fee this time.",
+            "I've put a ten dollar credit on your account.",
+            "I've moved you to next-day delivery at no cost.",
+        ),
+    },
+}
+CONTRAST_OPPOSITE: dict[str, dict] = {
+    "refusal": {
+        "weight": 1.4,
+        "does": "says it can't help with that, or can't do what the person asked",
+        "examples": (
+            "That's not something I'm able to do, I'm afraid.",
+            "Unfortunately I can't change that from here.",
+            "I can't make an exception on that one.",
+        ),
+    },
+    "bad_news": {
+        "weight": 1.2,
+        "does": "gives bad news: a delay, a fee, a cancellation or a long wait",
+        "examples": (
+            "It's been pushed back another two weeks.",
+            "There's a sixty dollar fee for that.",
+            "The next free slot is in a month.",
+        ),
+    },
+    "pass_on": {
+        "weight": 1.0,
+        "does": "passes the person on or back: another number to call, another team, or something they must do themself",
+        "examples": (
+            "You'll need to call the store directly about that.",
+            "You can find all of that on our website.",
+            "You'll have to fill in the form online yourself.",
+        ),
+    },
+    "no_answer": {
+        "weight": 0.8,
+        "does": "has no answer: doesn't know, has no information, or can't see anything on its side",
+        "examples": (
+            "I don't have any information on that.",
+            "I can't see anything about it on my side.",
+            "I'm not sure when it'll be back, to be honest.",
+        ),
+    },
+}
+
+
+def build_contrast_prompts(
+    n_per_domain: int, seed: int = CONTRAST_SEED, prefix: str = CONTRAST_PREFIX
+) -> list[dict]:
+    """`n_per_domain` prompts for each domain, each fixing the agent's name and company, what the call is about, and for
+    each of CONTRAST_ITEMS turns its kind, the words it is built around and the kinds of the agent's two lines. A
+    third of each domain's prompts, drawn at random, give the person's side as speech-to-text output."""
+    rng = random.Random(seed)
+    out = []
+    for domain in sorted(DOMAINS):
+        spec = DOMAINS[domain]
+        n_asr = round(n_per_domain * ASR_SHARE)
+        asr_flags = [True] * n_asr + [False] * (n_per_domain - n_asr)
+        rng.shuffle(asr_flags)
+        for j in range(n_per_domain):
+            items = []
+            for _ in range(CONTRAST_ITEMS):
+                kind = _weighted(rng, CONTRAST_TURNS)
+                items.append(
+                    {
+                        "turn_kind": kind,
+                        "words": [rng.choice(CONTRAST_WORDS[w]) for w in CONTRAST_TURNS[kind]["words"]],
+                        "meant": _weighted(rng, CONTRAST_MEANT),
+                        "opposite": _weighted(rng, CONTRAST_OPPOSITE),
+                    }
+                )
+            p = {
+                "prompt_id": f"{prefix}-{domain}-{j:04d}",
+                "domain": domain,
+                "agent": rng.choice(voice.AGENT_NAMES),
+                "company": rng.choice(spec["companies"]),
+                "scenario": rng.choice(spec["scenarios"]),
+                "items": items,
+                "asr": asr_flags[j],
+            }
+            p["messages"] = contrast_messages(p, rng)
+            out.append(p)
+    return out
+
+
+def contrast_messages(p: dict, rng: random.Random) -> list[dict]:
+    """The prompt: the call's setting, what each moment's turn and two lines of the agent's are, and the JSON to write."""
+    spec = DOMAINS[p["domain"]]
+    agent = p["agent"]
+    moments = []
+    for k, it in enumerate(p["items"], 1):
+        turn = CONTRAST_TURNS[it["turn_kind"]]
+        words = " and ".join(f'"{w}"' for w in it["words"])
+        meant, opposite = CONTRAST_MEANT[it["meant"]], CONTRAST_OPPOSITE[it["opposite"]]
+        moments.append(
+            f"{k}. turn: {turn['does']}, built around {words} (like: {_examples(rng, turn['examples'], 2)}). "
+            f"agent_meant: {agent} {meant['does']} (like: {_examples(rng, meant['examples'], 2)}). "
+            f"agent_opposite: {agent} {opposite['does']} (like: {_examples(rng, opposite['examples'], 2)})."
+        )
+    task = (
+        f"Write {len(p['items'])} moments from phone calls between "
+        f"{spec['intro'].format(agent=agent, company=p['company'])}. The calls are about this: {p['scenario']}.\n\n"
+        f"Each moment is one thing the person says, and two lines from {agent} it could follow. After agent_meant the "
+        "person means it. After agent_opposite the very same words plainly mean the opposite: the person is not "
+        "pleased or grateful at all. The turn is word for word the same after both lines, so nothing in it but "
+        f"{agent}'s line before it tells how it is meant: no complaint, no consequence, no question, nothing about "
+        f"what happened. It runs from one word to about twelve.\n\n"
+        "The moments:\n" + "\n".join(moments) + "\n\n"
+        f"{FRESH} Nobody mentions sarcasm or jokes about it.\n"
+        f"{agent} sounds like a good voice assistant: warm, clear and brief, with contractions and normal capitals and "
+        "punctuation, one or two short sentences of at most 25 words, each fitting this call. The person's turn has "
+        "normal capitals and punctuation and sounds like someone talking.\n\n"
+        'Write it as JSON: {"moments": [{"turn": ..., "agent_meant": ..., "agent_opposite": ...}, ...]}, the '
+        "moments in the order above. Each string holds only spoken words: no stage directions, no descriptions of tone "
+        "or feelings, no sound effects, no emoji."
+    )
+    return [{"role": "system", "content": voice.SYSTEM}, {"role": "user", "content": task}]
+
+
+CONTRAST_MOMENT = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["turn", "agent_meant", "agent_opposite"],
+    "properties": {
+        "turn": {"type": "string"},
+        "agent_meant": {"type": "string"},
+        "agent_opposite": {"type": "string"},
+    },
+}
+
+
+def contrast_schema() -> dict:
+    """The JSON the teacher fills (vLLM structured output): the moments, in the prompt's order."""
+    props = {"moments": {"type": "array", "items": CONTRAST_MOMENT}}
+    return {"type": "object", "additionalProperties": False, "required": list(props), "properties": props}
+
+
+def parse_contrast(text: str) -> tuple[list[dict], list[str]]:
+    """A prompt's moments, and the problems met."""
+    try:
+        moments = json.loads(text).get("moments")
+    except (ValueError, AttributeError):
+        return [], ["not json"]
+    if not isinstance(moments, list):
+        return [], ["no moments"]
+    out, problems = [], []
+    for m in moments:
+        if isinstance(m, dict) and all(isinstance(m.get(f), str) for f in CONTRAST_MOMENT["required"]):
+            out.append({f: m[f] for f in CONTRAST_MOMENT["required"]})
+        else:
+            problems.append("bad moment")
+    return out, problems
+
+
+def contrast_pair(row: dict, k: int) -> tuple[dict, dict] | None:
+    """Moment k's two lines as candidates ({"i", "text", "previous", "side", ...}), the meant one first, or None when
+    they can't be lines: a stage direction or markup, a turn too long or with a question, or the agent's two lines the
+    same."""
+    if k >= len(row["moments"]) or k >= len(row["items"]):
+        return None
+    m, it = row["moments"][k], row["items"][k]
+    raw = m["turn"].strip()
+    turn = turn_text({"who": "user", "text": raw}, row["asr"])
+    meant = turn_text({"who": "agent", "text": m["agent_meant"]}, False)
+    opposite = turn_text({"who": "agent", "text": m["agent_opposite"]}, False)
+    if not (turn and meant and opposite) or norm_key(meant) == norm_key(opposite):
+        return None
+    if "?" in raw or len(turn.split()) > CONTRAST_MAX_WORDS:
+        return None
+    base = {"i": k, "text": turn, "turn_kind": it["turn_kind"]}
+    return (
+        {**base, "previous": meant, "side": "meant", "agent_kind": it["meant"]},
+        {**base, "previous": opposite, "side": "opposite", "agent_kind": it["opposite"]},
+    )
+
+
+def contrast_line(row: dict, cand: dict, split: str) -> CorpusLine:
+    """A contrast line in the support set's conventions, its pair and side in its source_ref."""
+    agent = row["agent"]
+    inp = LineInput(
+        speaker=PLAYER,
+        speaker_kind="player",
+        to=agent,
+        targets=[agent],
+        text=cand["text"],
+        previous=f"{agent}: {cand['previous']}"[:MAX_PREVIOUS],
+    )
+    side = cand["side"]
+    slices = [
+        "voice_agent",
+        "support",
+        "contrast",
+        row["domain"],
+        "player",
+        "user",
+        f"reply_contrast_{side}",
+        f"turn_{cand['turn_kind']}",
+        f"agent_{cand['agent_kind']}",
+        "sarcasm_seed" if side == "opposite" else "lookalike_seed",
+    ]
+    if row["asr"]:
+        slices.append("asr_style")
+    if row["domain"] in HELD_DOMAINS:
+        slices.append("held_domain")
+    source_ref = f"{row['prompt_id']}#{cand['i']}/{side}"
+    return CorpusLine(
+        line_id=f"{SOURCE[:2]}-{short_id(SOURCE, source_ref)}",
+        source=SOURCE,
+        source_ref=source_ref,
+        licence=LICENCE,
+        split=split,
+        group_key=f"gen:{row['prompt_id']}",
+        input=inp,
+        slices=sorted(set(slices)),
+        generator=f"contrast:{side}:{cand['turn_kind']}",
+    )
+
+
+def pair_of(source_ref: str) -> str:
+    """A contrast line's pair: its source_ref without the side."""
+    return source_ref.rsplit("/", 1)[0]
+
+
+def contrast_meta(row: dict, cand: dict, line: CorpusLine) -> dict:
+    """A contrast line's prompt, its kinds, what it was written to be, and the agent's line before it as the turns
+    before it."""
+    keys = ("prompt_id", "domain", "agent", "company", "scenario", "asr")
+    return {
+        "line_id": line.line_id,
+        **{k: row[k] for k in keys},
+        "split": line.split,
+        "pair": cand["i"],
+        "side": cand["side"],
+        "turn_kind": cand["turn_kind"],
+        "agent_kind": cand["agent_kind"],
+        "sarcastic_by_construction": cand["side"] == "opposite",
+        "before": [{"who": "agent", "text": cand["previous"]}],
+    }
+
+
+def select_contrast(
+    rows: list[dict],
+    keeper: Keeper,
+    max_lines: int,
+    seen: tuple[set[str], set[tuple[str, str]]] = (set(), set()),
+    seed: int = CONTRAST_SEED,
+) -> tuple[list, list, dict]:
+    """Pairs from the prompts in a fixed order, the dev and test prompts first, until `max_lines`: both lines of a pair
+    or neither. A dev or test pair whose turn another set trains on (`seen`, as ``bans`` reads them) is left out, so
+    those splits read turns no training line has. Returns the lines, their metadata and counts."""
+    seen_texts, seen_pairs = seen
+    lines, metas, counts = [], [], Counter()
+    order = sorted(
+        rows,
+        key=lambda r: (
+            split_of(r) == "train",
+            hashlib.sha256(f"{seed}:{r['prompt_id']}".encode()).hexdigest(),
+        ),
+    )
+    for row in order:
+        split = split_of(row)
+        for k in range(CONTRAST_ITEMS):
+            if len(lines) + 2 > max_lines:
+                break
+            pair = contrast_pair(row, k)
+            if pair is None:
+                counts["no_pair"] += 1
+                continue
+            if split != "train":
+                keys = [(norm_key(c["text"]), norm_key(c["previous"])) for c in pair]
+                if keys[0][0] in seen_texts or any(x in seen_pairs for x in keys):
+                    counts["trained_elsewhere"] += 1
+                    continue
+            if not all(keeper.fresh(c, split, 2) for c in pair):
+                counts["pair_not_new"] += 1
+                continue
+            for c in pair:
+                keeper.take(c, split)
+                ln = contrast_line(row, c, split)
+                lines.append(ln)
+                metas.append(contrast_meta(row, c, ln))
+            counts["pairs"] += 1
+    ids = [ln.line_id for ln in lines]
+    if len(set(ids)) != len(ids):
+        raise ValueError("duplicate line ids")
+    counts["dropped"] = dict(keeper.dropped)
+    return lines, metas, dict(counts)
+
+
 # --- the cases that showed rc1's misread ----------------------------------------------------------------------------
 # Read by every candidate as they stand, never trained on: (id, line, the agent's line before or None, what the line
 # should read).
@@ -1108,6 +1540,62 @@ PROBES = (
     ("few_days_own", "Oh, wonderful. Another few days, then.", None, "sarcastic"),
 )
 
+# Praise and thanks read four ways, written after r3 read bare praise as sarcastic and thanks after a refusal as
+# sincere: sincere after good news or help, sincere on its own, sarcastic after bad news or a refusal, and sarcastic on
+# its own words after a plain line. Read by every r3c candidate, never trained on.
+PRAISE_PROBES = (
+    ("after_good_01", "Oh, wonderful.", "Your refund went through this morning.", "sincere"),
+    ("after_good_02", "Oh, wonderful, thank you so much.", "Your refund has been approved.", "sincere"),
+    ("after_good_03", "Great, thanks.", "Your order shipped this morning.", "sincere"),
+    ("after_good_04", "Perfect, that's all I needed.", "I've updated your address.", "sincere"),
+    ("after_good_05", "Lovely, thanks.", "You're booked in for Tuesday at ten.", "sincere"),
+    ("after_good_06", "Amazing, thank you!", "We've waived the late fee.", "sincere"),
+    ("after_good_07", "Brilliant, cheers.", "Your new card is on its way.", "sincere"),
+    ("after_good_08", "Fantastic, that's a relief.", "The charge has been reversed.", "sincere"),
+    ("after_good_09", "Wonderful.", "Your claim has been approved.", "sincere"),
+    ("after_good_10", "Oh, great.", "Good news, it's back in stock.", "sincere"),
+    ("after_good_11", "Great, that works.", "I can move the delivery to Friday.", "sincere"),
+    ("after_good_12", "Perfect.", "I can move the delivery to Friday.", "sincere"),
+    ("after_good_13", "Thanks, that's really helpful.", "I've sent the steps to your email.", "sincere"),
+    ("alone_01", "Oh, wonderful.", None, "sincere"),
+    ("alone_02", "Great, thanks.", None, "sincere"),
+    ("alone_03", "Perfect.", None, "sincere"),
+    ("alone_04", "Brilliant.", None, "sincere"),
+    ("alone_05", "Oh great.", None, "sincere"),
+    ("alone_06", "Amazing, thank you!", None, "sincere"),
+    ("alone_07", "Lovely, thanks.", None, "sincere"),
+    ("alone_08", "Wonderful, that's so kind of you.", None, "sincere"),
+    ("after_bad_01", "Oh, wonderful.", "Your flight has been cancelled.", "sarcastic"),
+    ("after_bad_02", "Great, thanks.", "I'm afraid there's nothing I can do.", "sarcastic"),
+    ("after_bad_03", "Perfect.", "The earliest engineer visit is in three weeks.", "sarcastic"),
+    (
+        "after_bad_04",
+        "Brilliant.",
+        "Your parcel was left with a neighbour, but we don't know which one.",
+        "sarcastic",
+    ),
+    ("after_bad_05", "Lovely.", "There's a forty pound fee to change it.", "sarcastic"),
+    ("after_bad_06", "Thanks, that's really helpful.", "I'm sorry, I can't help with that.", "sarcastic"),
+    ("after_bad_07", "Oh, fantastic.", "Your payment failed again.", "sarcastic"),
+    (
+        "after_bad_08",
+        "Amazing. Just amazing.",
+        "We've lost the paperwork, so you'll need to send it again.",
+        "sarcastic",
+    ),
+    ("own_words_01", "Oh, perfect. So I'll miss my flight.", "It's still being processed.", "sarcastic"),
+    ("own_words_02", "Great, so another week then.", "It's with the courier now.", "sarcastic"),
+    ("own_words_03", "Wonderful, another form. Love those.", "You'll need to fill in form B12.", "sarcastic"),
+    ("own_words_04", "Brilliant, I'll just wait forever then.", "Someone will call you back.", "sarcastic"),
+    ("own_words_05", "Fantastic. Third time this month.", "Can I take your account number?", "sarcastic"),
+    (
+        "own_words_06",
+        "Well, that's just great, isn't it? It's gonna be late.",
+        "It's still processing, so it hasn't shipped yet. What would you like to do?",
+        "sarcastic",
+    ),
+)
+
 
 def bans(pairs) -> tuple[set[str], set[tuple[str, str]]]:
     """What a Keeper keeps out of training from (text, line before or None) pairs: texts of BAN_WORDS words or more,
@@ -1123,3 +1611,7 @@ def bans(pairs) -> tuple[set[str], set[tuple[str, str]]]:
 
 def probe_bans() -> tuple[set[str], set[tuple[str, str]]]:
     return bans((t, p) for _, t, p, _ in PROBES)
+
+
+def praise_bans() -> tuple[set[str], set[tuple[str, str]]]:
+    return bans((t, p) for _, t, p, _ in PRAISE_PROBES)

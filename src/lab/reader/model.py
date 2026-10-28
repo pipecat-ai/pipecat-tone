@@ -286,6 +286,13 @@ def selection_score_r2_without_move(r: dict) -> float:
     return round((tone + r["voice_emotion"]["macro_f1_30"]) / 2, 4)
 
 
+def kept_previous(chunk: list[Example], rng: random.Random, drop_previous: float) -> list[bool]:
+    """Whether each line keeps its line before this time: dropped from a `drop_previous` share of the lines that have
+    one, never from a line marked `keep_previous`. The draw is made for a marked line all the same, so every other
+    line drops as it would without the mark."""
+    return [not (e.previous and rng.random() < drop_previous and not e.keep_previous) for e in chunk]
+
+
 def warmup_linear(steps: int):
     """The learning rate's factor at each of `steps` steps: a linear warm-up over the first tenth, times a linear decay
     to zero at the end."""
@@ -310,9 +317,9 @@ def train(
     move: bool = True,
 ) -> tuple[object, object, dict]:
     """The student trained on `train_exs`, keeping the epoch with the best dev selection score. Each epoch drops the
-    line before from a `drop_previous` share of the lines that have one, drawn afresh. `select` scores an epoch from its
-    dev reads (default `selection_score`); `groups_fn(exs, split)` names the dev reads (default `data.eval_groups`).
-    Without `move`, the move head is kept but never trained."""
+    line before from a `drop_previous` share of the lines that have one, drawn afresh (`kept_previous`). `select`
+    scores an epoch from its dev reads (default `selection_score`); `groups_fn(exs, split)` names the dev reads
+    (default `data.eval_groups`). Without `move`, the move head is kept but never trained."""
     import torch
     from transformers import AutoTokenizer
 
@@ -354,7 +361,7 @@ def train(
         tot, n = 0.0, 0
         for i in range(0, len(order), batch_size):
             chunk = [train_exs[j] for j in order[i : i + batch_size]]
-            keep = [not (e.previous and rng.random() < drop_previous) for e in chunk]
+            keep = kept_previous(chunk, rng, drop_previous)
             b = collate(tok, chunk, device, keep)
             with amp:
                 out = model(b["enc"]["input_ids"], b["enc"]["attention_mask"])

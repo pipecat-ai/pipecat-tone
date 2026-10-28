@@ -605,17 +605,17 @@ def test_rows(jsonl) -> dict:
     }
 
 
-def support_rows(jsonl) -> dict:
-    """r3's support-call set's test lines, each with the committee's labels (emotion and sarcasm), and every test
-    line's sarcasm as it was written to be ("sarcasm_built", from the set's meta)."""
+def support_rows(jsonl, set_id: str = sources.SUPPORT_ID) -> dict:
+    """r3's support-call set's test lines (or r3c's contrast pairs', by `set_id`), each with the committee's labels
+    (emotion and sarcasm), and every test line's sarcasm as it was written to be ("sarcasm_built", from the set's
+    meta)."""
     rows = {
-        q: [r for r in jsonl(sources.tonetext_labels_key(sid)) if r["line"]["split"] == "test"]
-        for q, sid in (
-            ("emotion", sources.SUPPORT_SETS["committee"]),
-            ("sarcasm", sources.SUPPORT_SETS["sarcasm"]),
-        )
+        q: [r for r in jsonl(sources.tonetext_labels_key(f"{set_id}-{name}")) if r["line"]["split"] == "test"]
+        for q, name in (("emotion", "committee"), ("sarcasm", "sarcasm"))
     }
-    built = {m["line_id"]: m["sarcastic_by_construction"] for m in jsonl(sources.support_key("meta.jsonl"))}
+    built = {
+        m["line_id"]: m["sarcastic_by_construction"] for m in jsonl(sources.support_key("meta.jsonl", set_id))
+    }
     rows["sarcasm_built"] = [
         {**r, "sarcasm": {"label": built[r["line"]["line_id"]]}}
         for r in rows["sarcasm"]

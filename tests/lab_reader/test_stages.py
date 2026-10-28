@@ -26,9 +26,13 @@ STAGES = {
     ),
     "r2_select": (["select"], ["main"]),
     "r2_label": (["label_all", "label_pilot"], ["collect", "label", "pilot"]),
-    "support_generate": (["select_lines", "write_calls"], ["generate", "select", "status", "trial"]),
+    "support_generate": (
+        ["select_contrast_lines", "select_lines", "write_calls", "write_contrast"],
+        ["contrast_trial", "generate", "select", "status", "trial"],
+    ),
     "support_label": (["label_all", "label_pilot"], ["collect", "label", "pilot"]),
     "r3_chain": (["chain", "no_move_arm"], ["fetch", "no_move", "run"]),
+    "r3c_chain": (["contrast_chain"], ["fetch", "run"]),
     "sarcasm_teacher": (["teacher"], ["collect", "spawn_one"]),
     "teacher": (["teacher"], ["collect", "smoke", "spawn_one"]),
     "train": (

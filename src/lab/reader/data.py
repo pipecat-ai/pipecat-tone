@@ -55,6 +55,7 @@ class Example:
     s_back: float | None = None
     s_move: list | None = None
     s_sarc: float | None = None
+    keep_previous: bool = False  # training never drops the line before (`LinesR2.keep_needed_previous`)
 
     @property
     def twin(self) -> bool:
@@ -317,8 +318,12 @@ def eval_groups(exs: list[Example], split: str) -> dict[str, list[int]]:
 
 # In Example.sets: a line from r2's committee sets, where the voice-agent dev and test sets live.
 R2_TAG = "r2"
-# In Example.sets: a line from r3's support-call set.
+# In Example.sets: a line from r3's support-call set, or from r3c's contrast pairs.
 SUPPORT_TAG = "support"
+CONTRAST_TAG = "contrast"
+# The slices of lines written to be sarcastic only after the agent's line: the support set's short answers to news, and
+# the contrast pairs' side after which the turn means the opposite.
+NEEDS_PREVIOUS = ("reply_sarcastic_news", "reply_contrast_opposite")
 
 
 def sha_order(lines: list[dict], salt: str) -> list[dict]:
@@ -345,17 +350,32 @@ class LinesR2(Lines):
                 self.by_id[r["line"]["line_id"]].sets.add(R2_TAG)
             self.counts[f"r2_{q}_new_lines"] += len(set(self.by_id) - before)
 
-    def add_support(self, jsonl: Callable[[str], list[dict]]) -> None:
-        """r3's support-call set: the committee's emotion, intensity and backchannel, and its sarcasm, asked under the
-        Realtime Context Standard's perception. Its move is left to the teachers."""
+    def add_support(
+        self, jsonl: Callable[[str], list[dict]], set_ids: dict = sources.SUPPORT_SETS, tag: str = SUPPORT_TAG
+    ) -> None:
+        """r3's support-call set, or with r3c's ids and CONTRAST_TAG its contrast pairs: the committee's emotion,
+        intensity and backchannel, and its sarcasm, asked under the Realtime Context Standard's perception. Its move
+        is left to the teachers."""
         before = set(self.by_id)
-        rows = {q: jsonl(sources.tonetext_labels_key(sid)) for q, sid in sources.SUPPORT_SETS.items()}
-        self.add_act_emotion(sources.SUPPORT_SETS["committee"], rows["committee"])
-        self.add_sarcasm(sources.SUPPORT_SETS["sarcasm"], rows["sarcasm"])
+        rows = {q: jsonl(sources.tonetext_labels_key(sid)) for q, sid in set_ids.items()}
+        self.add_act_emotion(set_ids["committee"], rows["committee"])
+        self.add_sarcasm(set_ids["sarcasm"], rows["sarcasm"])
         for rs in rows.values():
             for r in rs:
-                self.by_id[r["line"]["line_id"]].sets.add(SUPPORT_TAG)
-        self.counts["support_new_lines"] = len(set(self.by_id) - before)
+                self.by_id[r["line"]["line_id"]].sets.add(tag)
+        self.counts[f"{tag}_new_lines"] = len(set(self.by_id) - before)
+
+    def keep_needed_previous(self) -> int:
+        """Marks the sarcastic lines whose sarcasm the agent's line before carries, as they were written
+        (NEEDS_PREVIOUS), so training never drops that line: without it, their label would teach that the words alone
+        are sarcastic. Returns how many."""
+        n = 0
+        for ex in self.by_id.values():
+            if ex.sarc == 1 and ex.previous and any(s in ex.slices for s in NEEDS_PREVIOUS):
+                ex.keep_previous = True
+                n += 1
+        self.counts["keep_previous"] = n
+        return n
 
     def add_text(self, lines: Iterable[dict], tag: str) -> int:
         """Training lines with no label yet (their soft labels come from the teachers). Returns how many were new."""
@@ -422,7 +442,8 @@ def r2_open_lines(jsonl: Callable[[str], list[dict]]) -> list[dict]:
 
 
 def r2_soft_id(tag: str = "", recipe: str = "r2") -> str:
-    """A recipe's teachers' labels' id: R2_SOFT_ID (R3_SOFT_ID for r3), or its own for teachers built under a tag."""
+    """A recipe's teachers' labels' id: R2_SOFT_ID (R3_SOFT_ID for r3; r3c reads r2's), or its own for teachers
+    built under a tag."""
     base = sources.R3_SOFT_ID if recipe == "r3" else sources.R2_SOFT_ID
     return base if not tag else base.replace("-0.1", f"-{tag}-0.1")
 
@@ -435,16 +456,21 @@ def build_r2(
     exclude_sources: tuple[str, ...] = (),
     soft_id: str = sources.R2_SOFT_ID,
     support: bool = False,
+    contrast: bool = False,
 ) -> LinesR2:
-    """Every line r2 reads, and with `support` r3's: Tone's committee sets, then r2's, then the support-call set's.
-    With `pools`: Tone's pool and the move pool, the open sets' draws and, with `speech`, the speech round trip's
-    twins, all soft-labelled by the teachers named in `teachers` (their files under `soft_id`); a training line left
-    with no target is dropped. `exclude_sources` drops every line of those sources (such as "goemotions")."""
+    """Every line r2 reads, and with `support` r3's: Tone's committee sets, then r2's, then the support-call set's;
+    with `contrast` (r3c) the contrast pairs too, and no line whose sarcasm the agent's line carries loses that line in
+    training. With `pools`: Tone's pool and the move pool, the open sets' draws and, with `speech`, the speech round
+    trip's twins, all soft-labelled by the teachers named in `teachers` (their files under `soft_id`); a training line
+    left with no target is dropped. `exclude_sources` drops every line of those sources (such as "goemotions")."""
     lines = LinesR2()
     lines.add_tone_sets(jsonl)
     lines.add_r2_committee(jsonl)
     if support:
         lines.add_support(jsonl)
+    if contrast:
+        lines.add_support(jsonl, sources.CONTRAST_SETS, CONTRAST_TAG)
+        lines.keep_needed_previous()
     if pools:
         lines.counts["pool_lines"] = lines.add_text(jsonl(sources.pool_key()), "pool")
         lines.counts["move_pool_lines"] = lines.add_text(
@@ -494,9 +520,11 @@ SUPPORT_PLAIN = ("moment_status", "moment_question", "moment_procedure", "moment
 def eval_groups_r2(exs: list[Example], split: str) -> dict[str, list[int]]:
     """r1's reads on Tone's lines, plus the voice-agent reads on r2's committee lines (dev: the voice-agent dev set; test:
     the real voice-agent test set), and when the support-call set is read its own: emotion and sarcasm, on test also
-    sarcasm after a plain agent line, after news, and on the held domains. The support set's lines never join the
-    others' reads, so r2's rule chooses an epoch as it did."""
-    tone = [e for e in exs if R2_TAG not in e.sets and SUPPORT_TAG not in e.sets]
+    sarcasm after a plain agent line, after news, and on the held domains; the contrast pairs' alike. Neither set's
+    lines join the others' reads, so r2's rule chooses an epoch as it did."""
+    tone = [
+        e for e in exs if R2_TAG not in e.sets and SUPPORT_TAG not in e.sets and CONTRAST_TAG not in e.sets
+    ]
     base = eval_groups(tone, split)
     index = {id(e): i for i, e in enumerate(exs)}
     out = {k: [index[id(tone[i])] for i in v] for k, v in base.items()}
@@ -522,5 +550,15 @@ def eval_groups_r2(exs: list[Example], split: str) -> dict[str, list[int]]:
             lambda e: e.sarc >= 0 and not plain(e) and "reply_ordinary" not in e.slices
         )
         groups["support_sarcasm_held_domains"] = support(lambda e: e.sarc >= 0 and "held_domain" in e.slices)
+
+    def contrast(cond):
+        return [i for i, e in enumerate(exs) if e.split == split and CONTRAST_TAG in e.sets and cond(e)]
+
+    groups["contrast_emotion"] = contrast(lambda e: e.emo >= 0)
+    groups["contrast_sarcasm"] = contrast(lambda e: e.sarc >= 0)
+    if split == "test":
+        groups["contrast_sarcasm_held_domains"] = contrast(
+            lambda e: e.sarc >= 0 and "held_domain" in e.slices
+        )
     out.update({k: v for k, v in groups.items() if v})
     return out

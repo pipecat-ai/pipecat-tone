@@ -48,6 +48,84 @@ def probe_reads(ref, var) -> dict:
     return out
 
 
+ACT_AT = 0.7  # the chance at which Pipecat's demo guidance acts on a sarcasm reading
+
+
+def praise_reads(ref, var) -> dict:
+    """The praise cases (``support.PRAISE_PROBES``), read by both: each case's sarcasm chance and call by id, and for
+    each group (the id before its number) how many each side gets right by its call and by the chance at ACT_AT, and
+    its mean chance. Without the lines' text."""
+    from lab.reader.support import PRAISE_PROBES
+
+    cases, groups = {}, {}
+    for pid, text, previous, want in PRAISE_PROBES:
+        sides = {}
+        for side, model in (("ref", ref), ("var", var)):
+            t = model.tag(text, previous)
+            chance = round(t["sarcasm"]["probability"], 2)
+            sides[side] = {
+                "sarcasm": chance,
+                "right": bool(t["sarcasm"]["sarcastic"]) == (want == "sarcastic"),
+                "right_at_act": (chance >= ACT_AT) == (want == "sarcastic"),
+            }
+        cases[pid] = {"should_read": want, **sides}
+        g = groups.setdefault(pid.rsplit("_", 1)[0], {"should_read": want, "lines": 0, "ref": [], "var": []})
+        g["lines"] += 1
+        for side in ("ref", "var"):
+            g[side].append(sides[side])
+    for g in groups.values():
+        for side in ("ref", "var"):
+            reads = g[side]
+            g[side] = {
+                "right": sum(r["right"] for r in reads),
+                "right_at_act": sum(r["right_at_act"] for r in reads),
+                "mean_chance": round(sum(r["sarcasm"] for r in reads) / len(reads), 3),
+            }
+    return {"groups": groups, "cases": cases, "act_at": ACT_AT}
+
+
+def contrast_items(paired, rows: list[dict]) -> dict:
+    """The contrast test pairs the committee reads as they were written to differ, one line sarcastic and one sincere:
+    the share each reader gets right on both lines, by its call and by the chance at ACT_AT, read with the line before;
+    and the share whose turn, read alone, it calls sarcastic (alone, a turn that could easily be meant is sincere)."""
+    from lab.reader.scoring import paired_rate, turn
+    from lab.reader.support import pair_of
+
+    by: dict[str, list[dict]] = {}
+    for r in rows:
+        if (r.get("sarcasm") or {}).get("label") is not None:
+            by.setdefault(pair_of(r["line"]["source_ref"]), []).append(r)
+    both, at_act, alone = [], [], []
+    for _, rs in sorted(by.items()):
+        if len(rs) != 2 or {int(r["sarcasm"]["label"]) for r in rs} != {0, 1}:
+            continue
+        reads = [paired.tag(*turn(r, True)) for r in rs]
+        gold = [int(r["sarcasm"]["label"]) for r in rs]
+        both.append(
+            [all(int(t[s]["sarcasm"]["sarcastic"]) == g for t, g in zip(reads, gold)) for s in (0, 1)]
+        )
+        at_act.append(
+            [
+                all(int(t[s]["sarcasm"]["probability"] >= ACT_AT) == g for t, g in zip(reads, gold))
+                for s in (0, 1)
+            ]
+        )
+        ref_alone, var_alone = paired.tag(rs[0]["line"]["input"]["text"], None)
+        alone.append((int(ref_alone["sarcasm"]["sarcastic"]), int(var_alone["sarcasm"]["sarcastic"])))
+
+    if not both:
+        return {}
+
+    def rate(pairs):
+        return paired_rate([(int(x), 1) for x, _ in pairs], [(int(y), 1) for _, y in pairs])
+
+    return {
+        "contrast_pairs_right": rate(both),
+        "contrast_pairs_right_at_act": rate(at_act),
+        "contrast_alone_sincere_called_sarcastic": rate(alone),
+    }
+
+
 @job(TORCH, cpu=8.0, memory=16384, timeout=3 * 3600)
 def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: str = "export") -> dict:
     import time
@@ -84,6 +162,11 @@ def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: 
         support = scoring.support_rows(storage.jsonl)
         support_sarc_ids = {r["line"]["line_id"] for r in support["sarcasm"] if is_sarc(r)}
         sarcastic_support = [r for r in support["emotion"] if r["line"]["line_id"] in support_sarc_ids]
+    contrast = None
+    if storage.exists(sources.tonetext_labels_key(sources.CONTRAST_SETS["sarcasm"])):
+        contrast = scoring.support_rows(storage.jsonl, sources.CONTRAST_ID)
+        contrast_sarc_ids = {r["line"]["line_id"] for r in contrast["sarcasm"] if is_sarc(r)}
+        sarcastic_contrast = [r for r in contrast["emotion"] if r["line"]["line_id"] in contrast_sarc_ids]
     plain = lambda r: any(x in (r["line"].get("slices") or []) for x in PLAIN)  # noqa: E731
     held = lambda r: "held_domain" in (r["line"].get("slices") or [])  # noqa: E731
     moment = lambda r: "reply_ordinary" not in (r["line"].get("slices") or [])  # noqa: E731
@@ -136,6 +219,15 @@ def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: 
             c.sarcasm("sarcasm_support_built_after_plain", [r for r in built if plain(r)], True, True)
             c.sarcasm("sarcasm_support_built_after_news", [r for r in built if not plain(r)], True, True)
             sarcastic_sets.append(("sarcastic_support", sarcastic_support))
+        if contrast:
+            cr = contrast["sarcasm"]
+            c.emotion("emotion_contrast", contrast["emotion"])
+            c.sarcasm("sarcasm_contrast", cr, True, True)
+            c.sarcasm("sarcasm_contrast_held_domains", [r for r in cr if held(r)], True, True)
+            c.sarcasm("sarcasm_contrast_built", contrast["sarcasm_built"], True, True)
+            if keep:
+                c.items.update(contrast_items(paired, cr))
+            sarcastic_sets.append(("sarcastic_contrast", sarcastic_contrast))
         for name, sarcastic in sarcastic_sets:
             sarcastic = [r for r in sarcastic if (r.get("emotion") or {}).get("label")]
             if not sarcastic:
@@ -157,6 +249,7 @@ def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: 
             "tone_items_worse": [k for k in worse if k in TONE_ITEMS],
         }
     out["probes"] = probe_reads(ref, var)
+    out["praise"] = praise_reads(ref, var)
     out["lines_tagged"] = len(paired.tagged)
     out["seconds"] = round(time.time() - t0)
     return out
@@ -225,6 +318,33 @@ TABLE = (
     ),
     ("Support-call test split", "Emotion macro-F1", "emotion_support", "with_previous"),
     ("Support-call test split", "Sarcasm F1, turn alone", "sarcasm_support_f1", "without_previous"),
+    ("Contrast test pairs", "Sarcasm F1, committee labels", "sarcasm_contrast_f1", "with_previous"),
+    (
+        "Contrast test pairs",
+        "Sarcasm F1, held-out domains",
+        "sarcasm_contrast_held_domains_f1",
+        "with_previous",
+    ),
+    (
+        "Contrast test pairs",
+        "Sincere turns called sarcastic",
+        "sarcasm_contrast_sincere_called_sarcastic",
+        "with_previous",
+    ),
+    ("Contrast test pairs", "Pairs read right on both lines", "contrast_pairs_right", "with_previous"),
+    (
+        "Contrast test pairs",
+        "Pairs read right on both lines, at 0.7",
+        "contrast_pairs_right_at_act",
+        "with_previous",
+    ),
+    (
+        "Contrast test pairs",
+        "Turns alone called sarcastic",
+        "contrast_alone_sincere_called_sarcastic",
+        "with_previous",
+    ),
+    ("Contrast test pairs", "Sarcastic turns read happy", "face_value_sarcastic_contrast", "with_previous"),
 )
 
 
@@ -262,6 +382,22 @@ def markdown(res: dict, ref_name: str = "ref", var_name: str = "var") -> str:
             for side in ("ref", "var")
         ]
         rows.append(f"| {pid} | {v['should_read']} | {cells[0]} | {cells[1]} |")
+    praise = res.get("praise")
+    if praise:
+        rows += [
+            "",
+            f"Praise cases read right, by each one's call (by the chance at {praise['act_at']} in brackets), and the "
+            "mean chance of sarcasm.",
+            "",
+            f"| Group | Should read | Lines | {ref_name} | {var_name} |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+        for name, g in praise["groups"].items():
+            cells = [
+                f"{g[side]['right']} ({g[side]['right_at_act']}), {g[side]['mean_chance']}"
+                for side in ("ref", "var")
+            ]
+            rows.append(f"| {name} | {g['should_read']} | {g['lines']} | {cells[0]} | {cells[1]} |")
     return "\n".join(rows) + "\n"
 
 

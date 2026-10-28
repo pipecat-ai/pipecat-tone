@@ -1,11 +1,13 @@
 """r3's support-call set (``lab.reader.support``): calls written by the voice-agent set's teacher, both answers at each
 call's moment taken, and from half the calls one more of the person's turns. Its train split trains r3; its dev and
-test splits are read, never trained on. Each line's earlier turns are kept on the volume beside it (meta.jsonl).
+test splits are read, never trained on. Each line's earlier turns are kept on the volume beside it (meta.jsonl). r3c's
+contrast pairs (``support.select_contrast``) are written by the same teacher, on one H100.
 
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.support_generate::trial
     MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.support_generate::generate
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.support_generate::status
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.support_generate::select
+    MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.support_generate::contrast_trial
 """
 
 import json
@@ -19,6 +21,8 @@ SAMPLING = {"temperature": 1.0, "top_p": 0.95, "max_tokens": 1600}
 N_PER_DOMAIN = 420  # 14,700 calls over 35 domains, for 30,000 lines
 SHARDS = 4  # one H100 each
 MAX_LINES = 30_000
+CONTRAST_PER_DOMAIN = 20  # 700 prompts of six turns each, for 4,000 lines once repeats are dropped
+CONTRAST_LINES = 4_000
 
 
 def raw_key(try_no: int, name: str) -> str:
@@ -26,16 +30,17 @@ def raw_key(try_no: int, name: str) -> str:
     return f"runs/tonetext/generated/{sources.SUPPORT_ID}-raw/try{try_no}/{name}"
 
 
-@job(VLLM, gpu="H100", cpu=8.0, memory=65536, timeout=4 * 3600, volumes={"/cache": hf_cache})
-def write_calls(n_per_domain: int, seed: int, try_no: int, shard: int = 0, shards: int = 1) -> dict:
-    """Every `shards`-th prompt from `shard`, one call each, as JSON under vLLM's structured output."""
-    from collections import Counter
+def contrast_raw_key(try_no: int, name: str) -> str:
+    return f"runs/tonetext/generated/{sources.CONTRAST_ID}-raw/try{try_no}/{name}"
 
+
+def teacher_outputs(prompts: list[dict], schema: dict, seed: int) -> tuple[list, float, float]:
+    """The teacher's answer to each prompt's messages under vLLM's structured output, and the seconds to load and to
+    generate."""
     from vllm import LLM, SamplingParams
     from vllm.sampling_params import StructuredOutputsParams
 
     t0 = time.perf_counter()
-    prompts = support.build_prompts(n_per_domain, seed=seed)[shard::shards]
     llm = LLM(
         model=TEACHER_REPO,
         revision=TEACHER_REVISION,
@@ -43,7 +48,7 @@ def write_calls(n_per_domain: int, seed: int, try_no: int, shard: int = 0, shard
         gpu_memory_utilization=0.9,
         kv_cache_dtype="fp8",
         enable_prefix_caching=True,
-        seed=seed + shard,
+        seed=seed,
         max_num_seqs=256,
     )
     load_s = time.perf_counter() - t0
@@ -52,8 +57,8 @@ def write_calls(n_per_domain: int, seed: int, try_no: int, shard: int = 0, shard
         temperature=SAMPLING["temperature"],
         top_p=SAMPLING["top_p"],
         max_tokens=SAMPLING["max_tokens"],
-        seed=seed + shard,
-        structured_outputs=StructuredOutputsParams(json=support.schema()),
+        seed=seed,
+        structured_outputs=StructuredOutputsParams(json=schema),
     )
     outs = llm.chat(
         [p["messages"] for p in prompts],
@@ -61,7 +66,16 @@ def write_calls(n_per_domain: int, seed: int, try_no: int, shard: int = 0, shard
         chat_template_kwargs={"enable_thinking": False},
         use_tqdm=False,
     )
-    gen_s = time.perf_counter() - t0 - load_s
+    return outs, load_s, time.perf_counter() - t0 - load_s
+
+
+@job(VLLM, gpu="H100", cpu=8.0, memory=65536, timeout=4 * 3600, volumes={"/cache": hf_cache})
+def write_calls(n_per_domain: int, seed: int, try_no: int, shard: int = 0, shards: int = 1) -> dict:
+    """Every `shards`-th prompt from `shard`, one call each, as JSON under vLLM's structured output."""
+    from collections import Counter
+
+    prompts = support.build_prompts(n_per_domain, seed=seed)[shard::shards]
+    outs, load_s, gen_s = teacher_outputs(prompts, support.schema(), seed + shard)
     rows, problems, finish = [], Counter(), Counter()
     tok_in = tok_out = 0
     for p, o in zip(prompts, outs):
@@ -192,6 +206,139 @@ def select_lines(max_lines: int, try_no: int, shards: int) -> dict:
     return {"summary": summary, "sample": sample}
 
 
+# --- r3c's contrast pairs ------------------------------------------------------------------------------------------------
+
+
+@job(VLLM, gpu="H100", cpu=8.0, memory=65536, timeout=2 * 3600, volumes={"/cache": hf_cache})
+def write_contrast(n_per_domain: int, seed: int, try_no: int) -> dict:
+    """Every contrast prompt, one answer each, as JSON under vLLM's structured output."""
+    from collections import Counter
+
+    prompts = support.build_contrast_prompts(n_per_domain, seed=seed)
+    outs, load_s, gen_s = teacher_outputs(prompts, support.contrast_schema(), seed)
+    rows, problems, finish = [], Counter(), Counter()
+    tok_in = tok_out = 0
+    for p, o in zip(prompts, outs):
+        text = o.outputs[0].text
+        moments, probs = support.parse_contrast(text)
+        problems.update(probs)
+        finish[str(o.outputs[0].finish_reason)] += 1
+        tok_in += len(o.prompt_token_ids)
+        tok_out += len(o.outputs[0].token_ids)
+        rows.append(
+            {
+                **{k: v for k, v in p.items() if k != "messages"},
+                "prompt": p["messages"][1]["content"],
+                "raw": text,
+                "moments": moments,
+                "problems": probs,
+                "finish_reason": str(o.outputs[0].finish_reason),
+            }
+        )
+    storage.put_jsonl(contrast_raw_key(try_no, "prompts.jsonl"), rows)
+    result = {
+        "set": sources.CONTRAST_ID,
+        "try": try_no,
+        "prompts": len(prompts),
+        "moments": sum(len(r["moments"]) for r in rows),
+        "usable_pairs": sum(
+            support.contrast_pair(r, k) is not None for r in rows for k in range(support.CONTRAST_ITEMS)
+        ),
+        "problems": dict(problems),
+        "finish_reasons": dict(finish),
+        "tokens": {"in": tok_in, "out": tok_out},
+        "seconds": {"load": round(load_s), "generate": round(gen_s)},
+        "teacher": f"{TEACHER_REPO}@{TEACHER_REVISION}",
+        "sampling": {**SAMPLING, "seed": seed},
+        "key": contrast_raw_key(try_no, "prompts.jsonl"),
+    }
+    storage.put_json(contrast_raw_key(try_no, "result.json"), result)
+    return result
+
+
+@job(DATA, cpu=4.0, memory=32768, timeout=3600)
+def select_contrast_lines(max_lines: int, try_no: int) -> dict:
+    """The contrast pairs, kept out of every evaluation line's text and pair, the cases', the praise cases' and the
+    support-call set's dev and test lines'; their dev and test pairs keep out of the support set's training turns."""
+    import hashlib
+    import random
+    from collections import Counter
+
+    from lab.reader.data import previous_words
+
+    storage.reload()
+    rows = storage.jsonl(contrast_raw_key(try_no, "prompts.jsonl"))
+    held = support.bans(evaluation_pairs())
+    support_lines = storage.jsonl(sources.support_key("lines.jsonl"))
+
+    def words(split_test):
+        return (
+            (ln["input"]["text"], previous_words(ln["input"].get("previous")))
+            for ln in support_lines
+            if (ln["split"] != "train") == split_test
+        )
+
+    bans = [held, support.bans(words(True)), support.probe_bans(), support.praise_bans()]
+    keeper = support.Keeper(
+        set().union(*(b[0] for b in bans)),
+        set().union(*(b[1] for b in bans)),
+        max_short=support.CONTRAST_MAX_SHORT,
+    )
+    lines, metas, counts = support.select_contrast(rows, keeper, max_lines, support.bans(words(False)))
+    body = "".join(ln.model_dump_json() + "\n" for ln in lines).encode()
+    storage.put(sources.contrast_key("lines.jsonl"), body)
+    storage.put_jsonl(sources.contrast_key("meta.jsonl"), metas)
+
+    def spread(key):
+        return dict(sorted(Counter(key(m) for m in metas).items()))
+
+    words_n = sorted(len(ln.input.text.split()) for ln in lines)
+    summary = {
+        "set": sources.CONTRAST_ID,
+        "try": try_no,
+        "key": sources.contrast_key("lines.jsonl"),
+        "sha256": hashlib.sha256(body).hexdigest(),
+        "meta_key": sources.contrast_key("meta.jsonl"),
+        "prompts_written": len(rows),
+        **counts,
+        "lines": len(lines),
+        "banned": {
+            "evaluation_texts": len(held[0]),
+            "evaluation_pairs": len(held[1]),
+            "probes": len(support.PROBES),
+            "praise_probes": len(support.PRAISE_PROBES),
+        },
+        "by_split": spread(lambda m: m["split"]),
+        "by_split_and_side": spread(lambda m: f"{m['split']}/{m['side']}"),
+        "by_turn_kind": spread(lambda m: m["turn_kind"]),
+        "by_side_and_agent_kind": spread(lambda m: f"{m['side']}/{m['agent_kind']}"),
+        "by_domain": spread(lambda m: m["domain"]),
+        "held_domains": list(support.HELD_DOMAINS),
+        "asr_style": sum(m["asr"] for m in metas),
+        "words_median": words_n[len(words_n) // 2] if words_n else 0,
+        "words_max": words_n[-1] if words_n else 0,
+        "distinct_turns": len({support.norm_key(ln.input.text) for ln in lines}),
+    }
+    storage.put_json(sources.contrast_key("summary.json"), summary)
+    by_pair: dict[str, list] = {}
+    for ln in lines:
+        by_pair.setdefault(support.pair_of(ln.source_ref), []).append(ln)
+    picked = random.Random(support.CONTRAST_SEED).sample(sorted(by_pair), min(40, len(by_pair)))
+    sample = [
+        {
+            "pair": k,
+            "split": by_pair[k][0].split,
+            "generator": by_pair[k][0].generator,
+            "text": by_pair[k][0].input.text,
+            "meant_after": by_pair[k][0].input.previous,
+            "opposite_after": by_pair[k][1].input.previous,
+        }
+        for k in picked
+    ]
+    storage.put_json(contrast_raw_key(try_no, "read_sample.json"), {"sample": sample})
+    return {"summary": summary, "sample": sample}
+
+
 @app.local_entrypoint()
 def trial(n_per_domain: int = 2, seed: int = support.SEED, show: int = 12):
     """Two calls per domain under try 0, written now: their counts, and a few calls to read on the terminal (never saved
@@ -254,3 +401,26 @@ def select(max_lines: int = MAX_LINES, try_no: int = 1, shards: int = SHARDS):
     print(json.dumps(res["summary"], indent=1))
     for e in res["sample"][:40]:
         print(f"[{e['split']} {e['generator']}] {e['previous']}\n    -> {e['text']}")
+
+
+@app.local_entrypoint()
+def contrast_trial(n_per_domain: int = 1, seed: int = support.CONTRAST_SEED, show: int = 10):
+    """One contrast prompt per domain under try 0, written now: its counts, and a few prompts' pairs to read on the
+    terminal (never saved in the repo)."""
+    res = write_contrast.remote(n_per_domain, seed + 1000, 0)
+    save("support_generate", "contrast-trial-result.json", res)
+    print(json.dumps(res, indent=1))
+    for r in storage.jsonl(contrast_raw_key(0, "prompts.jsonl"))[:show]:
+        print(f"\n=== {r['prompt_id']} asr {r['asr']} | {r['scenario']}")
+        for k in range(support.CONTRAST_ITEMS):
+            it = r["items"][k]
+            pair = support.contrast_pair(r, k)
+            if pair is None:
+                print(
+                    f"  {k}. {it['turn_kind']}: not usable {r['moments'][k] if k < len(r['moments']) else '-'}"
+                )
+                continue
+            meant, opposite = pair
+            print(f"  {k}. {it['turn_kind']} {it['words']}: {meant['text']}")
+            print(f"       meant after ({it['meant']}): {meant['previous']}")
+            print(f"       opposite after ({it['opposite']}): {opposite['previous']}")
