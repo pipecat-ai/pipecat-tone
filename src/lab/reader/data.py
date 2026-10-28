@@ -317,6 +317,8 @@ def eval_groups(exs: list[Example], split: str) -> dict[str, list[int]]:
 
 # In Example.sets: a line from r2's committee sets, where the voice-agent dev and test sets live.
 R2_TAG = "r2"
+# In Example.sets: a line from r3's support-call set.
+SUPPORT_TAG = "support"
 
 
 def sha_order(lines: list[dict], salt: str) -> list[dict]:
@@ -342,6 +344,18 @@ class LinesR2(Lines):
             for r in rows:
                 self.by_id[r["line"]["line_id"]].sets.add(R2_TAG)
             self.counts[f"r2_{q}_new_lines"] += len(set(self.by_id) - before)
+
+    def add_support(self, jsonl: Callable[[str], list[dict]]) -> None:
+        """r3's support-call set: the committee's emotion, intensity and backchannel, and its sarcasm, asked under the
+        Realtime Context Standard's perception. Its move is left to the teachers."""
+        before = set(self.by_id)
+        rows = {q: jsonl(sources.tonetext_labels_key(sid)) for q, sid in sources.SUPPORT_SETS.items()}
+        self.add_act_emotion(sources.SUPPORT_SETS["committee"], rows["committee"])
+        self.add_sarcasm(sources.SUPPORT_SETS["sarcasm"], rows["sarcasm"])
+        for rs in rows.values():
+            for r in rs:
+                self.by_id[r["line"]["line_id"]].sets.add(SUPPORT_TAG)
+        self.counts["support_new_lines"] = len(set(self.by_id) - before)
 
     def add_text(self, lines: Iterable[dict], tag: str) -> int:
         """Training lines with no label yet (their soft labels come from the teachers). Returns how many were new."""
@@ -407,9 +421,10 @@ def r2_open_lines(jsonl: Callable[[str], list[dict]]) -> list[dict]:
     return out
 
 
-def r2_soft_id(tag: str = "") -> str:
-    """The r2 teachers' labels' id: R2_SOFT_ID, or its own for teachers built under a tag."""
-    return sources.R2_SOFT_ID if not tag else sources.R2_SOFT_ID.replace("-0.1", f"-{tag}-0.1")
+def r2_soft_id(tag: str = "", recipe: str = "r2") -> str:
+    """A recipe's teachers' labels' id: R2_SOFT_ID (R3_SOFT_ID for r3), or its own for teachers built under a tag."""
+    base = sources.R3_SOFT_ID if recipe == "r3" else sources.R2_SOFT_ID
+    return base if not tag else base.replace("-0.1", f"-{tag}-0.1")
 
 
 def build_r2(
@@ -419,14 +434,17 @@ def build_r2(
     speech: bool = True,
     exclude_sources: tuple[str, ...] = (),
     soft_id: str = sources.R2_SOFT_ID,
+    support: bool = False,
 ) -> LinesR2:
-    """Every line r2 reads. Committee labels: Tone's sets, then r2's. With `pools`: Tone's pool and the move pool,
-    the open sets' draws and, with `speech`, the speech round trip's twins, all soft-labelled by the r2 teachers named
-    in `teachers` (their files under `soft_id`); a training line left with no target is dropped. `exclude_sources` drops
-    every line of those sources (such as "goemotions")."""
+    """Every line r2 reads, and with `support` r3's: Tone's committee sets, then r2's, then the support-call set's.
+    With `pools`: Tone's pool and the move pool, the open sets' draws and, with `speech`, the speech round trip's
+    twins, all soft-labelled by the teachers named in `teachers` (their files under `soft_id`); a training line left
+    with no target is dropped. `exclude_sources` drops every line of those sources (such as "goemotions")."""
     lines = LinesR2()
     lines.add_tone_sets(jsonl)
     lines.add_r2_committee(jsonl)
+    if support:
+        lines.add_support(jsonl)
     if pools:
         lines.counts["pool_lines"] = lines.add_text(jsonl(sources.pool_key()), "pool")
         lines.counts["move_pool_lines"] = lines.add_text(
@@ -447,10 +465,10 @@ def build_r2(
 
 
 def r2_lines_to_label(
-    jsonl: Callable[[str], list[dict]], exclude_sources: tuple[str, ...] = ()
+    jsonl: Callable[[str], list[dict]], exclude_sources: tuple[str, ...] = (), support: bool = False
 ) -> list[dict]:
     """The clean training lines the r2 teachers label, each once: r1's (`r1_training_lines`), then the r2 committee
-    sets' train splits and the open sets' draws."""
+    sets' train splits and the open sets' draws; with `support`, r3's, the support-call set's train split last."""
 
     def walk() -> Iterator[tuple[str, dict]]:
         yield from r1_training_lines(jsonl)
@@ -460,14 +478,25 @@ def r2_lines_to_label(
                     yield "r2_train", r["line"]
         for ln in r2_open_lines(jsonl):
             yield "open", ln
+        if support:
+            for sid in sources.SUPPORT_SETS.values():
+                for r in jsonl(sources.tonetext_labels_key(sid)):
+                    if r["line"]["split"] == "train":
+                        yield "support_train", r["line"]
 
     return [ln for _, ln in clean_once(walk(), exclude_sources)]
 
 
+# The support-call set's moments whose agent line carries no news (``support.MOMENTS``).
+SUPPORT_PLAIN = ("moment_status", "moment_question", "moment_procedure", "moment_kind")
+
+
 def eval_groups_r2(exs: list[Example], split: str) -> dict[str, list[int]]:
     """r1's reads on Tone's lines, plus the voice-agent reads on r2's committee lines (dev: the voice-agent dev set; test:
-    the real voice-agent test set)."""
-    tone = [e for e in exs if R2_TAG not in e.sets]
+    the real voice-agent test set), and when the support-call set is read its own: emotion and sarcasm, on test also
+    sarcasm after a plain agent line, after news, and on the held domains. The support set's lines never join the
+    others' reads, so r2's rule chooses an epoch as it did."""
+    tone = [e for e in exs if R2_TAG not in e.sets and SUPPORT_TAG not in e.sets]
     base = eval_groups(tone, split)
     index = {id(e): i for i, e in enumerate(exs)}
     out = {k: [index[id(tone[i])] for i in v] for k, v in base.items()}
@@ -478,4 +507,20 @@ def eval_groups_r2(exs: list[Example], split: str) -> dict[str, list[int]]:
     out["voice_emotion"] = where(lambda e: e.emo >= 0 and not e.twin)
     out["voice_move"] = where(lambda e: e.move >= 0 and not e.twin)
     out["voice_sarcasm"] = where(lambda e: e.sarc >= 0 and not e.twin)
+
+    def support(cond):
+        return [i for i, e in enumerate(exs) if e.split == split and SUPPORT_TAG in e.sets and cond(e)]
+
+    plain = lambda e: any(s in e.slices for s in SUPPORT_PLAIN)  # noqa: E731
+    groups = {
+        "support_emotion": support(lambda e: e.emo >= 0),
+        "support_sarcasm": support(lambda e: e.sarc >= 0),
+    }
+    if split == "test":
+        groups["support_sarcasm_after_plain"] = support(lambda e: e.sarc >= 0 and plain(e))
+        groups["support_sarcasm_after_news"] = support(
+            lambda e: e.sarc >= 0 and not plain(e) and "reply_ordinary" not in e.slices
+        )
+        groups["support_sarcasm_held_domains"] = support(lambda e: e.sarc >= 0 and "held_domain" in e.slices)
+    out.update({k: v for k, v in groups.items() if v})
     return out

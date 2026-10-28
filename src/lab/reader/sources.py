@@ -124,6 +124,13 @@ VOICE_SETS = {
 }
 
 
+# r3: r2 with the support-call set (``lab.reader.support``), written for rc1's misread of a turn sarcastic on its own
+# words after a plain line and labelled under the Realtime Context Standard's perception; its own teachers.
+SUPPORT_ID = "tonetext-support-0.1"
+SUPPORT_SETS = {q: f"{SUPPORT_ID}-{q}" for q in ("committee", "sarcasm")}
+R3_SOFT_ID = "tonetext-r3-soft-0.1"
+
+
 def open_raw_key(source: str, name: str) -> str:
     return f"runs/tonetext/open-raw/{source}/{name}"
 
@@ -138,6 +145,10 @@ def tonetext_labels_key(set_id: str, name: str = "labelled.jsonl") -> str:
 
 def voice_key(name: str) -> str:
     return f"runs/tonetext/generated/{VOICE_ID}/{name}"
+
+
+def support_key(name: str) -> str:
+    return f"runs/tonetext/generated/{SUPPORT_ID}/{name}"
 
 
 def speech_key(name: str = "lines.jsonl") -> str:

@@ -1,0 +1,29 @@
+{
+ "set": "tonetext-support-0.1",
+ "try": 0,
+ "shard": 0,
+ "shards": 1,
+ "prompts": 70,
+ "with_a_moment": 68,
+ "turns_median": 17,
+ "problems": {},
+ "finish_reasons": {
+  "stop": 70
+ },
+ "tokens": {
+  "in": 51678,
+  "out": 32904
+ },
+ "seconds": {
+  "load": 361,
+  "generate": 43
+ },
+ "teacher": "Qwen/Qwen3.8-27B-FP8@017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+ "sampling": {
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "max_tokens": 1600,
+  "seed": 1601
+ },
+ "key": "runs/tonetext/generated/tonetext-support-0.1-raw/try0/calls-0.jsonl"
+}

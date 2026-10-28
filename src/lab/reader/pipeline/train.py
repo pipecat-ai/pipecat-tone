@@ -1,8 +1,9 @@
-"""The reader's students, MiniLM-L6 with every output at once, trained on r1's lines and labels or on r2's (Pipecat
-Tone rc1 is r2's seed 1).
+"""The reader's students, MiniLM-L6 with every output at once, trained on r1's lines and labels, on r2's (Pipecat
+Tone rc1 is r2's seed 1) or on r3's, r2's with the support-call set and r3's teachers.
 
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.train::smoke_r2
     MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.train::spawn_r2 --seed 1
+    MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.train::spawn_r2 --seed 1 --recipe r3
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.train::collect_r2 --runs tonetext-r2-student-minilm-l6-seed1
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.train::smoke
     MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.train::spawn_one --seed 0   # and 1, 2
@@ -183,11 +184,13 @@ def student_r2(
     speech: bool = True,
     tag: str = "",
     limit: int = 0,
+    recipe: str = "r2",
 ) -> dict:
     """r2's student on one H100: Tone's and r2's committee labels, the r2 teachers' labels on every training line, the
     open sets' draws and the speech twins (``data.build_r2``), the best epoch chosen by r2's rule (Tone's dev sets and
     the voice-agent dev set weigh the same), dev and test read with and without the line before. `exclude goemotions`
-    with the `nogo` teachers leaves that source out."""
+    with the `nogo` teachers leaves that source out. `recipe="r3"` adds the support-call set's committee labels and
+    reads r3's teachers' labels."""
     import time
 
     from lab.reader import model
@@ -195,14 +198,21 @@ def student_r2(
     storage.reload()
     t0 = time.time()
     names = tuple(t for t in (teachers or ",".join(sources.R2_TEACHERS)).split(",") if t)
-    sid = soft_id or sources.R2_SOFT_ID
+    sid = soft_id or data.r2_soft_id(recipe=recipe)
     missing = [t for t in names if not storage.exists(sources.r2_soft_key(t, sid))]
     if missing:
         raise SystemExit(
             f"the r2 teachers' labels are not there yet: {', '.join(missing)} (run teacher first)"
         )
     excluded = tuple(x for x in exclude.split(",") if x)
-    lines = data.build_r2(storage.jsonl, teachers=names, speech=speech, exclude_sources=excluded, soft_id=sid)
+    lines = data.build_r2(
+        storage.jsonl,
+        teachers=names,
+        speech=speech,
+        exclude_sources=excluded,
+        soft_id=sid,
+        support=recipe == "r3",
+    )
     summary = lines.summary()
     print(json.dumps(summary), flush=True)
     net, _, info, reads = model.fit(
@@ -233,15 +243,17 @@ def student_r2(
         "drop_previous": DROP_PREVIOUS,
         "limit": limit,
     }
-    rid = sources.run_id("r2", "student", ENCODER, seed, tag)
-    return write_run(rid, net, cfg, info, summary, reads, t0, recipe="r2")
+    rid = sources.run_id(recipe, "student", ENCODER, seed, tag)
+    return write_run(rid, net, cfg, info, summary, reads, t0, recipe=recipe)
 
 
 @app.local_entrypoint()
-def spawn_r2(seed: int, epochs: int = 15, exclude: str = "", soft_id: str = "", tag: str = ""):
-    """One r2 student, spawned and left running: launch with `modal run --detach`, one app per run."""
-    call = student_r2.spawn(seed, epochs=epochs, exclude=exclude, soft_id=soft_id, tag=tag)
-    print("spawned", sources.run_id("r2", "student", ENCODER, seed, tag), "call", call.object_id)
+def spawn_r2(
+    seed: int, epochs: int = 15, exclude: str = "", soft_id: str = "", tag: str = "", recipe: str = "r2"
+):
+    """One r2 (or r3) student, spawned and left running: launch with `modal run --detach`, one app per run."""
+    call = student_r2.spawn(seed, epochs=epochs, exclude=exclude, soft_id=soft_id, tag=tag, recipe=recipe)
+    print("spawned", sources.run_id(recipe, "student", ENCODER, seed, tag), "call", call.object_id)
 
 
 @app.local_entrypoint()

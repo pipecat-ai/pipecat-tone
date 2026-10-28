@@ -1,0 +1,19 @@
+{
+ "calls": [
+  "fc-01M61EDYZQ1F0MHVPPFSDY6ST4",
+  "fc-01M61EDZ4AB4H1Y1KNWMZ59ESZ",
+  "fc-01M61EDZA5ET761R9WQZ2RBYTE",
+  "fc-01M61EDZECJAHWW8RWX18PZC12"
+ ],
+ "set": "tonetext-support-0.1",
+ "try": 1,
+ "n_per_domain": 420,
+ "seed": 601,
+ "shards": 4,
+ "results": [
+  "runs/tonetext/generated/tonetext-support-0.1-raw/try1/result-0.json",
+  "runs/tonetext/generated/tonetext-support-0.1-raw/try1/result-1.json",
+  "runs/tonetext/generated/tonetext-support-0.1-raw/try1/result-2.json",
+  "runs/tonetext/generated/tonetext-support-0.1-raw/try1/result-3.json"
+ ]
+}

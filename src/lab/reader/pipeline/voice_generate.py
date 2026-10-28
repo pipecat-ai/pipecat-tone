@@ -12,8 +12,7 @@ import time
 from lab.reader import sources, storage, voice
 from lab.reader.app import DATA, VLLM, app, hf_cache, job, save
 
-TEACHER_REPO = "Qwen/Qwen3.8-27B-FP8"
-TEACHER_REVISION = "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
+TEACHER_REPO, TEACHER_REVISION = voice.TEACHER_REPO, voice.TEACHER_REVISION
 SAMPLING = {"temperature": 1.0, "top_p": 0.95, "max_tokens": 1400}
 N_PER_DOMAIN = 33  # prompts per domain: 429 conversations, 11 per seed, against 8, 8 and 7 taken
 PER_DOMAIN = 23  # conversations taken per domain: 299, three lines each

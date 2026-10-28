@@ -605,6 +605,25 @@ def test_rows(jsonl) -> dict:
     }
 
 
+def support_rows(jsonl) -> dict:
+    """r3's support-call set's test lines, each with the committee's labels (emotion and sarcasm), and every test
+    line's sarcasm as it was written to be ("sarcasm_built", from the set's meta)."""
+    rows = {
+        q: [r for r in jsonl(sources.tonetext_labels_key(sid)) if r["line"]["split"] == "test"]
+        for q, sid in (
+            ("emotion", sources.SUPPORT_SETS["committee"]),
+            ("sarcasm", sources.SUPPORT_SETS["sarcasm"]),
+        )
+    }
+    built = {m["line_id"]: m["sarcastic_by_construction"] for m in jsonl(sources.support_key("meta.jsonl"))}
+    rows["sarcasm_built"] = [
+        {**r, "sarcasm": {"label": built[r["line"]["line_id"]]}}
+        for r in rows["sarcasm"]
+        if built.get(r["line"]["line_id"]) is not None
+    ]
+    return rows
+
+
 # --- paired comparisons --------------------------------------------------------------------------------------------------
 
 

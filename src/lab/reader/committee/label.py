@@ -23,10 +23,10 @@ QUESTIONS = {"committee": act_emotion, "exchange": move, "sarcasm": sarcasm}
 BATCHED = ("committee", "exchange")
 
 
-def prepare(step: str, **keys) -> tuple[dict, dict]:
-    """For a labelling entrypoint: the system prompts, built here and passed to the jobs, and the run's meta: the
-    labellers' variable names, the prompts' sha256, the inputs' keys and the step."""
-    systems = {q: question.system_prompt() for q, question in QUESTIONS.items()}
+def prepare(step: str, questions: dict | None = None, **keys) -> tuple[dict, dict]:
+    """For a labelling entrypoint: the system prompts of `questions` (QUESTIONS by default), built here and passed to
+    the jobs, and the run's meta: the labellers' variable names, the prompts' sha256, the inputs' keys and the step."""
+    systems = {q: question.system_prompt() for q, question in (questions or QUESTIONS).items()}
     sha = {q: hashlib.sha256(s.encode()).hexdigest() for q, s in systems.items()}
     return systems, {"labellers": dict(MODEL_ENV), "system_prompt_sha256": sha, **keys, "step": step}
 
@@ -51,17 +51,28 @@ def load_lines(key: str, model) -> tuple[list, list]:
 # --- asking (paid) ---------------------------------------------------------------------------------------------------
 
 
-def ask_member(q: str, m: str, items: list, system: str, model: str, concurrency: int = CONCURRENCY) -> dict:
-    """One member's answers to question `q`, synchronously: {cid: (vote, error, usage, ...)}."""
-    question = QUESTIONS[q]
+def ask_member(
+    q: str,
+    m: str,
+    items: list,
+    system: str,
+    model: str,
+    concurrency: int = CONCURRENCY,
+    questions: dict | None = None,
+) -> dict:
+    """One member's answers to question `q` of `questions`, synchronously: {cid: (vote, error, usage, ...)}."""
+    question = (questions or QUESTIONS)[q]
     if m == "d":
         return clients.ask_d(items, partial(question.d_request, model=model), question.parse_d, concurrency)
     ask_one = clients.ask_a if m == "a" else clients.ask_b
     return ask_one(question.FORM, items, system, model, concurrency)
 
 
-def runners(systems: dict, models: dict, b_concurrency: int = CONCURRENCY) -> dict:
+def runners(
+    systems: dict, models: dict, b_concurrency: int = CONCURRENCY, questions: dict | None = None
+) -> dict:
     """Each (question, member)'s synchronous asking, items -> {cid: answer}."""
+    questions = questions or QUESTIONS
     return {
         (q, m): partial(
             ask_member,
@@ -70,48 +81,64 @@ def runners(systems: dict, models: dict, b_concurrency: int = CONCURRENCY) -> di
             system=systems[q],
             model=models[m],
             concurrency=b_concurrency if m == "b" else CONCURRENCY,
+            questions=questions,
         )
-        for q in QUESTIONS
+        for q in questions
         for m in MEMBERS
     }
 
 
 def ask(
-    q: str, items: list, system: str, models: dict, batches: dict | None = None, wait_s: float = 0.0
+    q: str,
+    items: list,
+    system: str,
+    models: dict,
+    batches: dict | None = None,
+    wait_s: float = 0.0,
+    questions: dict | None = None,
 ) -> tuple:
     """Every member's answers to question `q`: D synchronously; A and B from `batches` ({member: batch id}), each
     waited for `wait_s`, or synchronously; what a batch left unanswered asked synchronously once. Returns (answers, the
     lines filled synchronously, `batches`)."""
     batches = batches or {}
+    kw = {"questions": questions} if questions else {}
     with ThreadPoolExecutor(max_workers=len(MEMBERS)) as ex:
         futs = {}
         for m in MEMBERS:
             if m not in batches:
-                futs[m] = ex.submit(ask_member, q, m, items, system, models[m])
+                futs[m] = ex.submit(ask_member, q, m, items, system, models[m], **kw)
             elif isinstance(batches[m], str):
-                futs[m] = ex.submit(_collect, q, m, batches[m], items, wait_s)
+                futs[m] = ex.submit(_collect, q, m, batches[m], items, wait_s, **kw)
         res = {m: futs[m].result() if m in futs else {} for m in MEMBERS}
     filled = {}
     for m in MEMBERS:
         if m in batches:
             missing = [(cid, inp) for cid, inp in items if res[m].get(cid, (None,))[0] is None]
-            filled[m] = ask_member(q, m, missing, system, models[m]) if missing else {}
+            filled[m] = ask_member(q, m, missing, system, models[m], **kw) if missing else {}
             res[m].update(filled[m])
     return res, filled, batches
 
 
 def ask_all(
-    items: list, systems: dict, models: dict, batches: dict | None = None, wait_s: float = 0.0
+    items: list,
+    systems: dict,
+    models: dict,
+    batches: dict | None = None,
+    wait_s: float = 0.0,
+    questions: dict | None = None,
 ) -> dict:
-    """The three questions at once: {question: (answers, the lines filled synchronously, batch ids)}. `batches` holds
-    A and B's batches per question."""
-    batches = batches or {}
-    with ThreadPoolExecutor(max_workers=len(QUESTIONS)) as ex:
-        futs = {q: ex.submit(ask, q, items, systems[q], models, batches.get(q), wait_s) for q in QUESTIONS}
+    """Every question of `questions` (the three by default) at once: {question: (answers, the lines filled
+    synchronously, batch ids)}. `batches` holds A and B's batches per question."""
+    batches, questions = batches or {}, questions or QUESTIONS
+    with ThreadPoolExecutor(max_workers=len(questions)) as ex:
+        kw = {"questions": questions} if questions is not QUESTIONS else {}
+        futs = {
+            q: ex.submit(ask, q, items, systems[q], models, batches.get(q), wait_s, **kw) for q in questions
+        }
         return {q: f.result() for q, f in futs.items()}
 
 
-def answers(done: dict, from_batch: dict, batches: dict) -> dict:
+def answers(done: dict, from_batch: dict, batches: dict, questions: dict | None = None) -> dict:
     """{question: (answers, the lines filled synchronously, batch ids)} from the answers by (question, member) and
     those that came from batches."""
     return {
@@ -124,7 +151,7 @@ def answers(done: dict, from_batch: dict, batches: dict) -> dict:
             },
             batches.get(q, {}),
         )
-        for q in QUESTIONS
+        for q in (questions or QUESTIONS)
     }
 
 
@@ -351,13 +378,13 @@ def sarcasm_summary(
     return out
 
 
-def costs(answers: dict, batch: dict) -> dict:
-    """Dollars from usage per question and member, and their total: `batch` flags the members whose act and emotion
-    and move answers came by batch, at half price but on the lines filled synchronously."""
+def costs(answers: dict, batch: dict, batched: tuple[str, ...] = BATCHED) -> dict:
+    """Dollars from usage per question and member, and their total: `batch` flags the members whose answers to the
+    `batched` questions came by batch, at half price but on the lines filled synchronously."""
     out = {}
     for q, (res, filled, _) in answers.items():
-        out[q] = clients.cost_usd(res, batch if q in BATCHED else {}, filled)
-        if q in BATCHED:
+        out[q] = clients.cost_usd(res, batch if q in batched else {}, filled)
+        if q in batched:
             out[q]["filled_synchronously"] = {m: len(filled.get(m, {})) for m in ("a", "b")}
     total = sum(v for c in out.values() for m, v in c.items() if m in MEMBERS)
     return {**out, "total": round(total, 2)}
@@ -385,30 +412,32 @@ def write_sets(
     samples_key: str,
     samples_fn: Callable,
     summaries: dict | None = None,
+    batched: tuple[str, ...] = BATCHED,
 ) -> dict:
-    """The three label sets, their summaries and a sample of labelled lines (`samples_fn(lines, act rows, move rows,
-    sarcasm rows)`, at `samples_key`), from `answers` as `ask_all` gives them; `batch` as `costs` reads it. `summaries`
-    maps each question to its summary function (committee: rows; exchange: rows, votes; sarcasm: rows), the voice-agent
-    set's by default. Returns the combined summary, which holds no line text."""
+    """The label sets `set_ids` names (committee and sarcasm, and the move's when it names one), their summaries and a
+    sample of labelled lines (`samples_fn(lines, act rows, move rows or None, sarcasm rows)`, at `samples_key`), from
+    `answers` as `ask_all` gives them; `batch` and `batched` as `costs` reads them. `summaries` maps each question to its
+    summary function (committee: rows; exchange: rows, votes; sarcasm: rows), the voice-agent set's by default. Returns
+    the combined summary, which holds no line text."""
     fns = summaries or SUMMARIES
     key = sources.tonetext_labels_key
     act_votes, act_l, act_err = act_emotion_rows(lines, items, answers["committee"][0])
-    xch_votes, xch_l, xch_err = exchange_rows(lines, items, answers["exchange"][0])
     sar_l, sar_err = sarcasm_rows(lines, items, answers["sarcasm"][0])
     storage.put_jsonl(key(set_ids["committee"], "votes.jsonl"), act_votes)
     storage.put_jsonl(key(set_ids["committee"]), act_l)
-    storage.put_jsonl(key(set_ids["exchange"], "votes.jsonl"), xch_votes)
-    storage.put_jsonl(key(set_ids["exchange"]), xch_l)
+    found = {"committee": (act_err, guarded(fns["committee"], act_l))}
+    xch_l = None
+    if "exchange" in set_ids:
+        xch_votes, xch_l, xch_err = exchange_rows(lines, items, answers["exchange"][0])
+        storage.put_jsonl(key(set_ids["exchange"], "votes.jsonl"), xch_votes)
+        storage.put_jsonl(key(set_ids["exchange"]), xch_l)
+        found["exchange"] = (xch_err, guarded(fns["exchange"], xch_l, xch_votes))
     storage.put_jsonl(key(set_ids["sarcasm"]), sar_l)
-    cost = costs(answers, batch)
-    found = {
-        "committee": (act_err, guarded(fns["committee"], act_l)),
-        "exchange": (xch_err, guarded(fns["exchange"], xch_l, xch_votes)),
-        "sarcasm": (sar_err, guarded(fns["sarcasm"], sar_l)),
-    }
+    found["sarcasm"] = (sar_err, guarded(fns["sarcasm"], sar_l))
+    cost = costs(answers, batch, batched)
     summ = {}
     for q, (errors, summary) in found.items():
-        batches = {"batches": answers[q][2]} if q in BATCHED else {}
+        batches = {"batches": answers[q][2]} if q in batched else {}
         summ[q] = {
             "label_id": set_ids[q],
             "key": key(set_ids[q]),
@@ -438,16 +467,20 @@ def _chunks(items: list, size: int | None) -> list[list]:
     return [items[i : i + size] for i in range(0, len(items), size)]
 
 
-def _submit(q: str, m: str, items: list, system: str, model: str, label: str) -> str:
-    form = QUESTIONS[q].FORM
+def _submit(
+    q: str, m: str, items: list, system: str, model: str, label: str, questions: dict | None = None
+) -> str:
+    form = (questions or QUESTIONS)[q].FORM
     if m == "a":
         return clients.submit_a(form, items, system, model, label)
     return clients.submit_b(form, items, system, model)
 
 
-def _collect(q: str, m: str, batch_id: str, items: list, wait_s: float) -> dict:
+def _collect(
+    q: str, m: str, batch_id: str, items: list, wait_s: float, questions: dict | None = None
+) -> dict:
     collect_one = clients.collect_a if m == "a" else clients.collect_b
-    return collect_one(QUESTIONS[q].FORM, batch_id, items, wait_s)
+    return collect_one((questions or QUESTIONS)[q].FORM, batch_id, items, wait_s)
 
 
 def retry(fn, *args, tries: int = 5):
@@ -463,10 +496,13 @@ def retry(fn, *args, tries: int = 5):
 
 class Work:
     """Checkpoints under one work set id, so a restarted job keeps what it asked and sent: each (question, member)'s
-    answers as <question>-<member>.json, {cid: [vote, error, usage, ...]}, and its batches as batches.json."""
+    answers as <question>-<member>.json, {cid: [vote, error, usage, ...]}, and its batches as batches.json. The
+    questions are QUESTIONS and those sent by batch BATCHED, unless given."""
 
-    def __init__(self, set_id: str):
+    def __init__(self, set_id: str, questions: dict | None = None, batched: tuple[str, ...] = BATCHED):
         self.set_id = set_id
+        self.questions = questions or QUESTIONS
+        self.batched = batched
 
     def _key(self, name: str) -> str:
         return sources.tonetext_labels_key(self.set_id, f"{name}.json")
@@ -513,22 +549,23 @@ class Work:
         set_ids: dict,
         chunk: int | None = None,
     ) -> dict:
-        """The batches for act and emotion and the move from each of `members`, `chunk` lines each (every line when
-        None), each id saved the moment the batch exists, so a restarted call reads them and never pays twice. A batch
-        that couldn't be made is saved as its error kind and never retried blind: a retry could make a second batch.
-        Returns {member: {question: [id or {"error": kind}]}, "deadline": first sent + `wait_s`, "chunk": `chunk`}."""
+        """The batches for the batched questions (act and emotion and the move by default) from each of `members`,
+        `chunk` lines each (every line when None), each id saved the moment the batch exists, so a restarted call reads
+        them and never pays twice. A batch that couldn't be made is saved as its error kind and never retried blind: a
+        retry could make a second batch. Returns {member: {question: [id or {"error": kind}]}, "deadline": first sent
+        + `wait_s`, "chunk": `chunk`}."""
         key = self._key("batches")
         if storage.exists(key):
             sent = json.loads(storage.get(key))
         else:
-            sent = {**{m: {q: [] for q in BATCHED} for m in members}, "deadline": None, "chunk": chunk}
+            sent = {**{m: {q: [] for q in self.batched} for m in members}, "deadline": None, "chunk": chunk}
         chunks = _chunks(items, sent["chunk"])
         for m in members:
-            for q in BATCHED:
+            for q in self.batched:
                 for k in range(len(sent[m][q]), len(chunks)):
                     label = set_ids[q] if sent["chunk"] is None else f"{set_ids[q]}-{k}"
                     try:
-                        bid = _submit(q, m, chunks[k], systems[q], models[m], label)
+                        bid = _submit(q, m, chunks[k], systems[q], models[m], label, self.questions)
                     except Exception as exc:
                         bid = {"error": clients.error_kind(exc)}
                     sent[m][q].append(bid)
@@ -541,7 +578,7 @@ class Work:
         """What the batches `send_once` sent finished, each waited for until the deadline, then cancelled and kept as
         it is: {(question, member): the lines answered}, each saved as <question>-<member>-batch.json to read later."""
         chunks = _chunks(items, sent["chunk"])
-        keys = [(q, m) for m in MEMBERS if m in sent for q in BATCHED]
+        keys = [(q, m) for m in MEMBERS if m in sent for q in self.batched]
 
         def left() -> float:
             return max(0.0, sent["deadline"] - time.time())
@@ -551,7 +588,7 @@ class Work:
             out = {}
             for bid, xs in zip(sent[m][q], chunks):
                 if isinstance(bid, str):
-                    got = retry(lambda: _collect(q, m, bid, xs, left()))
+                    got = retry(lambda: _collect(q, m, bid, xs, left(), self.questions))
                     out.update({cid: r for cid, r in got.items() if r[0] is not None})
             self.save(q, f"{m}-batch", out)
             return out

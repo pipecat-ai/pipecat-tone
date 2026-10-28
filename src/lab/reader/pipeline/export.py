@@ -87,7 +87,8 @@ def export(
     sarcasm_cap: float = 0.02,
 ) -> dict:
     """`recipe="r2"`: the calibration is fitted on Tone's dev lines and the voice-agent dev set together; r2 takes a
-    `sarcasm_cap` of 0.015, a margin under the 2% the scorecard asks of test."""
+    `sarcasm_cap` of 0.015, a margin under the 2% the scorecard asks of test. `recipe="r3"` is calibrated on the same
+    lines, without the support-call set's, so r3 and rc1 are calibrated alike."""
     import hashlib
     import io
     import os
@@ -111,7 +112,7 @@ def export(
     model.load_state_dict(state, strict=True)
     model.eval()
     tok = AutoTokenizer.from_pretrained(cfg["repo"], revision=cfg["revision"])
-    if recipe == "r2":
+    if recipe in ("r2", "r3"):
         lines = data.build_r2(storage.jsonl, pools=False)
         dev, test = lines.split("dev"), lines.split("test")
         g2 = data.eval_groups_r2(dev, "dev")
@@ -169,7 +170,7 @@ def export(
         "calibration": {"emotion_temperature": t_emo, "move_temperature": t_move, "sarcasm": curve},
         "calibration_note": (
             "Fitted on the dev lines as given"
-            + (", Tone's and the voice-agent set's" if recipe == "r2" else "")
+            + (", Tone's and the voice-agent set's" if recipe in ("r2", "r3") else "")
             + ": one temperature per multi-class output by log loss, so the top probability is the "
             "chance the label is right; sarcasm, a Platt curve on the raw probability"
         ),

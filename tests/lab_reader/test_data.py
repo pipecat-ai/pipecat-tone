@@ -337,3 +337,63 @@ def test_r2_lines_to_label():
         and "v1" not in ids
     )
     assert {f"n{i}" for i in range(5)} <= ids and "nd" not in ids
+
+
+# --- r3 ------------------------------------------------------------------------------------------------------------------
+
+
+def r3_store():
+    store = r2_store()
+    rows = [
+        (line("s1", source="generated", slices=("support", "moment_status")), True),
+        (line("s2", source="generated", slices=("support", "moment_status")), False),
+        (line("s3", "dev", source="generated", slices=("support", "moment_question")), True),
+        (line("s4", "test", source="generated", slices=("support", "moment_status", "held_domain")), True),
+        (line("s5", "test", source="generated", slices=("support", "moment_bad_news")), False),
+    ]
+    store[sources.tonetext_labels_key(sources.SUPPORT_SETS["committee"])] = [
+        {"line": ln, "emotion": {"label": "angry", "intensity": "medium"}, "backchannel": {"label": "false"}}
+        for ln, _ in rows
+    ]
+    store[sources.tonetext_labels_key(sources.SUPPORT_SETS["sarcasm"])] = [
+        {"line": ln, "sarcasm": {"label": s, "agree": 2}} for ln, s in rows
+    ]
+    soft = {"emo": [1 / 9] * 9, "emo_int": [1 / 3] * 3, "back": 0.2, "move": [1 / 7] * 7, "sarc": 0.1}
+    for t in ("t0", "t1"):
+        r2 = store[sources.r2_soft_key(t)]
+        store[sources.r2_soft_key(t, data.r2_soft_id(recipe="r3"))] = r2 + [
+            {"line_id": i, **soft} for i in ("s1", "s2")
+        ]
+    return store
+
+
+def test_r3_adds_the_support_set_as_committee_lines_with_the_teachers_move():
+    assert data.r2_soft_id(recipe="r3") == sources.R3_SOFT_ID
+    lines = data.build_r2(
+        fake_jsonl(r3_store()), teachers=("t0", "t1"), soft_id=data.r2_soft_id(recipe="r3"), support=True
+    )
+    s1 = lines.by_id["s1"]
+    assert data.SUPPORT_TAG in s1.sets and s1.sarc == 1 and s1.sarc_w == 0.6667
+    assert s1.emo == data.EMOTION_INDEX["angry"] and s1.s_emo is None and s1.s_sarc is None
+    assert s1.s_move == pytest.approx([1 / 7] * 7)  # the move is the teachers'
+    assert lines.counts["support_new_lines"] == 5
+    assert "s1" not in data.build_r2(fake_jsonl(r3_store()), teachers=("t0", "t1")).by_id  # r2 never reads it
+
+
+def test_r3_support_lines_keep_out_of_r2s_reads_and_have_their_own():
+    lines = data.build_r2(fake_jsonl(r3_store()), pools=False, support=True)
+    dev, test = lines.split("dev"), lines.split("test")
+    d = {k: {dev[i].line_id for i in v} for k, v in data.eval_groups_r2(dev, "dev").items()}
+    assert d["support_emotion"] == d["support_sarcasm"] == {"s3"}
+    assert "s3" not in d["emotion"] | d["sarcasm"] | d["voice_emotion"]
+    t = {k: {test[i].line_id for i in v} for k, v in data.eval_groups_r2(test, "test").items()}
+    assert t["support_sarcasm_after_plain"] == {"s4"} and t["support_sarcasm_after_news"] == {"s5"}
+    assert t["support_sarcasm_held_domains"] == {"s4"}
+    assert not ({"s4", "s5"} & (t["sarcasm_hard"] | t["sarcasm_natural"] | t["emotion_main"]))
+
+
+def test_r3_teachers_label_the_support_sets_training_lines_once():
+    out = data.r2_lines_to_label(fake_jsonl(r3_store()), support=True)
+    ids = [ln["line_id"] for ln in out]
+    assert {"s1", "s2"} <= set(ids) and not {"s3", "s4", "s5"} & set(ids) and len(ids) == len(set(ids))
+    assert "s1" not in {ln["line_id"] for ln in data.r2_lines_to_label(fake_jsonl(r3_store()))}

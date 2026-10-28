@@ -18,13 +18,41 @@ TONE_ITEMS = (
     "move_asks_or_not",
     "sarcasm_held_out_f1",
 )
+# The support-call set's moments whose agent line carries no news, as its lines' slices name them.
+PLAIN = ("moment_status", "moment_question", "moment_procedure", "moment_kind")
+
+
+def probe_reads(ref, var) -> dict:
+    """The cases that showed rc1's misread (``support.PROBES``), read by both as they stand: each side's two likeliest
+    emotions, its sarcasm probability and call, and whether the call is the one the case should get. Keyed by case id,
+    without the lines' text."""
+    from lab.reader.support import PROBES
+
+    def read(model, text, previous):
+        t = model.tag(text, previous)
+        top = sorted(t["emotion"]["probabilities"].items(), key=lambda p: -p[1])[:2]
+        return {
+            "emotion": [[k, round(v, 2)] for k, v in top],
+            "sarcasm": round(t["sarcasm"]["probability"], 2),
+            "sarcastic": bool(t["sarcasm"]["sarcastic"]),
+        }
+
+    out = {}
+    for pid, text, previous, want in PROBES:
+        sides = {"ref": read(ref, text, previous), "var": read(var, text, previous)}
+        for v in sides.values():
+            v["right"] = v["sarcastic"] == (want == "sarcastic")
+        out[pid] = {"should_read": want, "with_line_before": previous is not None, **sides}
+    out["_right"] = {side: sum(v[side]["right"] for v in out.values()) for side in ("ref", "var")}
+    out["_cases"] = len(PROBES)
+    return out
 
 
 @job(TORCH, cpu=8.0, memory=16384, timeout=3 * 3600)
 def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: str = "export") -> dict:
     import time
 
-    from lab.reader import runtime, scoring
+    from lab.reader import runtime, scoring, sources
     from lab.reader.committee.label import speaker_role
 
     storage.reload()
@@ -51,6 +79,14 @@ def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: 
         and (r["line"]["line_id"] in sarc_ids or "sarcasm" in (r["line"].get("slices") or []))
     ]
     sarcastic_voice = [r for r in voice["emotion"] if r["line"]["line_id"] in voice_sarc_ids]
+    support = None
+    if storage.exists(sources.tonetext_labels_key(sources.SUPPORT_SETS["sarcasm"])):
+        support = scoring.support_rows(storage.jsonl)
+        support_sarc_ids = {r["line"]["line_id"] for r in support["sarcasm"] if is_sarc(r)}
+        sarcastic_support = [r for r in support["emotion"] if r["line"]["line_id"] in support_sarc_ids]
+    plain = lambda r: any(x in (r["line"].get("slices") or []) for x in PLAIN)  # noqa: E731
+    held = lambda r: "held_domain" in (r["line"].get("slices") or [])  # noqa: E731
+    moment = lambda r: "reply_ordinary" not in (r["line"].get("slices") or [])  # noqa: E731
 
     keep_cfg = ("run_id", "sarcasm_tau_raw", "sarcasm_tau_rule", "calibration")
     out = {
@@ -88,7 +124,19 @@ def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: 
         )
         c.sarcasm("sarcasm_voice", voice["sarcasm"], True, True)
         c.sarcasm("sarcasm_voice_real", real["sarcasm"], True, True)
-        for name, sarcastic in (("sarcastic_tone", sarcastic_tone), ("sarcastic_voice", sarcastic_voice)):
+        sarcastic_sets = [("sarcastic_tone", sarcastic_tone), ("sarcastic_voice", sarcastic_voice)]
+        if support:
+            sr, built = support["sarcasm"], support["sarcasm_built"]
+            c.emotion("emotion_support", support["emotion"])
+            c.sarcasm("sarcasm_support", sr, True, True)
+            c.sarcasm("sarcasm_support_after_plain", [r for r in sr if plain(r)], True, True)
+            c.sarcasm("sarcasm_support_after_news", [r for r in sr if moment(r) and not plain(r)], True, True)
+            c.sarcasm("sarcasm_support_held_domains", [r for r in sr if held(r)], True, True)
+            c.sarcasm("sarcasm_support_built", built, True, True)
+            c.sarcasm("sarcasm_support_built_after_plain", [r for r in built if plain(r)], True, True)
+            c.sarcasm("sarcasm_support_built_after_news", [r for r in built if not plain(r)], True, True)
+            sarcastic_sets.append(("sarcastic_support", sarcastic_support))
+        for name, sarcastic in sarcastic_sets:
             sarcastic = [r for r in sarcastic if (r.get("emotion") or {}).get("label")]
             if not sarcastic:
                 continue
@@ -108,6 +156,7 @@ def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: 
             "false_sarcasm_or_face_value_rises": c.rises(),
             "tone_items_worse": [k for k in worse if k in TONE_ITEMS],
         }
+    out["probes"] = probe_reads(ref, var)
     out["lines_tagged"] = len(paired.tagged)
     out["seconds"] = round(time.time() - t0)
     return out
@@ -127,4 +176,9 @@ def main(var: str, ref: str, var_prefix: str = "export", ref_prefix: str = "expo
                 f"  {k}: {v['ref']} -> {v['var']} ({v['diff']:+}, {v['ci'][0]:+} to {v['ci'][1]:+}, "
                 f"{v.get('lines', v.get('units'))} lines)"
             )
+    probes = res["probes"]
+    print(f"probes right: ref {probes['_right']['ref']}, var {probes['_right']['var']} of {probes['_cases']}")
+    for pid, v in probes.items():
+        if not pid.startswith("_"):
+            print(f"  {pid} (should read {v['should_read']}): ref {v['ref']}, var {v['var']}")
     print(f"{res['lines_tagged']} inputs tagged, {res['seconds']} s; wrote", path.relative_to(ROOT))

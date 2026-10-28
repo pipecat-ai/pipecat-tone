@@ -17,6 +17,9 @@ from lab.reader.schemas import MAX_PREVIOUS, MAX_TEXT, PLAYER, LineId, LineInput
 
 SOURCE = "generated"
 LICENCE = "ours (teacher Qwen3.8-27B)"
+# The teacher that writes the generated sets, pinned.
+TEACHER_REPO = "Qwen/Qwen3.8-27B-FP8"
+TEACHER_REVISION = "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a"
 MAX_WORDS = 30
 URL = re.compile(r"https?://|www\.|\.com\b", re.I)
 
