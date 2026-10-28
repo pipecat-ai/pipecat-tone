@@ -1,0 +1,343 @@
+{
+ "labellers": {
+  "a": "LABELLER_A_MODEL",
+  "b": "LABELLER_B_MODEL",
+  "d": "LABELLER_D_MODEL"
+ },
+ "system_prompt_sha256": {
+  "committee": "fa4eff25754eb682a7338e3dce3250a837afb0072f15d491332d17fabac77aa3",
+  "sarcasm": "e50a7d3d38932a702bbb377ce43276a6fbb23ddfef61e35ad0d60fcc19d2e7e6"
+ },
+ "lines_key": "runs/tonetext/generated/tonetext-support-0.1/lines.jsonl",
+ "step": "label",
+ "seconds": 5592,
+ "answers_from_a_batches": {
+  "committee": 30000,
+  "sarcasm": 30000
+ },
+ "retried": {},
+ "a_batches": {
+  "committee": [
+   "batch_6ae2157a01e88190a51f96a86f17569f",
+   "batch_6ae2157effcc819084b358d8d8992299",
+   "batch_6ae21584709c819093cc117727228367",
+   "batch_6ae2158b1ae88190bafdac857873708c",
+   "batch_6ae2159091cc8190a39c33601541ecc0",
+   "batch_6ae21595bd0c81908e2277ce0a37e3eb",
+   "batch_6ae2159aae2c8190bca8af8f48ae3244",
+   "batch_6ae215a00c988190aef4abcd2366242d",
+   "batch_6ae215a4e07c8190b5c4d7008d293711",
+   "batch_6ae215aa3ac48190a9403475eff3c363"
+  ],
+  "sarcasm": [
+   "batch_6ae215add6ac819093932695f3240bde",
+   "batch_6ae215b2edf881909778bbfb5daf6114",
+   "batch_6ae215b6ce488190990ac060242cb0f9",
+   "batch_6ae215ba492081909fc44c8d3d6be1dc",
+   "batch_6ae215be1c0c8190bd7fa162faaff2b7",
+   "batch_6ae215c11dec81908dcf552cdc3f5b79",
+   "batch_6ae215c51d9c81908f05caab06128e14",
+   "batch_6ae215c8865c8190b72a4940152eabba",
+   "batch_6ae215cc51f88190b3bd4d5841a637c5",
+   "batch_6ae215d01aa08190aec1f79c792a1e4d"
+  ]
+ },
+ "lines": 30000,
+ "cost_usd_total": 288.47,
+ "committee": {
+  "label_id": "tonetext-support-0.1-committee",
+  "key": "runs/tonetext/labels/tonetext-support-0.1-committee/labelled.jsonl",
+  "errors": {},
+  "batches": {
+   "a": [
+    "batch_6ae2157a01e88190a51f96a86f17569f",
+    "batch_6ae2157effcc819084b358d8d8992299",
+    "batch_6ae21584709c819093cc117727228367",
+    "batch_6ae2158b1ae88190bafdac857873708c",
+    "batch_6ae2159091cc8190a39c33601541ecc0",
+    "batch_6ae21595bd0c81908e2277ce0a37e3eb",
+    "batch_6ae2159aae2c8190bca8af8f48ae3244",
+    "batch_6ae215a00c988190aef4abcd2366242d",
+    "batch_6ae215a4e07c8190b5c4d7008d293711",
+    "batch_6ae215aa3ac48190a9403475eff3c363"
+   ],
+   "b": "synchronous"
+  },
+  "cost_usd": {
+   "a": 106.0144,
+   "b": 76.8674,
+   "d": 4.0497,
+   "filled_synchronously": {
+    "a": 0,
+    "b": 0
+   }
+  },
+  "lines": 30000,
+  "coverage": {
+   "emotion_majority": 29577,
+   "emotion_unanimous": 22268,
+   "complete_lines": 29113,
+   "act_majority": 29487,
+   "backchannel_majority": 30000
+  },
+  "emotion": {
+   "angry": 13540,
+   "neutral": 6313,
+   "happy": 5493,
+   "contemptuous": 2068,
+   "afraid": 1099,
+   "sad": 533,
+   "(no majority)": 423,
+   "amused": 283,
+   "surprised": 248
+  },
+  "emotion_by_role": {
+   "user": {
+    "angry": 13540,
+    "neutral": 6313,
+    "happy": 5493,
+    "contemptuous": 2068,
+    "afraid": 1099,
+    "sad": 533,
+    "(no majority)": 423,
+    "amused": 283,
+    "surprised": 248
+   },
+   "agent": {}
+  },
+  "intensity": {
+   "medium": 17695,
+   "low": 11798,
+   "high": 84
+  },
+  "backchannel_true": 6,
+  "acts": {
+   "none": 18072,
+   "thanks": 5316,
+   "insult": 2714,
+   "demand": 1027,
+   "request": 793,
+   "accusation": 698,
+   "(no majority)": 513,
+   "refusal": 387,
+   "praise": 283,
+   "apology": 130,
+   "dismiss": 46,
+   "threat": 18,
+   "comfort": 1,
+   "tease": 1,
+   "warning": 1
+  },
+  "a_b": {
+   "emotion_all_lines": {
+    "lines": 30000,
+    "macro_f1": 0.7023,
+    "agree": 0.8885,
+    "kappa": 0.8458
+   },
+   "emotion_majority_lines": {
+    "lines": 29577,
+    "macro_f1": 0.7296,
+    "agree": 0.9012,
+    "kappa": 0.8628
+   },
+   "emotion_user_lines": {
+    "lines": 30000,
+    "macro_f1": 0.7023,
+    "agree": 0.8885,
+    "kappa": 0.8458
+   },
+   "emotion_agent_lines": {
+    "lines": 0,
+    "macro_f1": 0.0,
+    "agree": 0.0,
+    "kappa": 0.0
+   },
+   "act_all_lines": {
+    "lines": 30000,
+    "macro_f1": 0.6217,
+    "agree": 0.8944,
+    "kappa": 0.8299
+   },
+   "definition": "labellers A and B macro-F1 against each other, both directions averaged"
+  },
+  "member_answered": {
+   "a": 30000,
+   "b": 30000,
+   "d": 30000
+  }
+ },
+ "sarcasm": {
+  "label_id": "tonetext-support-0.1-sarcasm",
+  "key": "runs/tonetext/labels/tonetext-support-0.1-sarcasm/labelled.jsonl",
+  "errors": {},
+  "batches": {
+   "a": [
+    "batch_6ae215add6ac819093932695f3240bde",
+    "batch_6ae215b2edf881909778bbfb5daf6114",
+    "batch_6ae215b6ce488190990ac060242cb0f9",
+    "batch_6ae215ba492081909fc44c8d3d6be1dc",
+    "batch_6ae215be1c0c8190bd7fa162faaff2b7",
+    "batch_6ae215c11dec81908dcf552cdc3f5b79",
+    "batch_6ae215c51d9c81908f05caab06128e14",
+    "batch_6ae215c8865c8190b72a4940152eabba",
+    "batch_6ae215cc51f88190b3bd4d5841a637c5",
+    "batch_6ae215d01aa08190aec1f79c792a1e4d"
+   ],
+   "b": "synchronous"
+  },
+  "cost_usd": {
+   "a": 56.7297,
+   "b": 43.4852,
+   "d": 1.3197,
+   "filled_synchronously": {
+    "a": 0,
+    "b": 0
+   }
+  },
+  "lines": 30000,
+  "majority": {
+   "True": 11734,
+   "False": 18266
+  },
+  "sarcastic_by_role": {
+   "user": 11734,
+   "agent": 0
+  },
+  "sarcasm_seed_lines": {
+   "lines": 12023,
+   "True": 11330,
+   "False": 693
+  },
+  "lookalike_seed_lines": {
+   "lines": 12022,
+   "False": 11894,
+   "True": 128
+  },
+  "other_lines_sarcastic": 276,
+  "a_b": {
+   "committee_level": {
+    "lines": 30000,
+    "f1_a_as_gold": 0.9756,
+    "f1_b_as_gold": 0.9756,
+    "f1": 0.9756,
+    "agreement": 0.9812
+   },
+   "all_lines": {
+    "lines": 30000,
+    "f1": 0.9756
+   },
+   "user_lines": {
+    "lines": 30000,
+    "f1_a_as_gold": 0.9756,
+    "f1_b_as_gold": 0.9756,
+    "f1": 0.9756,
+    "agreement": 0.9812
+   },
+   "definition": "labellers A and B, F1 of the sarcastic class with each as gold, averaged, on the lines with a majority"
+  },
+  "member_answered": {
+   "a": 30000,
+   "b": 30000,
+   "d": 30000
+  },
+  "by_construction": {
+   "_all": {
+    "agree": 23224,
+    "disagree": 821
+   },
+   "support:bad_news:sarcastic_news": {
+    "sarcastic": 1051,
+    "sincere": 24
+   },
+   "support:bad_news:sarcastic_own": {
+    "sarcastic": 1121,
+    "sincere": 7
+   },
+   "support:bad_news:sincere_accepting": {
+    "sincere": 1090,
+    "sarcastic": 12
+   },
+   "support:bad_news:sincere_negative": {
+    "sincere": 1092,
+    "sarcastic": 9
+   },
+   "support:good_news:sarcastic_own": {
+    "sarcastic": 1210,
+    "sincere": 157
+   },
+   "support:good_news:sincere_pleased": {
+    "sincere": 1348,
+    "sarcastic": 19
+   },
+   "support:kind:sarcastic_own": {
+    "sarcastic": 1608,
+    "sincere": 182
+   },
+   "support:kind:sincere_accepting": {
+    "sincere": 579,
+    "sarcastic": 8
+   },
+   "support:kind:sincere_negative": {
+    "sincere": 635,
+    "sarcastic": 10
+   },
+   "support:kind:sincere_pleased": {
+    "sincere": 557,
+    "sarcastic": 1
+   },
+   "support:ordinary": {
+    "sincere": 5679,
+    "sarcastic": 276
+   },
+   "support:procedure:sarcastic_own": {
+    "sarcastic": 1196,
+    "sincere": 36
+   },
+   "support:procedure:sincere_accepting": {
+    "sincere": 431
+   },
+   "support:procedure:sincere_negative": {
+    "sincere": 410,
+    "sarcastic": 6
+   },
+   "support:procedure:sincere_pleased": {
+    "sincere": 384,
+    "sarcastic": 1
+   },
+   "support:question:sarcastic_own": {
+    "sarcastic": 1651,
+    "sincere": 127
+   },
+   "support:question:sincere_accepting": {
+    "sincere": 612,
+    "sarcastic": 6
+   },
+   "support:question:sincere_negative": {
+    "sincere": 622,
+    "sarcastic": 3
+   },
+   "support:question:sincere_pleased": {
+    "sincere": 532,
+    "sarcastic": 2
+   },
+   "support:status:sarcastic_own": {
+    "sarcastic": 3493,
+    "sincere": 160
+   },
+   "support:status:sincere_accepting": {
+    "sincere": 1209,
+    "sarcastic": 15
+   },
+   "support:status:sincere_negative": {
+    "sincere": 1250,
+    "sarcastic": 6
+   },
+   "support:status:sincere_pleased": {
+    "sincere": 1143,
+    "sarcastic": 30
+   }
+  }
+ },
+ "samples_key": "runs/tonetext/labels/tonetext-support-0.1-committee/samples.json"
+}

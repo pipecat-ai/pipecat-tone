@@ -1,0 +1,60 @@
+{
+ "generate": {
+  "at_seconds": 0,
+  "shards": 4
+ },
+ "select": {
+  "at_seconds": 48,
+  "lines": 30000,
+  "by_split": {
+   "dev": 1541,
+   "test": 3752,
+   "train": 24707
+  },
+  "calls": 12023,
+  "dropped": {
+   "repeat": 148,
+   "in_an_evaluation_set": 409
+  },
+  "sha256": "f7cd5efe987b55948595278f6b7a4878883e886dd8c07fd32e20f4ae0ed7018f"
+ },
+ "pilot": {
+  "at_seconds": 93,
+  "lines": 69,
+  "cost_usd": 1.06,
+  "gate": {
+   "pass": true,
+   "errors_per_answer": {
+    "committee": 0.0,
+    "sarcasm": 0.0
+   },
+   "a_b_sarcasm_agreement": 1.0,
+   "by_construction_agreement": 0.9848,
+   "thresholds": {
+    "errors_per_answer": 0.05,
+    "a_b_sarcasm_agreement": 0.7,
+    "by_construction_agreement": 0.7
+   }
+  }
+ },
+ "label": {
+  "at_seconds": 5714,
+  "lines": 30000,
+  "cost_usd": 288.47,
+  "sarcasm_majority": {
+   "True": 11734,
+   "False": 18266
+  },
+  "a_b_sarcasm": {
+   "lines": 30000,
+   "f1_a_as_gold": 0.9756,
+   "f1_b_as_gold": 0.9756,
+   "f1": 0.9756,
+   "agreement": 0.9812
+  },
+  "by_construction": {
+   "agree": 23224,
+   "disagree": 821
+  }
+ }
+}
