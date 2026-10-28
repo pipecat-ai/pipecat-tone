@@ -397,3 +397,18 @@ def test_r3_teachers_label_the_support_sets_training_lines_once():
     ids = [ln["line_id"] for ln in out]
     assert {"s1", "s2"} <= set(ids) and not {"s3", "s4", "s5"} & set(ids) and len(ids) == len(set(ids))
     assert "s1" not in {ln["line_id"] for ln in data.r2_lines_to_label(fake_jsonl(r3_store()))}
+
+
+def test_a_student_without_the_move_is_chosen_on_emotion_and_sarcasm():
+    from lab.reader import model
+
+    r = {
+        "emotion": {"macro_f1": 0.6},
+        "move": {"macro_f1": 0.0},
+        "sarcasm": {"f1": 0.8},
+        "voice_emotion": {"macro_f1_30": 0.5},
+        "voice_move": {"macro_f1_30": 0.0},
+    }
+    assert model.selection_score_r2_without_move(r) == round(((0.6 + 0.8) / 2 + 0.5) / 2, 4)
+    assert model.selection_score_r2(r) < model.selection_score_r2_without_move(r)
+    assert model.selection_score_r2_without_move({k: r[k] for k in ("emotion", "sarcasm")}) == 0.7

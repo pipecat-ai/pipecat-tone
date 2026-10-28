@@ -28,7 +28,7 @@ STAGES = {
     "r2_label": (["label_all", "label_pilot"], ["collect", "label", "pilot"]),
     "support_generate": (["select_lines", "write_calls"], ["generate", "select", "status", "trial"]),
     "support_label": (["label_all", "label_pilot"], ["collect", "label", "pilot"]),
-    "r3_chain": (["chain"], ["fetch", "run"]),
+    "r3_chain": (["chain", "no_move_arm"], ["fetch", "no_move", "run"]),
     "sarcasm_teacher": (["teacher"], ["collect", "spawn_one"]),
     "teacher": (["teacher"], ["collect", "smoke", "spawn_one"]),
     "train": (

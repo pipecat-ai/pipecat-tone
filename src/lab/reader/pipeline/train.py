@@ -4,6 +4,7 @@ Tone rc1 is r2's seed 1) or on r3's, r2's with the support-call set and r3's tea
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.train::smoke_r2
     MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.train::spawn_r2 --seed 1
     MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.train::spawn_r2 --seed 1 --recipe r3
+    MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.train::spawn_r2 --seed 1 --recipe r3 --no-move --tag nomove
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.train::collect_r2 --runs tonetext-r2-student-minilm-l6-seed1
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.train::smoke
     MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.train::spawn_one --seed 0   # and 1, 2
@@ -185,12 +186,14 @@ def student_r2(
     tag: str = "",
     limit: int = 0,
     recipe: str = "r2",
+    move: bool = True,
 ) -> dict:
     """r2's student on one H100: Tone's and r2's committee labels, the r2 teachers' labels on every training line, the
     open sets' draws and the speech twins (``data.build_r2``), the best epoch chosen by r2's rule (Tone's dev sets and
     the voice-agent dev set weigh the same), dev and test read with and without the line before. `exclude goemotions`
     with the `nogo` teachers leaves that source out. `recipe="r3"` adds the support-call set's committee labels and
-    reads r3's teachers' labels."""
+    reads r3's teachers' labels. Without `move`, the move head is kept, so the export loads where rc1's does, but never
+    trained, and the epoch is chosen on emotion and sarcasm alone."""
     import time
 
     from lab.reader import model
@@ -220,7 +223,7 @@ def student_r2(
         ENCODER,
         seed,
         limit,
-        select=model.selection_score_r2,
+        select=model.selection_score_r2 if move else model.selection_score_r2_without_move,
         groups_fn=data.eval_groups_r2,
         epochs=epochs,
         batch_size=BATCH,
@@ -228,9 +231,11 @@ def student_r2(
         head_lr=HEAD_LR,
         smoothing=SMOOTHING,
         drop_previous=DROP_PREVIOUS,
+        **({} if move else {"move": False}),
     )
     cfg = {
         "teachers": list(names),
+        **({} if move else {"move_trained": False}),
         "soft_id": sid,
         "exclude_sources": list(excluded),
         "speech": speech,
@@ -249,10 +254,18 @@ def student_r2(
 
 @app.local_entrypoint()
 def spawn_r2(
-    seed: int, epochs: int = 15, exclude: str = "", soft_id: str = "", tag: str = "", recipe: str = "r2"
+    seed: int,
+    epochs: int = 15,
+    exclude: str = "",
+    soft_id: str = "",
+    tag: str = "",
+    recipe: str = "r2",
+    move: bool = True,
 ):
     """One r2 (or r3) student, spawned and left running: launch with `modal run --detach`, one app per run."""
-    call = student_r2.spawn(seed, epochs=epochs, exclude=exclude, soft_id=soft_id, tag=tag, recipe=recipe)
+    call = student_r2.spawn(
+        seed, epochs=epochs, exclude=exclude, soft_id=soft_id, tag=tag, recipe=recipe, move=move
+    )
     print("spawned", sources.run_id(recipe, "student", ENCODER, seed, tag), "call", call.object_id)
 
 

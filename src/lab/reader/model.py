@@ -149,11 +149,11 @@ def _hard_ce(logits, y, class_w, line_w, smoothing):
     return (per[ok] * line_w[ok]).sum() / line_w[ok].sum().clamp(min=1e-6)
 
 
-def batch_loss(b: dict, out, w: dict, smoothing: float):
+def batch_loss(b: dict, out, w: dict, smoothing: float, move: bool = True):
     """Each target's loss, averaged over the lines that carry it. Hard labels: cross-entropy with `class_weights` and
     label smoothing, the committee's agreement weighing the move's and sarcasm's lines, intensity and backchannel at
     half. Soft labels: cross-entropy against the teachers' mean, intensity weighted by the teachers' chance the emotion
-    is not neutral and at half, backchannel at half."""
+    is not neutral and at half, backchannel at half. Without `move`, the move's targets are left out."""
     import torch
 
     ce = torch.nn.functional.cross_entropy
@@ -165,7 +165,7 @@ def batch_loss(b: dict, out, w: dict, smoothing: float):
         loss = loss + 0.5 * ce(lei, b["emo_int"], ignore_index=-100)
     if (b["back"] >= 0).any():
         loss = loss + 0.5 * ce(lb, b["back"], weight=w["back"], ignore_index=-100)
-    if (b["move"] >= 0).any():
+    if move and (b["move"] >= 0).any():
         loss = loss + _hard_ce(lm, b["move"], w["move"], b["move_w"], smoothing)
     if (b["sarc"] >= 0).any():
         loss = loss + _hard_ce(ls, b["sarc"], w["sarc"], b["sarc_w"], smoothing)
@@ -176,7 +176,7 @@ def batch_loss(b: dict, out, w: dict, smoothing: float):
         loss = loss + 0.5 * _soft_ce(lei[se], b["s_emo_int"][se], not_neutral)
         pb = b["s_back"][se]
         loss = loss + 0.5 * _soft_ce(lb[se], torch.stack([1 - pb, pb], -1))
-    if sm.any():
+    if move and sm.any():
         loss = loss + _soft_ce(lm[sm], b["s_move"][sm])
     if ss.any():
         ps = b["s_sarc"][ss]
@@ -277,6 +277,15 @@ def selection_score_r2(r: dict) -> float:
     return round((tone + voice) / 2, 4)
 
 
+def selection_score_r2_without_move(r: dict) -> float:
+    """r2's rule for a student whose move is not trained: half the mean of Tone's dev emotion and sarcasm F1, half the
+    voice-agent dev set's emotion macro-F1 over its classes with FLOOR lines or more."""
+    tone = (r["emotion"]["macro_f1"] + r["sarcasm"]["f1"]) / 2
+    if "voice_emotion" not in r:
+        return round(tone, 4)
+    return round((tone + r["voice_emotion"]["macro_f1_30"]) / 2, 4)
+
+
 def warmup_linear(steps: int):
     """The learning rate's factor at each of `steps` steps: a linear warm-up over the first tenth, times a linear decay
     to zero at the end."""
@@ -298,10 +307,12 @@ def train(
     drop_previous: float,
     select=None,
     groups_fn=None,
+    move: bool = True,
 ) -> tuple[object, object, dict]:
     """The student trained on `train_exs`, keeping the epoch with the best dev selection score. Each epoch drops the
     line before from a `drop_previous` share of the lines that have one, drawn afresh. `select` scores an epoch from its
-    dev reads (default `selection_score`); `groups_fn(exs, split)` names the dev reads (default `data.eval_groups`)."""
+    dev reads (default `selection_score`); `groups_fn(exs, split)` names the dev reads (default `data.eval_groups`).
+    Without `move`, the move head is kept but never trained."""
     import torch
     from transformers import AutoTokenizer
 
@@ -347,7 +358,7 @@ def train(
             b = collate(tok, chunk, device, keep)
             with amp:
                 out = model(b["enc"]["input_ids"], b["enc"]["attention_mask"])
-            loss = batch_loss(b, out, w, smoothing)
+            loss = batch_loss(b, out, w, smoothing, move)
             opt.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)

@@ -1,10 +1,12 @@
 """r3 from the support-call set's calls to its comparison with rc1, in one job on Modal that no laptop has to watch:
 the set's lines, the committee's pilot and a gate on it, every line's labels, five teachers, three students (r3 at
 rc1's seed and one more, and r3's labels with r2's teachers), their exports and each one compared with rc1. Each step
-is skipped when its output is already on the volume, so a rerun picks up where one stopped. Its records go to
+is skipped when its output is already on the volume, so a rerun picks up where one stopped. `no_move` adds a fourth
+student beside it: r3 with the move left untrained, compared with rc1 and with r3 at the same seed. Its records go to
 runs/tonetext/r3-chain/ on the volume; `fetch` copies them, counts and scores only, to results/reader/.
 
     MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.r3_chain::run
+    MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.r3_chain::no_move
     MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.r3_chain::fetch
 """
 
@@ -12,7 +14,7 @@ import json
 import time
 
 from lab.jobs.common import app
-from lab.reader import sources, storage
+from lab.reader import data, sources, storage
 from lab.reader.app import DATA, RESULTS, job, save
 from lab.reader.committee import label as committee_label
 
@@ -33,6 +35,8 @@ STUDENTS = (
     {"seed": 2},
     {"seed": 1, "soft_id": sources.R2_SOFT_ID, "tag": "r2teachers"},
 )
+# r3 at rc1's seed with its move head kept but never trained, and its epoch chosen on emotion and sarcasm.
+NO_MOVE = {"seed": 1, "tag": "nomove"}
 # The pilot's gate before every line is paid for: member answers lost, A and B's sarcasm agreement, and the committee's
 # sarcasm against what each line was written to be.
 GATE = {"errors_per_answer": 0.05, "a_b_sarcasm_agreement": 0.7, "by_construction_agreement": 0.7}
@@ -189,11 +193,63 @@ def chain(skip_gate: bool = False) -> dict:
     return progress
 
 
+@job(DATA, cpu=1.0, memory=4096, timeout=24 * 3600, nonpreemptible=True)
+def no_move_arm() -> dict:
+    """The no-move student, once r3's teachers have labelled every line: trained, exported as r3 is, and compared with
+    rc1 and, once its export is there, with r3 at the same seed, each step recorded in progress-nomove.json."""
+    t0 = time.time()
+    progress: dict = summary_of(record_key("progress-nomove.json")) or {}
+
+    def note(step: str, res: dict) -> None:
+        progress[step] = {"at_seconds": round(time.time() - t0), **res}
+        storage.put_json(record_key("progress-nomove.json"), progress)
+
+    rid = student_id(NO_MOVE)
+    try:
+        soft = data.r2_soft_id(recipe="r3")
+        wait([sources.r2_soft_key(t, soft) for t in sources.R2_TEACHERS], 20)
+        note("teachers", {})
+        if not storage.exists(sources.run_key(rid, "result.json")):
+            train.student_r2.remote(NO_MOVE["seed"], tag=NO_MOVE["tag"], recipe="r3", move=False)
+        note(f"trained {rid}", {})
+        if not storage.exists(sources.run_key(rid, "export", "export_result.json")):
+            export.export.remote(rid, recipe="r3", sarcasm_cap=0.015)
+        note(f"exported {rid}", {})
+        r3 = student_id(STUDENTS[0])
+        for ref, name in ((REF, rid), (r3, f"{rid}-vs-{r3}")):
+            wait([sources.run_key(ref, "export", "export_result.json")], 12)
+            res = compare.compare.remote(rid, ref)
+            storage.put_json(record_key(f"compare-{name}.json"), res)
+            storage.put(record_key(f"table-{name}.md"), compare.markdown(res, ref, rid).encode())
+            c = res["columns"]["with_previous"]
+            note(
+                f"compared {rid} with {ref}",
+                {
+                    "worse_beyond_noise": c["worse_beyond_noise"],
+                    "better_beyond_noise": c["better_beyond_noise"],
+                    "probes_right": res["probes"]["_right"],
+                },
+            )
+        note("done", {})
+    except Exception as exc:
+        note("failed", {"error": f"{type(exc).__name__}: {str(exc)[:500]}"})
+        raise
+    return progress
+
+
 @app.local_entrypoint()
 def run(skip_gate: bool = False):
     """The chain, spawned to outlive this client under `modal run --detach`."""
     call = chain.spawn(skip_gate)
     save("r3_chain", "spawned.json", {"call": call.object_id, "skip_gate": skip_gate})
+    print("spawned", call.object_id)
+
+
+@app.local_entrypoint()
+def no_move():
+    """The no-move student's job, spawned to outlive this client under `modal run --detach`."""
+    call = no_move_arm.spawn()
+    save("r3_chain", "no-move-spawned.json", {"call": call.object_id})
     print("spawned", call.object_id)
 
 
@@ -204,6 +260,10 @@ def fetch():
     progress = summary_of(record_key("progress.json")) or {}
     save("r3_chain", "progress.json", progress)
     print(json.dumps(progress, indent=1))
+    no_move_progress = summary_of(record_key("progress-nomove.json"))
+    if no_move_progress:
+        save("r3_chain", "progress-nomove.json", no_move_progress)
+        print(json.dumps(no_move_progress, indent=1))
     found = {
         ("support_generate", f"summary-{sources.SUPPORT_ID}-try{TRY}.json"): sources.support_key(
             "summary.json"
@@ -218,20 +278,25 @@ def fetch():
     for k in TEACHER_SEEDS:
         rid = sources.run_id("r3", "teacher", teacher.ENCODER, k)
         found[("teacher", f"result-{rid}.json")] = sources.run_key(rid, "result.json")
-    for st in STUDENTS:
+    r3, no_move_id = student_id(STUDENTS[0]), student_id(NO_MOVE)
+    for st in (*STUDENTS, NO_MOVE):
         rid = student_id(st)
         found[("train", f"result-{rid}.json")] = sources.run_key(rid, "result.json")
         found[("export", f"results-{rid}.json")] = sources.run_key(rid, "export", "export_result.json")
         found[("compare", f"results-compare-{rid}-vs-{REF}.json")] = record_key(f"compare-{rid}.json")
+    found[("compare", f"results-compare-{no_move_id}-vs-{r3}.json")] = record_key(
+        f"compare-{no_move_id}-vs-{r3}.json"
+    )
     for (folder, name), key in found.items():
         obj = summary_of(key)
         if obj is not None:
             path = save(folder, name, obj)
             print("wrote", path.relative_to(RESULTS.parent.parent))
-    for st in STUDENTS:
-        rid = student_id(st)
-        key = record_key(f"table-{rid}.md")
+    tables = {student_id(st): REF for st in (*STUDENTS, NO_MOVE)}
+    tables[f"{no_move_id}-vs-{r3}"] = None
+    for name, ref in tables.items():
+        key = record_key(f"table-{name}.md")
         if storage.exists(key):
-            path = RESULTS / "compare" / f"table-{rid}-vs-{REF}.md"
+            path = RESULTS / "compare" / (f"table-{name}-vs-{ref}.md" if ref else f"table-{name}.md")
             path.write_bytes(storage.get(key))
             print("wrote", path.relative_to(RESULTS.parent.parent))
