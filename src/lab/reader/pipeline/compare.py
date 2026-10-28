@@ -6,7 +6,7 @@ each scorecard item as the paired difference, var minus ref, with its 95% bootst
 
 from lab import ROOT
 from lab.reader import storage
-from lab.reader.app import TORCH, app, job, save
+from lab.reader.app import RESULTS, TORCH, app, job, save
 
 # The items on Tone's own test sets, which r2 may not make worse than r1 beyond noise.
 TONE_ITEMS = (
@@ -162,10 +162,115 @@ def compare(var_run: str, ref_run: str, var_prefix: str = "export", ref_prefix: 
     return out
 
 
+# The table's rows: (group, label, item, column), the item as `compare` names it.
+TABLE = (
+    ("Voice-agent sets", "Emotion macro-F1, generated calls (9 classes)", "emotion_voice", "with_previous"),
+    ("Voice-agent sets", "Emotion macro-F1, real calls", "emotion_voice_real", "with_previous"),
+    ("Voice-agent sets", "Move macro-F1, real calls", "move_voice_real_macro_f1", "with_previous"),
+    ("Voice-agent sets", "Sarcasm F1, generated calls", "sarcasm_voice_f1", "with_previous"),
+    (
+        "Voice-agent sets",
+        "Sincere turns called sarcastic, real calls",
+        "sarcasm_voice_real_sincere_called_sarcastic",
+        "with_previous",
+    ),
+    ("Sarcasm sets", "Sarcasm F1, held-out tests", "sarcasm_held_out_f1", "with_previous"),
+    (
+        "Sarcasm sets",
+        "Sincere lines called sarcastic, natural test",
+        "sarcasm_natural_sincere_called_sarcastic",
+        "with_previous",
+    ),
+    (
+        "Sarcasm sets",
+        "Sarcastic lines read happy, Tone's tests",
+        "face_value_sarcastic_tone",
+        "with_previous",
+    ),
+    ("Tone's sets", "Emotion macro-F1, main test", "emotion_main", "with_previous"),
+    ("Tone's sets", "Emotion macro-F1, player speech", "emotion_player_speech", "with_previous"),
+    ("Tone's sets", "Move macro-F1", "move_macro_f1", "with_previous"),
+    ("Support-call test split", "Sarcasm F1, committee labels", "sarcasm_support_f1", "with_previous"),
+    (
+        "Support-call test split",
+        "Sarcasm F1 after a plain agent line",
+        "sarcasm_support_after_plain_f1",
+        "with_previous",
+    ),
+    ("Support-call test split", "Sarcasm F1 after news", "sarcasm_support_after_news_f1", "with_previous"),
+    (
+        "Support-call test split",
+        "Sarcasm F1, held-out domains",
+        "sarcasm_support_held_domains_f1",
+        "with_previous",
+    ),
+    (
+        "Support-call test split",
+        "Sincere turns called sarcastic",
+        "sarcasm_support_sincere_called_sarcastic",
+        "with_previous",
+    ),
+    ("Support-call test split", "Sarcasm F1, as written", "sarcasm_support_built_f1", "with_previous"),
+    (
+        "Support-call test split",
+        "Sarcasm F1 after a plain line, as written",
+        "sarcasm_support_built_after_plain_f1",
+        "with_previous",
+    ),
+    (
+        "Support-call test split",
+        "Sarcastic turns read happy",
+        "face_value_sarcastic_support",
+        "with_previous",
+    ),
+    ("Support-call test split", "Emotion macro-F1", "emotion_support", "with_previous"),
+    ("Support-call test split", "Sarcasm F1, turn alone", "sarcasm_support_f1", "without_previous"),
+)
+
+
+def markdown(res: dict, ref_name: str = "ref", var_name: str = "var") -> str:
+    """The comparison as a markdown table: each item read with the line before as Pipecat reads it (some also on the
+    turn alone), the difference with its 95% interval, then the probes. Scores only, no line text."""
+    rows = [
+        f"| | Item | {ref_name} | {var_name} | Difference (95% interval) | Lines |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ]
+    for group, label, item, col in TABLE:
+        v = res["columns"][col]["items"].get(item)
+        if v is None:
+            continue
+        lines = v.get("lines", v.get("units"))
+        rows.append(
+            f"| {group} | {label} | {v['ref']} | {v['var']} | {v['diff']:+} ({v['ci'][0]:+} to {v['ci'][1]:+}) | "
+            f"{lines} |"
+        )
+    probes = res["probes"]
+    rows += [
+        "",
+        f"Cases read right: {ref_name} {probes['_right']['ref']}, {var_name} {probes['_right']['var']} of "
+        f"{probes['_cases']}.",
+        "",
+        f"| Case | Should read | {ref_name}: emotion, sarcasm | {var_name}: emotion, sarcasm |",
+        "| --- | --- | --- | --- |",
+    ]
+    for pid, v in probes.items():
+        if pid.startswith("_"):
+            continue
+        cells = [
+            f"{v[side]['emotion'][0][0]} {v[side]['emotion'][0][1]}, {v[side]['sarcasm']}"
+            + ("" if v[side]["right"] else " ✗")
+            for side in ("ref", "var")
+        ]
+        rows.append(f"| {pid} | {v['should_read']} | {cells[0]} | {cells[1]} |")
+    return "\n".join(rows) + "\n"
+
+
 @app.local_entrypoint()
 def main(var: str, ref: str, var_prefix: str = "export", ref_prefix: str = "export"):
     res = compare.remote(var, ref, var_prefix, ref_prefix)
     path = save("compare", f"results-compare-{var}-vs-{ref}.json", res)
+    table = RESULTS / "compare" / f"table-{var}-vs-{ref}.md"
+    table.write_text(markdown(res, ref, var))
     for col, c in res["columns"].items():
         print(
             f"{col}: worse beyond noise {c['worse_beyond_noise'] or 'none'}; better {c['better_beyond_noise'] or 'none'}; "
@@ -182,3 +287,4 @@ def main(var: str, ref: str, var_prefix: str = "export", ref_prefix: str = "expo
         if not pid.startswith("_"):
             print(f"  {pid} (should read {v['should_read']}): ref {v['ref']}, var {v['var']}")
     print(f"{res['lines_tagged']} inputs tagged, {res['seconds']} s; wrote", path.relative_to(ROOT))
+    print("table:", table.relative_to(ROOT))

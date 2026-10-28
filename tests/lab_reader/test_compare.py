@@ -142,3 +142,53 @@ def test_a_column_reads_each_input_once_and_keeps_its_items_in_order():
     assert list(c.classes) == ["emotion", "move_macro_f1"] and ref.reads == var.reads == 40
     assert c.worse() == [] and c.rises() == ["sarcasm_sincere_called_sarcastic"]
     assert c.better() == ["emotion", "emotion_30", "move_macro_f1", "move_answered_or_open"]
+
+
+class _Model:
+    """A reader that calls everything sarcastic, or nothing."""
+
+    def __init__(self, sarcastic: bool):
+        self.sarcastic = sarcastic
+
+    def tag(self, text, previous=None):
+        p = 0.9 if self.sarcastic else 0.1
+        return {
+            "emotion": {"probabilities": {"angry": 0.7, "happy": 0.2, "neutral": 0.1}},
+            "sarcasm": {"probability": p, "sarcastic": self.sarcastic},
+        }
+
+
+def test_the_probes_are_read_by_both_and_kept_without_their_text():
+    from lab.reader.pipeline.compare import probe_reads
+    from lab.reader.support import PROBES
+
+    out = probe_reads(_Model(False), _Model(True))
+    want = sum(w == "sarcastic" for *_, w in PROBES)
+    assert out["_right"] == {"ref": len(PROBES) - want, "var": want} and out["_cases"] == len(PROBES)
+    assert out["great_late_after_status"]["var"] == {
+        "emotion": [["angry", 0.7], ["happy", 0.2]],
+        "sarcasm": 0.9,
+        "sarcastic": True,
+        "right": True,
+    }
+    assert not any(t in str(out) for _, t, _, _ in PROBES)
+
+
+def test_the_table_shows_each_item_read_and_the_probes():
+    from lab.reader.pipeline.compare import markdown, probe_reads
+
+    item = {"ref": 0.5, "var": 0.6, "diff": 0.1, "ci": [0.05, 0.15], "lines": 300}
+    res = {
+        "columns": {
+            "with_previous": {"items": {"sarcasm_support_f1": item}},
+            "without_previous": {"items": {}},
+        },
+        "probes": probe_reads(_Model(False), _Model(True)),
+    }
+    table = markdown(res, "rc1", "cand")
+    assert (
+        "| Support-call test split | Sarcasm F1, committee labels | 0.5 | 0.6 | +0.1 (+0.05 to +0.15) | 300 |"
+        in table
+    )
+    assert "Sarcasm F1, turn alone" not in table  # an item not read is left out
+    assert "Cases read right: rc1 4, cand 6 of 10." in table
