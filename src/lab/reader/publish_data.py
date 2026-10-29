@@ -24,6 +24,7 @@ PREFIX = "data/reader/"
 README_KEY = "README.md"
 FORMAT = "tone-reader-data-0.2"
 GRAM = 10  # words in a run that counts as a leak
+FIRST_PUSH = "Reader data without third-party text: stand-ins and a manifest to rebuild it"
 
 
 def _shown(key: str) -> str:
@@ -267,8 +268,9 @@ def readme(manifest: dict) -> str:
 What `lab.reader` trains, checks and scores the tone reader with, each file at its key on the `tone-reader-data`
 volume. It holds no third-party text:
 
-- **{n_kept} files that are ours**, as they are: rc1's run (weights, results, its export and 16-bit file), the five
-  r2 teachers' labels, the move pool, and the label sets whose lines are all ours.
+- **{n_kept} files that are ours**, as they are: rc1's and rc2's runs (weights, results, each export and 16-bit
+  file), the five r2 teachers' labels, the move pool, the label sets whose lines are all ours, and rc2's support-call
+  and contrast sets: their committee labels and each line's call as it was written.
 - **{n_stand} stand-ins**, in `rebuild/standins/` at their files' keys: files that mix our lines with others'. Each
   mirrors its file line for line in the same JSON style. Our rows are as they are; each value from a third-party
   source is a hole that says how to make it again from the source at its pin (`holes` in the manifest).
@@ -279,13 +281,10 @@ sets are read from.
 
 ## Rebuilding
 
-```bash
-MODAL_PROFILE=daily uv run modal run --env tone-tagger -m lab.reader.pipeline.pull
-MODAL_PROFILE=daily uv run modal run --detach --env tone-tagger -m lab.reader.pipeline.fetch
-```
-
-`pull` copies this folder to the volume. `fetch` downloads each source at its pin, rebuilds the open sets and the
-stand-ins' files, and writes a file only if its sha256 is the manifest's; it also checks the files `pull` copied.
+`lab.reader.pipeline.pull` copies this folder to the volume. `lab.reader.pipeline.fetch` downloads each source at
+its pin, rebuilds the open sets and the stand-ins' files, and writes a file only if its sha256 is the manifest's;
+it also checks the files `pull` copied. Both run as pipecat-tone's
+[`src/lab/README.md`](https://github.com/pipecat-ai/pipecat-tone/blob/main/src/lab/README.md#the-reader) says.
 
 ## Sources
 
@@ -410,6 +409,7 @@ def _structure(staged: Path) -> dict:
                     ("generator", ln["generator"]),
                 ):
                     bad[f"third-party row keeps its {field}"] += isinstance(v, str)
+    ours = set()  # the kept lines' ids, so a call is checked against the lines it was written for
     for key in rebuild.KEEP:
         if not key.endswith(".jsonl"):
             continue
@@ -418,7 +418,12 @@ def _structure(staged: Path) -> dict:
                 r = json.loads(x)
                 ln = r.get("line", r)
                 if "input" in ln:
-                    bad["kept file with a third-party line"] += ln.get("source") not in rebuild.OURS
+                    mine = ln.get("source") in rebuild.OURS
+                    bad["kept file with a third-party line"] += not mine
+                    if mine:
+                        ours.add(ln["line_id"])
+                elif key in rebuild.CALLS:
+                    bad["call of a line not kept as ours"] += r.get("line_id") not in ours
                 else:
                     strings = [s for s, _ in _strings(r)]
                     bad["kept file with text besides line ids"] += strings != [r.get("line_id")]
@@ -477,7 +482,7 @@ def audit(staged: Path, copy: Path | None = None, log=print) -> dict:
 # --- publishing --------------------------------------------------------------------------------------------------------
 
 
-def push(out: Path, branch: str, revision: str = "main") -> str:
+def push(out: Path, branch: str, revision: str = "main", message: str = FIRST_PUSH) -> str:
     """The staged folder as one commit on `branch`, made from `revision` unless it's main: files new or changed added,
     every other file under data/reader/ deleted. Returns the commit's URL."""
     from huggingface_hub import CommitOperationAdd, CommitOperationDelete, HfApi
@@ -496,7 +501,7 @@ def push(out: Path, branch: str, revision: str = "main") -> str:
         REPO,
         operations=ops,
         revision=branch,
-        commit_message="Reader data without third-party text: stand-ins and a manifest to rebuild it",
+        commit_message=message,
     )
     return commit.commit_url
 
@@ -520,6 +525,7 @@ def main():
     pushing = commands.add_parser("push", help="commit the staged folder to a new branch, or to main")
     pushing.add_argument("out", type=Path)
     pushing.add_argument("--branch", required=True)
+    pushing.add_argument("--message", default=FIRST_PUSH, help="the commit's message")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env", override=True)
     if args.command == "verify":
@@ -528,7 +534,7 @@ def main():
         res = stage(args.copy, args.upstream, args.out)
         print(json.dumps({**res, "sizes": res["sizes"][:20]}, indent=1))
     else:
-        print(push(args.out, args.branch))
+        print(push(args.out, args.branch, message=args.message))
 
 
 if __name__ == "__main__":

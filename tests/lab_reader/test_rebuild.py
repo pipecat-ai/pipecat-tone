@@ -301,7 +301,7 @@ def test_speech_twins_rebuild_from_their_clean_lines():
 
 def test_the_tables_split_the_files_three_ways():
     keep, opened, standin = set(rebuild.KEEP), set(rebuild.OPEN.values()), list(rebuild.STANDIN)
-    assert (len(rebuild.KEEP), len(keep), len(opened), len(standin)) == (34, 34, 14, 8)
+    assert (len(rebuild.KEEP), len(keep), len(opened), len(standin)) == (49, 49, 14, 8)
     assert not (keep & opened or keep & set(standin) or opened & set(standin))
     assert standin[0] == sources.pool_key() and standin[-1] == sources.speech_key()
     assert {rebuild.STANDIN[k] for k in standin} == {"tone", "r2", "speech"}
@@ -328,15 +328,20 @@ def test_every_file_the_jobs_read_is_published_or_rebuilt():
     data.build_r2(
         jsonl, teachers=sources.R2_TEACHERS
     )  # train::spawn_r2, and export's pools=False is a part of it
+    data.build_r2(jsonl, teachers=sources.R2_TEACHERS, support=True, contrast=True)  # rc2's, --recipe r3c
     scoring.test_rows(jsonl)  # score and precision
+    for set_id in (sources.SUPPORT_ID, sources.CONTRAST_ID):
+        scoring.support_rows(jsonl, set_id)  # compare's support-call and contrast reads
     jsonl(sources.sarcasm_key(sources.CHAIN_TEST))  # score's chain read
     jsonl(sources.open_key("topicalchat_test"))  # score's TopicalChat read
-    run = [
-        sources.run_key(rebuild.RUN_ID, f)
-        for f in ("config.json", "model.pt", "export/config.json", "export/tokenizer.json")
-    ]
-    run += [sources.run_key(rebuild.RUN_ID, "export", MODEL_FILES["fp32"])]
-    run += [sources.run_key(rebuild.RUN_ID, "precision", MODEL_FILES["fp16"])]
+    run = []
+    for run_id in (rebuild.RUN_ID, rebuild.RC2_RUN_ID):
+        run += [
+            sources.run_key(run_id, f)
+            for f in ("config.json", "model.pt", "export/config.json", "export/tokenizer.json")
+        ]
+        run += [sources.run_key(run_id, "export", MODEL_FILES["fp32"])]
+        run += [sources.run_key(run_id, "precision", MODEL_FILES["fp16"])]
     assert len(set(read)) > 40
     assert set(read) | set(run) <= published_tables()
 

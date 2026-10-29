@@ -61,7 +61,7 @@ def test_download_fetches_the_precisions_files(monkeypatch, tmp_path, precision)
     monkeypatch.setattr(ToneReaderModel, "__init__", lambda self, folder, **kw: calls.append((folder, kw)))
     ToneReaderModel.download(precision=precision, threads=1)
     assert calls == [
-        ("reader", "reader-rc1", ["config.json", "tokenizer.json", MODEL_FILES[precision]]),
+        ("reader", "reader-rc2", ["config.json", "tokenizer.json", MODEL_FILES[precision]]),
         (tmp_path, {"precision": precision, "threads": 1}),
     ]
 

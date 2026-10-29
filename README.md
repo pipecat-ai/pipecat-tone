@@ -4,7 +4,7 @@ Two small CPU models for [Pipecat](https://github.com/pipecat-ai/pipecat) voice 
 
 | Model | What it does | Latest release | Weights |
 |---|---|---|---|
-| [Tone reader](releases/reader/) | Hears how each caller turn was meant, from its words: the emotion, and whether it's sarcastic, for the LLM to read | [rc1](releases/reader/rc1/) | [`reader/` at `reader-rc1`](https://huggingface.co/pipecat-ai/tone-models/tree/reader-rc1/reader) |
+| [Tone reader](releases/reader/) | Hears how each caller turn was meant, from its words: the emotion, and whether it's sarcastic, for the LLM to read | [rc2](releases/reader/rc2/) | [`reader/` at `reader-rc2`](https://huggingface.co/pipecat-ai/tone-models/tree/reader-rc2/reader) |
 | [Tone tagger](releases/tagger/) | Voices the LLM's plain reply: adds Pipecat's expression markup a sentence at a time (delivery, slow details, stress, sounds) in the TTS's own names | [rc1](releases/tagger/rc1/) | [`tagger/` at `tagger-rc1`](https://huggingface.co/pipecat-ai/tone-models/tree/tagger-rc1/tagger) |
 
 Weights and training data are in [`pipecat-ai/tone-models`](https://huggingface.co/pipecat-ai/tone-models) on Hugging Face. A model downloads when its pipeline first starts; every release has a manifest of checksums.

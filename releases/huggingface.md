@@ -54,6 +54,7 @@ The models download from here the first time a pipeline starts; `PipecatToneTagg
 
 | Tag | Folder | Model |
 | --- | --- | --- |
+| `reader-rc2` | `reader/` | MiniLM-L6, 24.2M parameters: 48 MB (fp16) or 96 MB (fp32) |
 | `reader-rc1` | `reader/` | MiniLM-L6, 24.2M parameters: 48 MB (fp16) or 96 MB (fp32) |
 | `tagger-rc1` | `tagger/17m`, `tagger/32m` | Ettin 17M or 32M, six heads, int8: 63 MB or 115 MB |
 
@@ -61,13 +62,15 @@ The models download from here the first time a pipeline starts; `PipecatToneTagg
 
 ## Scores
 
-**Reader**, against the majority vote of three LLMs, on turns it never trained on:
+**Reader** (rc2), against the majority vote of three LLMs, on turns it never trained on:
 
 | | Real calls (1,500 turns) | Calls with more feeling (897 turns) |
 | --- | --- | --- |
-| Emotion macro-F1 | 0.940 (neutral, happy) | 0.598 (all nine) |
-| Sarcasm | 1 of 1,496 sincere turns called sarcastic | F1 0.887 |
-| Calibration error: emotion, sarcasm | 0.079, 0.016 | 0.036, 0.014 |
+| Emotion macro-F1 | 0.936 (neutral, happy) | 0.677 (all nine) |
+| Sarcasm | 1 of 1,496 sincere turns called sarcastic | F1 0.903 |
+| Calibration error: emotion, sarcasm | 0.077, 0.015 | 0.027, 0.010 |
+
+rc2 reads sarcasm with the agent's line as context. On 3,752 turns of support calls its sarcasm F1 is 0.959 (rc1 0.903), and of 365 pairs of a praise or thanks turn, one after a line it's meant after and one after a line that makes it mean the opposite, it reads both right in 94.0% (rc1 49.0%).
 
 p95 per turn on 4 CPU threads (Apple M1 Max): 5.0 ms.
 
@@ -83,7 +86,7 @@ It breathes at most once a reply, about as often as people do in turns that long
 ## Data
 
 - **Tagger** (`data/tagger/v0`–`v3`): 4,999 synthetic support calls, held by deployment LLMs through a real Pipecat pipeline, every sentence labeled by a Claude teacher, and split by domain. Names, emails and numbers are made up.
-- **Reader** (`data/reader`): our own files, and stand-ins for lines from public datasets, which `rebuild/manifest.json` pins to their sources. No third-party text is hosted here.
+- **Reader** (`data/reader`): our own files, among them rc2's 30,000 turns of synthetic support calls and 2,000 contrast pairs, and stand-ins for lines from public datasets, which `rebuild/manifest.json` pins to their sources. No third-party text is hosted here.
 
 The reader's public datasets, each under its own licence: NatCS (CDLA-Permissive-2.0); Taskmaster-1, -2 and -3 (CC BY 4.0); ABCD, MultiWOZ 2.2 and STAR (MIT); CCPE-M and Harper Valley Bank (CC BY 4.0); the AMI Meeting Corpus's annotations (CC BY 4.0); DiPCo (CDLA-Permissive-1.0); DynaSent round 2 (CC BY 4.0); iSarcasmEval (MIT); GoEmotions (Apache 2.0); Civil Comments (CC0 1.0); the Gutenberg Dialogue Dataset (MIT). Topical-Chat's test splits (CDLA-Sharing-1.0) are for evaluation only.
 

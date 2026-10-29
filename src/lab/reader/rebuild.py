@@ -36,8 +36,9 @@ PREVIOUS_HOLE = "gbp"  # Gutenberg's line before
 TWIN_HOLE = "v"  # a noisy twin's text, made from its clean line's
 OPEN_ROW, ASR_ROW = "open", "asr"  # whole-row holes: an open set's line, a speech twin
 
-# rc1's run as trained and exported: weights, results and the files the runtime loads.
+# rc1's and rc2's runs as trained and exported: weights, results and the files the runtime loads.
 RUN_ID = sources.run_id("r2", "student", "minilm-l6", 1)
+RC2_RUN_ID = sources.run_id("r3c", "student", "minilm-l6", 2)
 RUN_FILES = (
     "config.json",
     "model.pt",
@@ -52,6 +53,8 @@ RUN_FILES = (
 # Tone's label sets and the r2 sets that hold others' lines.
 TONE_MIXED = ("linecls-corpus-0.1-full-committee", "linecls-corpus-0.1-thin-committee")
 SARCASM_MIXED = sources.SARCASM_SETS["train"]
+# rc2's support-call and contrast sets' calls as written: each line's turns before it and its sarcasm as written.
+CALLS = tuple(sources.support_key("meta.jsonl", s) for s in (sources.SUPPORT_ID, sources.CONTRAST_ID))
 
 # Published as they are: every file here is ours.
 KEEP = (
@@ -62,6 +65,13 @@ KEEP = (
     sources.labels_key(sources.EXCHANGE_SET),
     *(sources.sarcasm_key(s) for split in ("dev", "test") for s in sources.SARCASM_SETS[split]),
     *(sources.tonetext_labels_key(s) for s in sources.VOICE_GENERATED.values()),
+    *(sources.run_key(RC2_RUN_ID, f) for f in RUN_FILES),
+    *(
+        sources.tonetext_labels_key(s)
+        for sets in (sources.SUPPORT_SETS, sources.CONTRAST_SETS)
+        for s in sets.values()
+    ),
+    *CALLS,
 )
 # Not published: each rebuilt from its source's archive (``lab.reader.pipeline.open_ingest``).
 OPEN = {s: sources.open_key(s) for s in open_sources.SOURCES}

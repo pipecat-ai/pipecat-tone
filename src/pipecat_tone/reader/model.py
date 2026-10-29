@@ -22,7 +22,7 @@ import numpy as np
 from .. import hub
 from .._onnx import session, tokenizer
 
-READER_REVISION = "reader-rc1"
+READER_REVISION = "reader-rc2"
 MODEL_FILES = {"fp16": "model_fp16.onnx", "fp32": "model.opt.onnx"}
 
 
