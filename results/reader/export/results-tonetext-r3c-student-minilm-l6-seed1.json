@@ -1,0 +1,141 @@
+{
+ "run_id": "tonetext-r3c-student-minilm-l6-seed1",
+ "dev_calibration": {
+  "emotion": {
+   "temperature": 0.7375,
+   "ece_raw": 0.123,
+   "ece": 0.045
+  },
+  "move": {
+   "temperature": 0.7076,
+   "ece_raw": 0.103,
+   "ece": 0.0234
+  },
+  "sarcasm": {
+   "curve": {
+    "a": 1.215679,
+    "b": -1.516114,
+    "items": 3357
+   },
+   "tau_raw": 0.6,
+   "ece_raw": 0.1027,
+   "ece": 0.0074
+  }
+ },
+ "fused_operators": {
+  "Gelu": 2,
+  "BiasGelu": 6,
+  "LayerNormalization": 1,
+  "SkipLayerNormalization": 12
+ },
+ "sizes_mb": {
+  "model.onnx": 96.33,
+  "model.opt.onnx": 96.3,
+  "tokenizer.json": 0.71,
+  "config.json": 0.0
+ },
+ "variants": {
+  "model.onnx": {
+   "parity_with_previous": {
+    "lines": 2000,
+    "emotion": 1.0,
+    "intensity": 1.0,
+    "move": 1.0,
+    "sarcasm": 1.0,
+    "backchannel": 1.0
+   },
+   "parity_without_previous": {
+    "lines": 2000,
+    "emotion": 1.0,
+    "intensity": 1.0,
+    "move": 1.0,
+    "sarcasm": 1.0,
+    "backchannel": 1.0
+   },
+   "latency_4_threads_modal_cpu": {
+    "short": {
+     "p50_ms": 2.585,
+     "p95_ms": 3.127
+    },
+    "with_previous": {
+     "p50_ms": 4.268,
+     "p95_ms": 5.247
+    },
+    "long": {
+     "p50_ms": 17.722,
+     "p95_ms": 19.94
+    }
+   },
+   "latency_1_thread_modal_cpu": {
+    "short": {
+     "p50_ms": 4.939,
+     "p95_ms": 5.629
+    },
+    "with_previous": {
+     "p50_ms": 9.376,
+     "p95_ms": 10.092
+    },
+    "long": {
+     "p50_ms": 44.907,
+     "p95_ms": 46.401
+    }
+   }
+  },
+  "model.opt.onnx": {
+   "parity_with_previous": {
+    "lines": 2000,
+    "emotion": 1.0,
+    "intensity": 1.0,
+    "move": 1.0,
+    "sarcasm": 1.0,
+    "backchannel": 1.0
+   },
+   "parity_without_previous": {
+    "lines": 2000,
+    "emotion": 1.0,
+    "intensity": 1.0,
+    "move": 1.0,
+    "sarcasm": 1.0,
+    "backchannel": 1.0
+   },
+   "latency_4_threads_modal_cpu": {
+    "short": {
+     "p50_ms": 2.444,
+     "p95_ms": 2.75
+    },
+    "with_previous": {
+     "p50_ms": 4.2,
+     "p95_ms": 4.525
+    },
+    "long": {
+     "p50_ms": 18.004,
+     "p95_ms": 19.086
+    }
+   },
+   "latency_1_thread_modal_cpu": {
+    "short": {
+     "p50_ms": 5.059,
+     "p95_ms": 5.417
+    },
+    "with_previous": {
+     "p50_ms": 9.775,
+     "p95_ms": 10.236
+    },
+    "long": {
+     "p50_ms": 48.108,
+     "p95_ms": 48.854
+    }
+   }
+  }
+ },
+ "uploaded": [
+  "model.onnx",
+  "model.opt.onnx",
+  "tokenizer.json",
+  "config.json"
+ ],
+ "kept": [],
+ "existing_sha256_matches": {},
+ "prefix": "models/tonetext/tonetext-r3c-student-minilm-l6-seed1/export/",
+ "seconds": 126
+}

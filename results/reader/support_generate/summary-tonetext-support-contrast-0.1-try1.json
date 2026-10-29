@@ -1,0 +1,98 @@
+{
+ "set": "tonetext-support-contrast-0.1",
+ "try": 1,
+ "key": "runs/tonetext/generated/tonetext-support-contrast-0.1/lines.jsonl",
+ "sha256": "832f5a3c901d70201618a884596bf6273dd0ce45f46edd19fed1a5181a9d9220",
+ "meta_key": "runs/tonetext/generated/tonetext-support-contrast-0.1/meta.jsonl",
+ "prompts_written": 700,
+ "pairs": 2000,
+ "pair_not_new": 1504,
+ "trained_elsewhere": 1,
+ "no_pair": 10,
+ "dropped": {
+  "repeat": 840,
+  "in_an_evaluation_set": 664
+ },
+ "lines": 4000,
+ "banned": {
+  "evaluation_texts": 34483,
+  "evaluation_pairs": 36641,
+  "probes": 10,
+  "praise_probes": 35
+ },
+ "by_split": {
+  "dev": 438,
+  "test": 870,
+  "train": 2692
+ },
+ "by_split_and_side": {
+  "dev/meant": 219,
+  "dev/opposite": 219,
+  "test/meant": 435,
+  "test/opposite": 435,
+  "train/meant": 1346,
+  "train/opposite": 1346
+ },
+ "by_turn_kind": {
+  "bare_praise": 488,
+  "praise_more": 1382,
+  "praise_thanks": 1130,
+  "thanks_helpful": 1000
+ },
+ "by_side_and_agent_kind": {
+  "meant/answer": 446,
+  "meant/done": 597,
+  "meant/favour": 381,
+  "meant/good_news": 576,
+  "opposite/bad_news": 546,
+  "opposite/no_answer": 365,
+  "opposite/pass_on": 450,
+  "opposite/refusal": 639
+ },
+ "by_domain": {
+  "airline": 116,
+  "appliance_repair": 84,
+  "bank_account": 120,
+  "car_insurance": 116,
+  "car_rental": 106,
+  "car_service": 114,
+  "clinic_appointments": 92,
+  "credit_card": 104,
+  "electricity": 100,
+  "event_tickets": 94,
+  "furniture_delivery": 98,
+  "government_services": 116,
+  "grocery_delivery": 92,
+  "gym_membership": 128,
+  "home_insurance": 132,
+  "home_internet": 96,
+  "home_warranty": 92,
+  "hotel": 94,
+  "laptop_repair": 108,
+  "loan_servicing": 88,
+  "meal_delivery": 128,
+  "mobile_carrier": 80,
+  "moving_company": 222,
+  "online_shop": 140,
+  "parcel_courier": 102,
+  "pharmacy": 102,
+  "property_management": 112,
+  "rail_travel": 202,
+  "retail_returns": 84,
+  "rideshare": 102,
+  "software_support": 144,
+  "streaming_tv": 96,
+  "student_services": 84,
+  "vet_clinic": 220,
+  "water_utility": 92
+ },
+ "held_domains": [
+  "rail_travel",
+  "vet_clinic",
+  "moving_company"
+ ],
+ "asr_style": 1344,
+ "words_median": 4,
+ "words_max": 11,
+ "distinct_turns": 1479
+}

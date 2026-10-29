@@ -1,0 +1,242 @@
+{
+ "labellers": {
+  "a": "LABELLER_A_MODEL",
+  "b": "LABELLER_B_MODEL",
+  "d": "LABELLER_D_MODEL"
+ },
+ "system_prompt_sha256": {
+  "committee": "fa4eff25754eb682a7338e3dce3250a837afb0072f15d491332d17fabac77aa3",
+  "sarcasm": "e50a7d3d38932a702bbb377ce43276a6fbb23ddfef61e35ad0d60fcc19d2e7e6"
+ },
+ "lines_key": "runs/tonetext/generated/tonetext-support-contrast-0.1/lines.jsonl",
+ "step": "label",
+ "seconds": 10123,
+ "answers_from_a_batches": {
+  "committee": 4000,
+  "sarcasm": 4000
+ },
+ "retried": {
+  "sarcasm-d": {
+   "missing": 3,
+   "answered_now": 0
+  }
+ },
+ "a_batches": {
+  "committee": [
+   "batch_6ae2712bbdf08190bc65b7078a2482b0",
+   "batch_6ae2712f45a48190a9fd4cb6bcc580d3"
+  ],
+  "sarcasm": [
+   "batch_6ae27133621481908a0c7af305a20467",
+   "batch_6ae271357e40819081f7220bbe004068"
+  ]
+ },
+ "lines": 4000,
+ "cost_usd_total": 40.78,
+ "committee": {
+  "label_id": "tonetext-support-contrast-0.1-committee",
+  "key": "runs/tonetext/labels/tonetext-support-contrast-0.1-committee/labelled.jsonl",
+  "errors": {},
+  "batches": {
+   "a": [
+    "batch_6ae2712bbdf08190bc65b7078a2482b0",
+    "batch_6ae2712f45a48190a9fd4cb6bcc580d3"
+   ],
+   "b": "synchronous"
+  },
+  "cost_usd": {
+   "a": 14.1768,
+   "b": 11.7401,
+   "d": 0.5332,
+   "filled_synchronously": {
+    "a": 0,
+    "b": 0
+   }
+  },
+  "lines": 4000,
+  "coverage": {
+   "emotion_majority": 3827,
+   "emotion_unanimous": 2650,
+   "complete_lines": 3685,
+   "act_majority": 3782,
+   "backchannel_majority": 4000
+  },
+  "emotion": {
+   "happy": 2269,
+   "angry": 1008,
+   "contemptuous": 476,
+   "(no majority)": 173,
+   "neutral": 73,
+   "amused": 1
+  },
+  "emotion_by_role": {
+   "user": {
+    "happy": 2269,
+    "angry": 1008,
+    "contemptuous": 476,
+    "(no majority)": 173,
+    "neutral": 73,
+    "amused": 1
+   },
+   "agent": {}
+  },
+  "intensity": {
+   "medium": 1926,
+   "low": 1901
+  },
+  "backchannel_true": 0,
+  "acts": {
+   "thanks": 1571,
+   "none": 1479,
+   "insult": 540,
+   "(no majority)": 218,
+   "praise": 192
+  },
+  "a_b": {
+   "emotion_all_lines": {
+    "lines": 4000,
+    "macro_f1": 0.6144,
+    "agree": 0.8702,
+    "kappa": 0.7824
+   },
+   "emotion_majority_lines": {
+    "lines": 3827,
+    "macro_f1": 0.6622,
+    "agree": 0.9096,
+    "kappa": 0.8436
+   },
+   "emotion_user_lines": {
+    "lines": 4000,
+    "macro_f1": 0.6144,
+    "agree": 0.8702,
+    "kappa": 0.7824
+   },
+   "emotion_agent_lines": {
+    "lines": 0,
+    "macro_f1": 0.0,
+    "agree": 0.0,
+    "kappa": 0.0
+   },
+   "act_all_lines": {
+    "lines": 4000,
+    "macro_f1": 0.5476,
+    "agree": 0.87,
+    "kappa": 0.8059
+   },
+   "definition": "labellers A and B macro-F1 against each other, both directions averaged"
+  },
+  "member_answered": {
+   "a": 4000,
+   "b": 4000,
+   "d": 4000
+  }
+ },
+ "sarcasm": {
+  "label_id": "tonetext-support-contrast-0.1-sarcasm",
+  "key": "runs/tonetext/labels/tonetext-support-contrast-0.1-sarcasm/labelled.jsonl",
+  "errors": {
+   "d: refusal": 3
+  },
+  "batches": {
+   "a": [
+    "batch_6ae27133621481908a0c7af305a20467",
+    "batch_6ae271357e40819081f7220bbe004068"
+   ],
+   "b": "synchronous"
+  },
+  "cost_usd": {
+   "a": 7.5241,
+   "b": 6.6371,
+   "d": 0.1691,
+   "filled_synchronously": {
+    "a": 0,
+    "b": 0
+   }
+  },
+  "lines": 4000,
+  "majority": {
+   "False": 2327,
+   "True": 1673
+  },
+  "sarcastic_by_role": {
+   "user": 1673,
+   "agent": 0
+  },
+  "sarcasm_seed_lines": {
+   "lines": 2000,
+   "True": 1658,
+   "False": 342
+  },
+  "lookalike_seed_lines": {
+   "lines": 2000,
+   "False": 1985,
+   "True": 15
+  },
+  "other_lines_sarcastic": 0,
+  "a_b": {
+   "committee_level": {
+    "lines": 4000,
+    "f1_a_as_gold": 0.9441,
+    "f1_b_as_gold": 0.9441,
+    "f1": 0.9441,
+    "agreement": 0.9537
+   },
+   "all_lines": {
+    "lines": 4000,
+    "f1": 0.9441
+   },
+   "user_lines": {
+    "lines": 4000,
+    "f1_a_as_gold": 0.9441,
+    "f1_b_as_gold": 0.9441,
+    "f1": 0.9441,
+    "agreement": 0.9537
+   },
+   "definition": "labellers A and B, F1 of the sarcastic class with each as gold, averaged, on the lines with a majority"
+  },
+  "member_answered": {
+   "a": 4000,
+   "b": 4000,
+   "d": 3997
+  },
+  "by_construction": {
+   "_all": {
+    "agree": 3643,
+    "disagree": 357
+   },
+   "contrast:meant:bare_praise": {
+    "sincere": 240,
+    "sarcastic": 4
+   },
+   "contrast:meant:praise_more": {
+    "sincere": 684,
+    "sarcastic": 7
+   },
+   "contrast:meant:praise_thanks": {
+    "sincere": 563,
+    "sarcastic": 2
+   },
+   "contrast:meant:thanks_helpful": {
+    "sincere": 498,
+    "sarcastic": 2
+   },
+   "contrast:opposite:bare_praise": {
+    "sarcastic": 221,
+    "sincere": 23
+   },
+   "contrast:opposite:praise_more": {
+    "sarcastic": 633,
+    "sincere": 58
+   },
+   "contrast:opposite:praise_thanks": {
+    "sarcastic": 469,
+    "sincere": 96
+   },
+   "contrast:opposite:thanks_helpful": {
+    "sarcastic": 335,
+    "sincere": 165
+   }
+  }
+ },
+ "samples_key": "runs/tonetext/labels/tonetext-support-contrast-0.1-committee/samples.json"
+}

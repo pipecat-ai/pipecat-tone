@@ -1,0 +1,5925 @@
+{
+ "var_run": "tonetext-r3c-student-minilm-l6-seed1",
+ "ref_run": "tonetext-r3-student-minilm-l6-r2teachers-seed1",
+ "var_prefix": "export",
+ "ref_prefix": "export",
+ "var_config": {
+  "run_id": "tonetext-r3c-student-minilm-l6-seed1",
+  "sarcasm_tau_raw": 0.6,
+  "sarcasm_tau_rule": "the lowest threshold at which at most 1.5% of sincere natural dev lines are called sarcastic",
+  "calibration": {
+   "emotion_temperature": 0.7375,
+   "move_temperature": 0.7076,
+   "sarcasm": {
+    "a": 1.215679,
+    "b": -1.516114,
+    "items": 3357
+   }
+  }
+ },
+ "ref_config": {
+  "run_id": "tonetext-r3-student-minilm-l6-r2teachers-seed1",
+  "sarcasm_tau_raw": 0.45,
+  "sarcasm_tau_rule": "the lowest threshold at which at most 1.5% of sincere natural dev lines are called sarcastic",
+  "calibration": {
+   "emotion_temperature": 0.7411,
+   "move_temperature": 0.7054,
+   "sarcasm": {
+    "a": 1.432285,
+    "b": -0.97465,
+    "items": 3357
+   }
+  }
+ },
+ "columns": {
+  "with_previous": {
+   "items": {
+    "emotion_main": {
+     "ref": 0.6672,
+     "var": 0.6516,
+     "diff": -0.0156,
+     "ci": [
+      -0.0466,
+      0.0118
+     ],
+     "lines": 1905
+    },
+    "emotion_player_speech": {
+     "ref": 0.7248,
+     "var": 0.7127,
+     "diff": -0.0121,
+     "ci": [
+      -0.039,
+      0.0122
+     ],
+     "lines": 870
+    },
+    "emotion_unseen": {
+     "ref": 0.6869,
+     "var": 0.6713,
+     "diff": -0.0156,
+     "ci": [
+      -0.0442,
+      0.0134
+     ],
+     "lines": 874
+    },
+    "emotion_noisy_twins": {
+     "ref": 0.624,
+     "var": 0.6006,
+     "diff": -0.0233,
+     "ci": [
+      -0.0796,
+      0.0276
+     ],
+     "lines": 241
+    },
+    "emotion_voice": {
+     "ref": 0.6213,
+     "var": 0.6633,
+     "diff": 0.042,
+     "ci": [
+      -0.0056,
+      0.0878
+     ],
+     "lines": 885
+    },
+    "emotion_voice_agent": {
+     "ref": 0.4039,
+     "var": 0.4001,
+     "diff": -0.0038,
+     "ci": [
+      -0.1344,
+      0.0907
+     ],
+     "lines": 299
+    },
+    "emotion_voice_real": {
+     "ref": 0.6888,
+     "var": 0.6905,
+     "diff": 0.0018,
+     "ci": [
+      -0.0754,
+      0.0919
+     ],
+     "lines": 1496
+    },
+    "emotion_voice_real_30": {
+     "ref": 0.9386,
+     "var": 0.9375,
+     "diff": -0.0011,
+     "ci": [
+      -0.0104,
+      0.0096
+     ],
+     "ref_ci": [
+      0.9197,
+      0.9561
+     ],
+     "var_ci": [
+      0.9194,
+      0.9544
+     ],
+     "lines": 1496,
+     "classes": [
+      "neutral",
+      "happy"
+     ]
+    },
+    "emotion_voice_real_agent": {
+     "ref": 0.6143,
+     "var": 0.6725,
+     "diff": 0.0582,
+     "ci": [
+      -0.1378,
+      0.1421
+     ],
+     "lines": 750
+    },
+    "emotion_voice_real_agent_30": {
+     "ref": 0.9097,
+     "var": 0.9175,
+     "diff": 0.0078,
+     "ci": [
+      -0.01,
+      0.0297
+     ],
+     "ref_ci": [
+      0.8733,
+      0.9419
+     ],
+     "var_ci": [
+      0.8863,
+      0.9517
+     ],
+     "lines": 750,
+     "classes": [
+      "neutral",
+      "happy"
+     ]
+    },
+    "move_macro_f1": {
+     "ref": 0.8183,
+     "var": 0.8229,
+     "diff": 0.0046,
+     "ci": [
+      -0.0175,
+      0.0272
+     ],
+     "lines": 824
+    },
+    "move_answered_or_open": {
+     "ref": 0.85022,
+     "var": 0.85022,
+     "diff": 0.0,
+     "ci": [
+      -0.02423,
+      0.02423
+     ],
+     "lines": 454,
+     "ref_count": [
+      386,
+      454
+     ],
+     "var_count": [
+      386,
+      454
+     ]
+    },
+    "move_asks_or_not": {
+     "ref": 0.95146,
+     "var": 0.95146,
+     "diff": 0.0,
+     "ci": [
+      -0.00971,
+      0.0085
+     ],
+     "lines": 824,
+     "ref_count": [
+      784,
+      824
+     ],
+     "var_count": [
+      784,
+      824
+     ]
+    },
+    "move_voice_macro_f1": {
+     "ref": 0.7829,
+     "var": 0.7694,
+     "diff": -0.0135,
+     "ci": [
+      -0.0379,
+      0.0103
+     ],
+     "lines": 868
+    },
+    "move_voice_answered_or_open": {
+     "ref": 0.78462,
+     "var": 0.77436,
+     "diff": -0.01026,
+     "ci": [
+      -0.03333,
+      0.01282
+     ],
+     "lines": 390,
+     "ref_count": [
+      306,
+      390
+     ],
+     "var_count": [
+      302,
+      390
+     ]
+    },
+    "move_voice_asks_or_not": {
+     "ref": 0.92627,
+     "var": 0.91705,
+     "diff": -0.00922,
+     "ci": [
+      -0.02074,
+      0.0023
+     ],
+     "lines": 868,
+     "ref_count": [
+      804,
+      868
+     ],
+     "var_count": [
+      796,
+      868
+     ]
+    },
+    "move_voice_real_macro_f1": {
+     "ref": 0.7189,
+     "var": 0.6746,
+     "diff": -0.0443,
+     "ci": [
+      -0.1101,
+      0.0154
+     ],
+     "lines": 1470
+    },
+    "move_voice_real_macro_f1_30": {
+     "ref": 0.8345,
+     "var": 0.8317,
+     "diff": -0.0028,
+     "ci": [
+      -0.0231,
+      0.0155
+     ],
+     "ref_ci": [
+      0.7992,
+      0.8673
+     ],
+     "var_ci": [
+      0.7923,
+      0.8658
+     ],
+     "lines": 1470,
+     "classes": [
+      "asks",
+      "answers",
+      "closes",
+      "other"
+     ]
+    },
+    "move_voice_real_answered_or_open": {
+     "ref": 0.9292,
+     "var": 0.92183,
+     "diff": -0.00737,
+     "ci": [
+      -0.02065,
+      0.0059
+     ],
+     "lines": 678,
+     "ref_count": [
+      630,
+      678
+     ],
+     "var_count": [
+      625,
+      678
+     ]
+    },
+    "move_voice_real_asks_or_not": {
+     "ref": 0.95646,
+     "var": 0.95578,
+     "diff": -0.00068,
+     "ci": [
+      -0.0068,
+      0.00544
+     ],
+     "lines": 1470,
+     "ref_count": [
+      1406,
+      1470
+     ],
+     "var_count": [
+      1405,
+      1470
+     ]
+    },
+    "sarcasm_held_out_f1": {
+     "ref": 0.8522,
+     "var": 0.8554,
+     "diff": 0.0032,
+     "ci": [
+      -0.0212,
+      0.0281
+     ],
+     "units": 900
+    },
+    "sarcasm_natural_sincere_called_sarcastic": {
+     "ref": 0.01488,
+     "var": 0.01317,
+     "diff": -0.00172,
+     "ci": [
+      -0.00687,
+      0.00343
+     ],
+     "lines": 1747,
+     "ref_count": [
+      26,
+      1747
+     ],
+     "var_count": [
+      23,
+      1747
+     ]
+    },
+    "sarcasm_voice_f1": {
+     "ref": 0.8763,
+     "var": 0.8889,
+     "diff": 0.0126,
+     "ci": [
+      -0.0215,
+      0.0477
+     ],
+     "units": 897
+    },
+    "sarcasm_voice_sincere_called_sarcastic": {
+     "ref": 0.01129,
+     "var": 0.01255,
+     "diff": 0.00125,
+     "ci": [
+      -0.00376,
+      0.00627
+     ],
+     "lines": 797,
+     "ref_count": [
+      9,
+      797
+     ],
+     "var_count": [
+      10,
+      797
+     ]
+    },
+    "sarcasm_voice_real_f1": {
+     "ref": 0.0,
+     "var": 0.0,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 1500
+    },
+    "sarcasm_voice_real_sincere_called_sarcastic": {
+     "ref": 0.00134,
+     "var": 0.0,
+     "diff": -0.00134,
+     "ci": [
+      -0.00334,
+      0.0
+     ],
+     "lines": 1496,
+     "ref_count": [
+      2,
+      1496
+     ],
+     "var_count": [
+      0,
+      1496
+     ]
+    },
+    "emotion_support": {
+     "ref": 0.7101,
+     "var": 0.6468,
+     "diff": -0.0633,
+     "ci": [
+      -0.0844,
+      0.0342
+     ],
+     "lines": 3688
+    },
+    "sarcasm_support_f1": {
+     "ref": 0.9641,
+     "var": 0.9623,
+     "diff": -0.0017,
+     "ci": [
+      -0.0067,
+      0.0029
+     ],
+     "units": 3752
+    },
+    "sarcasm_support_sincere_called_sarcastic": {
+     "ref": 0.02762,
+     "var": 0.03453,
+     "diff": 0.00691,
+     "ci": [
+      0.00216,
+      0.01122
+     ],
+     "lines": 2317,
+     "ref_count": [
+      64,
+      2317
+     ],
+     "var_count": [
+      80,
+      2317
+     ]
+    },
+    "sarcasm_support_after_plain_f1": {
+     "ref": 0.9715,
+     "var": 0.9688,
+     "diff": -0.0027,
+     "ci": [
+      -0.0082,
+      0.0027
+     ],
+     "units": 2116
+    },
+    "sarcasm_support_after_plain_sincere_called_sarcastic": {
+     "ref": 0.03546,
+     "var": 0.0461,
+     "diff": 0.01064,
+     "ci": [
+      0.00355,
+      0.01862
+     ],
+     "lines": 1128,
+     "ref_count": [
+      40,
+      1128
+     ],
+     "var_count": [
+      52,
+      1128
+     ]
+    },
+    "sarcasm_support_after_news_f1": {
+     "ref": 0.9585,
+     "var": 0.9658,
+     "diff": 0.0073,
+     "ci": [
+      -0.0014,
+      0.0156
+     ],
+     "units": 890
+    },
+    "sarcasm_support_after_news_sincere_called_sarcastic": {
+     "ref": 0.04449,
+     "var": 0.04237,
+     "diff": -0.00212,
+     "ci": [
+      -0.01059,
+      0.00636
+     ],
+     "lines": 472,
+     "ref_count": [
+      21,
+      472
+     ],
+     "var_count": [
+      20,
+      472
+     ]
+    },
+    "sarcasm_support_held_domains_f1": {
+     "ref": 0.963,
+     "var": 0.9628,
+     "diff": -0.0001,
+     "ci": [
+      -0.0055,
+      0.0055
+     ],
+     "units": 3052
+    },
+    "sarcasm_support_held_domains_sincere_called_sarcastic": {
+     "ref": 0.0286,
+     "var": 0.0339,
+     "diff": 0.0053,
+     "ci": [
+      0.00053,
+      0.01059
+     ],
+     "lines": 1888,
+     "ref_count": [
+      54,
+      1888
+     ],
+     "var_count": [
+      64,
+      1888
+     ]
+    },
+    "sarcasm_support_built_f1": {
+     "ref": 0.9677,
+     "var": 0.9713,
+     "diff": 0.0036,
+     "ci": [
+      -0.0005,
+      0.0082
+     ],
+     "units": 3006
+    },
+    "sarcasm_support_built_sincere_called_sarcastic": {
+     "ref": 0.00931,
+     "var": 0.01331,
+     "diff": 0.00399,
+     "ci": [
+      -0.00133,
+      0.00931
+     ],
+     "lines": 1503,
+     "ref_count": [
+      14,
+      1503
+     ],
+     "var_count": [
+      20,
+      1503
+     ]
+    },
+    "sarcasm_support_built_after_plain_f1": {
+     "ref": 0.9696,
+     "var": 0.9717,
+     "diff": 0.0022,
+     "ci": [
+      -0.0029,
+      0.0071
+     ],
+     "units": 2116
+    },
+    "sarcasm_support_built_after_plain_sincere_called_sarcastic": {
+     "ref": 0.00756,
+     "var": 0.01418,
+     "diff": 0.00662,
+     "ci": [
+      0.00095,
+      0.01323
+     ],
+     "lines": 1058,
+     "ref_count": [
+      8,
+      1058
+     ],
+     "var_count": [
+      15,
+      1058
+     ]
+    },
+    "sarcasm_support_built_after_news_f1": {
+     "ref": 0.9632,
+     "var": 0.9703,
+     "diff": 0.007,
+     "ci": [
+      -0.0022,
+      0.0151
+     ],
+     "units": 890
+    },
+    "sarcasm_support_built_after_news_sincere_called_sarcastic": {
+     "ref": 0.01348,
+     "var": 0.01124,
+     "diff": -0.00225,
+     "ci": [
+      -0.00899,
+      0.00449
+     ],
+     "lines": 445,
+     "ref_count": [
+      6,
+      445
+     ],
+     "var_count": [
+      5,
+      445
+     ]
+    },
+    "emotion_contrast": {
+     "ref": 0.443,
+     "var": 0.6844,
+     "diff": 0.2413,
+     "ci": [
+      0.1606,
+      0.3394
+     ],
+     "lines": 824
+    },
+    "sarcasm_contrast_f1": {
+     "ref": 0.7216,
+     "var": 0.9307,
+     "diff": 0.2091,
+     "ci": [
+      0.1717,
+      0.2492
+     ],
+     "units": 870
+    },
+    "sarcasm_contrast_sincere_called_sarcastic": {
+     "ref": 0.11222,
+     "var": 0.06012,
+     "diff": -0.0521,
+     "ci": [
+      -0.08216,
+      -0.02204
+     ],
+     "lines": 499,
+     "ref_count": [
+      56,
+      499
+     ],
+     "var_count": [
+      30,
+      499
+     ]
+    },
+    "sarcasm_contrast_held_domains_f1": {
+     "ref": 0.7419,
+     "var": 0.9336,
+     "diff": 0.1916,
+     "ci": [
+      0.1494,
+      0.2356
+     ],
+     "units": 644
+    },
+    "sarcasm_contrast_held_domains_sincere_called_sarcastic": {
+     "ref": 0.1027,
+     "var": 0.06216,
+     "diff": -0.04054,
+     "ci": [
+      -0.07297,
+      -0.00811
+     ],
+     "lines": 370,
+     "ref_count": [
+      38,
+      370
+     ],
+     "var_count": [
+      23,
+      370
+     ]
+    },
+    "sarcasm_contrast_built_f1": {
+     "ref": 0.6885,
+     "var": 0.9214,
+     "diff": 0.2329,
+     "ci": [
+      0.1956,
+      0.2693
+     ],
+     "units": 870
+    },
+    "sarcasm_contrast_built_sincere_called_sarcastic": {
+     "ref": 0.10345,
+     "var": 0.0092,
+     "diff": -0.09425,
+     "ci": [
+      -0.12644,
+      -0.06667
+     ],
+     "lines": 435,
+     "ref_count": [
+      45,
+      435
+     ],
+     "var_count": [
+      4,
+      435
+     ]
+    },
+    "contrast_pairs_right": {
+     "ref": 0.53973,
+     "var": 0.93699,
+     "diff": 0.39726,
+     "ci": [
+      0.34795,
+      0.44932
+     ],
+     "lines": 365,
+     "ref_count": [
+      197,
+      365
+     ],
+     "var_count": [
+      342,
+      365
+     ]
+    },
+    "contrast_pairs_right_at_act": {
+     "ref": 0.4411,
+     "var": 0.92329,
+     "diff": 0.48219,
+     "ci": [
+      0.4274,
+      0.53425
+     ],
+     "lines": 365,
+     "ref_count": [
+      161,
+      365
+     ],
+     "var_count": [
+      337,
+      365
+     ]
+    },
+    "contrast_alone_sincere_called_sarcastic": {
+     "ref": 0.23288,
+     "var": 0.00822,
+     "diff": -0.22466,
+     "ci": [
+      -0.26849,
+      -0.18356
+     ],
+     "lines": 365,
+     "ref_count": [
+      85,
+      365
+     ],
+     "var_count": [
+      3,
+      365
+     ]
+    },
+    "emotion_sarcastic_tone": {
+     "ref": 0.4301,
+     "var": 0.4367,
+     "diff": 0.0066,
+     "ci": [
+      -0.0488,
+      0.0663
+     ],
+     "lines": 58
+    },
+    "face_value_sarcastic_tone": {
+     "ref": 0.10811,
+     "var": 0.08108,
+     "diff": -0.02703,
+     "ci": [
+      -0.13514,
+      0.05405
+     ],
+     "lines": 37,
+     "ref_count": [
+      4,
+      37
+     ],
+     "var_count": [
+      3,
+      37
+     ]
+    },
+    "emotion_sarcastic_voice": {
+     "ref": 0.4848,
+     "var": 0.5521,
+     "diff": 0.0673,
+     "ci": [
+      -0.1737,
+      0.2049
+     ],
+     "lines": 96
+    },
+    "face_value_sarcastic_voice": {
+     "ref": 0.04255,
+     "var": 0.05319,
+     "diff": 0.01064,
+     "ci": [
+      -0.03191,
+      0.06383
+     ],
+     "lines": 94,
+     "ref_count": [
+      4,
+      94
+     ],
+     "var_count": [
+      5,
+      94
+     ]
+    },
+    "emotion_sarcastic_support": {
+     "ref": 0.2867,
+     "var": 0.2868,
+     "diff": 0.0001,
+     "ci": [
+      -0.037,
+      0.0575
+     ],
+     "lines": 1416
+    },
+    "face_value_sarcastic_support": {
+     "ref": 0.01561,
+     "var": 0.01207,
+     "diff": -0.00355,
+     "ci": [
+      -0.00852,
+      0.00071
+     ],
+     "lines": 1409,
+     "ref_count": [
+      22,
+      1409
+     ],
+     "var_count": [
+      17,
+      1409
+     ]
+    },
+    "emotion_sarcastic_contrast": {
+     "ref": 0.227,
+     "var": 0.5074,
+     "diff": 0.2805,
+     "ci": [
+      0.2169,
+      0.4877
+     ],
+     "lines": 332
+    },
+    "face_value_sarcastic_contrast": {
+     "ref": 0.57729,
+     "var": 0.05047,
+     "diff": -0.52681,
+     "ci": [
+      -0.58044,
+      -0.46688
+     ],
+     "lines": 317,
+     "ref_count": [
+      183,
+      317
+     ],
+     "var_count": [
+      16,
+      317
+     ]
+    }
+   },
+   "by_class": {
+    "emotion_main": {
+     "neutral": {
+      "gold": 998,
+      "ref": {
+       "f1": 0.8686,
+       "recall": 0.8547,
+       "said": 966
+      },
+      "var": {
+       "f1": 0.8651,
+       "recall": 0.8577,
+       "said": 981
+      }
+     },
+     "happy": {
+      "gold": 150,
+      "ref": {
+       "f1": 0.8117,
+       "recall": 0.8333,
+       "said": 158
+      },
+      "var": {
+       "f1": 0.8259,
+       "recall": 0.8067,
+       "said": 143
+      }
+     },
+     "amused": {
+      "gold": 121,
+      "ref": {
+       "f1": 0.5422,
+       "recall": 0.5041,
+       "said": 104
+      },
+      "var": {
+       "f1": 0.5291,
+       "recall": 0.4876,
+       "said": 102
+      }
+     },
+     "angry": {
+      "gold": 195,
+      "ref": {
+       "f1": 0.6601,
+       "recall": 0.6872,
+       "said": 211
+      },
+      "var": {
+       "f1": 0.6551,
+       "recall": 0.6769,
+       "said": 208
+      }
+     },
+     "sad": {
+      "gold": 85,
+      "ref": {
+       "f1": 0.7296,
+       "recall": 0.6824,
+       "said": 74
+      },
+      "var": {
+       "f1": 0.7239,
+       "recall": 0.6941,
+       "said": 78
+      }
+     },
+     "afraid": {
+      "gold": 63,
+      "ref": {
+       "f1": 0.3564,
+       "recall": 0.2857,
+       "said": 38
+      },
+      "var": {
+       "f1": 0.381,
+       "recall": 0.3175,
+       "said": 42
+      }
+     },
+     "surprised": {
+      "gold": 53,
+      "ref": {
+       "f1": 0.6847,
+       "recall": 0.717,
+       "said": 58
+      },
+      "var": {
+       "f1": 0.6549,
+       "recall": 0.6981,
+       "said": 60
+      }
+     },
+     "disgusted": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.6316,
+       "recall": 0.6667,
+       "said": 10
+      },
+      "var": {
+       "f1": 0.5263,
+       "recall": 0.5556,
+       "said": 10
+      }
+     },
+     "contemptuous": {
+      "gold": 231,
+      "ref": {
+       "f1": 0.7195,
+       "recall": 0.8052,
+       "said": 286
+      },
+      "var": {
+       "f1": 0.7031,
+       "recall": 0.7792,
+       "said": 281
+      }
+     }
+    },
+    "emotion_player_speech": {
+     "neutral": {
+      "gold": 356,
+      "ref": {
+       "f1": 0.8441,
+       "recall": 0.8287,
+       "said": 343
+      },
+      "var": {
+       "f1": 0.8499,
+       "recall": 0.8427,
+       "said": 350
+      }
+     },
+     "happy": {
+      "gold": 84,
+      "ref": {
+       "f1": 0.8383,
+       "recall": 0.8333,
+       "said": 83
+      },
+      "var": {
+       "f1": 0.8537,
+       "recall": 0.8333,
+       "said": 80
+      }
+     },
+     "amused": {
+      "gold": 70,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 0.6571,
+       "said": 68
+      },
+      "var": {
+       "f1": 0.6571,
+       "recall": 0.6571,
+       "said": 70
+      }
+     },
+     "angry": {
+      "gold": 205,
+      "ref": {
+       "f1": 0.8182,
+       "recall": 0.878,
+       "said": 235
+      },
+      "var": {
+       "f1": 0.8184,
+       "recall": 0.8683,
+       "said": 230
+      }
+     },
+     "sad": {
+      "gold": 28,
+      "ref": {
+       "f1": 0.7547,
+       "recall": 0.7143,
+       "said": 25
+      },
+      "var": {
+       "f1": 0.7037,
+       "recall": 0.6786,
+       "said": 26
+      }
+     },
+     "afraid": {
+      "gold": 48,
+      "ref": {
+       "f1": 0.561,
+       "recall": 0.4792,
+       "said": 34
+      },
+      "var": {
+       "f1": 0.5185,
+       "recall": 0.4375,
+       "said": 33
+      }
+     },
+     "surprised": {
+      "gold": 16,
+      "ref": {
+       "f1": 0.6286,
+       "recall": 0.6875,
+       "said": 19
+      },
+      "var": {
+       "f1": 0.6061,
+       "recall": 0.625,
+       "said": 17
+      }
+     },
+     "disgusted": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.8571,
+       "recall": 1.0,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.8571,
+       "recall": 1.0,
+       "said": 4
+      }
+     },
+     "contemptuous": {
+      "gold": 60,
+      "ref": {
+       "f1": 0.5546,
+       "recall": 0.55,
+       "said": 59
+      },
+      "var": {
+       "f1": 0.55,
+       "recall": 0.55,
+       "said": 60
+      }
+     }
+    },
+    "emotion_unseen": {
+     "neutral": {
+      "gold": 428,
+      "ref": {
+       "f1": 0.8615,
+       "recall": 0.8645,
+       "said": 431
+      },
+      "var": {
+       "f1": 0.8571,
+       "recall": 0.8621,
+       "said": 433
+      }
+     },
+     "happy": {
+      "gold": 76,
+      "ref": {
+       "f1": 0.7826,
+       "recall": 0.7105,
+       "said": 62
+      },
+      "var": {
+       "f1": 0.7943,
+       "recall": 0.7368,
+       "said": 65
+      }
+     },
+     "amused": {
+      "gold": 34,
+      "ref": {
+       "f1": 0.5789,
+       "recall": 0.6471,
+       "said": 42
+      },
+      "var": {
+       "f1": 0.6286,
+       "recall": 0.6471,
+       "said": 36
+      }
+     },
+     "angry": {
+      "gold": 130,
+      "ref": {
+       "f1": 0.771,
+       "recall": 0.7769,
+       "said": 132
+      },
+      "var": {
+       "f1": 0.7462,
+       "recall": 0.7462,
+       "said": 130
+      }
+     },
+     "sad": {
+      "gold": 59,
+      "ref": {
+       "f1": 0.8361,
+       "recall": 0.8644,
+       "said": 63
+      },
+      "var": {
+       "f1": 0.7934,
+       "recall": 0.8136,
+       "said": 62
+      }
+     },
+     "afraid": {
+      "gold": 39,
+      "ref": {
+       "f1": 0.5538,
+       "recall": 0.4615,
+       "said": 26
+      },
+      "var": {
+       "f1": 0.4407,
+       "recall": 0.3333,
+       "said": 20
+      }
+     },
+     "surprised": {
+      "gold": 19,
+      "ref": {
+       "f1": 0.55,
+       "recall": 0.5789,
+       "said": 21
+      },
+      "var": {
+       "f1": 0.5581,
+       "recall": 0.6316,
+       "said": 24
+      }
+     },
+     "disgusted": {
+      "gold": 6,
+      "ref": {
+       "f1": 0.6,
+       "recall": 0.5,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.6,
+       "recall": 0.5,
+       "said": 4
+      }
+     },
+     "contemptuous": {
+      "gold": 83,
+      "ref": {
+       "f1": 0.6477,
+       "recall": 0.6867,
+       "said": 93
+      },
+      "var": {
+       "f1": 0.623,
+       "recall": 0.6867,
+       "said": 100
+      }
+     }
+    },
+    "emotion_noisy_twins": {
+     "neutral": {
+      "gold": 123,
+      "ref": {
+       "f1": 0.8667,
+       "recall": 0.8455,
+       "said": 117
+      },
+      "var": {
+       "f1": 0.8664,
+       "recall": 0.8699,
+       "said": 124
+      }
+     },
+     "happy": {
+      "gold": 22,
+      "ref": {
+       "f1": 0.7568,
+       "recall": 0.6364,
+       "said": 15
+      },
+      "var": {
+       "f1": 0.7895,
+       "recall": 0.6818,
+       "said": 16
+      }
+     },
+     "amused": {
+      "gold": 13,
+      "ref": {
+       "f1": 0.48,
+       "recall": 0.4615,
+       "said": 12
+      },
+      "var": {
+       "f1": 0.56,
+       "recall": 0.5385,
+       "said": 12
+      }
+     },
+     "angry": {
+      "gold": 30,
+      "ref": {
+       "f1": 0.7302,
+       "recall": 0.7667,
+       "said": 33
+      },
+      "var": {
+       "f1": 0.7119,
+       "recall": 0.7,
+       "said": 29
+      }
+     },
+     "sad": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.6,
+       "recall": 0.75,
+       "said": 6
+      },
+      "var": {
+       "f1": 0.6,
+       "recall": 0.75,
+       "said": 6
+      }
+     },
+     "afraid": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.5882,
+       "recall": 0.5556,
+       "said": 8
+      },
+      "var": {
+       "f1": 0.4706,
+       "recall": 0.4444,
+       "said": 8
+      }
+     },
+     "surprised": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.4444,
+       "recall": 1.0,
+       "said": 7
+      },
+      "var": {
+       "f1": 0.2222,
+       "recall": 0.5,
+       "said": 7
+      }
+     },
+     "disgusted": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      }
+     },
+     "contemptuous": {
+      "gold": 36,
+      "ref": {
+       "f1": 0.6494,
+       "recall": 0.6944,
+       "said": 41
+      },
+      "var": {
+       "f1": 0.6849,
+       "recall": 0.6944,
+       "said": 37
+      }
+     }
+    },
+    "emotion_voice": {
+     "neutral": {
+      "gold": 498,
+      "ref": {
+       "f1": 0.9085,
+       "recall": 0.9177,
+       "said": 508
+      },
+      "var": {
+       "f1": 0.9051,
+       "recall": 0.9197,
+       "said": 514
+      }
+     },
+     "happy": {
+      "gold": 176,
+      "ref": {
+       "f1": 0.858,
+       "recall": 0.8409,
+       "said": 169
+      },
+      "var": {
+       "f1": 0.8613,
+       "recall": 0.8466,
+       "said": 170
+      }
+     },
+     "amused": {
+      "gold": 11,
+      "ref": {
+       "f1": 0.6087,
+       "recall": 0.6364,
+       "said": 12
+      },
+      "var": {
+       "f1": 0.5833,
+       "recall": 0.6364,
+       "said": 13
+      }
+     },
+     "angry": {
+      "gold": 84,
+      "ref": {
+       "f1": 0.7435,
+       "recall": 0.8452,
+       "said": 107
+      },
+      "var": {
+       "f1": 0.7312,
+       "recall": 0.8095,
+       "said": 102
+      }
+     },
+     "sad": {
+      "gold": 8,
+      "ref": {
+       "f1": 0.1333,
+       "recall": 0.125,
+       "said": 7
+      },
+      "var": {
+       "f1": 0.4444,
+       "recall": 0.5,
+       "said": 10
+      }
+     },
+     "afraid": {
+      "gold": 27,
+      "ref": {
+       "f1": 0.2439,
+       "recall": 0.1852,
+       "said": 14
+      },
+      "var": {
+       "f1": 0.2703,
+       "recall": 0.1852,
+       "said": 10
+      }
+     },
+     "surprised": {
+      "gold": 34,
+      "ref": {
+       "f1": 0.7302,
+       "recall": 0.6765,
+       "said": 29
+      },
+      "var": {
+       "f1": 0.7241,
+       "recall": 0.6176,
+       "said": 24
+      }
+     },
+     "contemptuous": {
+      "gold": 47,
+      "ref": {
+       "f1": 0.7442,
+       "recall": 0.6809,
+       "said": 39
+      },
+      "var": {
+       "f1": 0.7865,
+       "recall": 0.7447,
+       "said": 42
+      }
+     }
+    },
+    "emotion_voice_agent": {
+     "neutral": {
+      "gold": 250,
+      "ref": {
+       "f1": 0.9522,
+       "recall": 0.956,
+       "said": 252
+      },
+      "var": {
+       "f1": 0.9484,
+       "recall": 0.956,
+       "said": 254
+      }
+     },
+     "happy": {
+      "gold": 45,
+      "ref": {
+       "f1": 0.8046,
+       "recall": 0.7778,
+       "said": 42
+      },
+      "var": {
+       "f1": 0.7857,
+       "recall": 0.7333,
+       "said": 39
+      }
+     },
+     "amused": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 3
+      }
+     },
+     "angry": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 0
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      }
+     },
+     "sad": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 0
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 0
+      }
+     },
+     "afraid": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 2
+      }
+     },
+     "contemptuous": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 0
+      }
+     }
+    },
+    "emotion_voice_real": {
+     "neutral": {
+      "gold": 1252,
+      "ref": {
+       "f1": 0.9753,
+       "recall": 0.9792,
+       "said": 1262
+      },
+      "var": {
+       "f1": 0.9757,
+       "recall": 0.9792,
+       "said": 1261
+      }
+     },
+     "happy": {
+      "gold": 213,
+      "ref": {
+       "f1": 0.9019,
+       "recall": 0.9061,
+       "said": 215
+      },
+      "var": {
+       "f1": 0.8993,
+       "recall": 0.9014,
+       "said": 214
+      }
+     },
+     "amused": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 4
+      }
+     },
+     "angry": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.4286,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.3333,
+       "recall": 0.2857,
+       "said": 5
+      }
+     },
+     "sad": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.3636,
+       "recall": 0.2222,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.3636,
+       "recall": 0.2222,
+       "said": 2
+      }
+     },
+     "afraid": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.3333,
+       "recall": 0.25,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.5714,
+       "recall": 0.5,
+       "said": 3
+      }
+     },
+     "surprised": {
+      "gold": 8,
+      "ref": {
+       "f1": 0.7692,
+       "recall": 0.625,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.7143,
+       "recall": 0.625,
+       "said": 6
+      }
+     },
+     "contemptuous": {
+      "gold": 1,
+      "ref": {
+       "f1": 1.0,
+       "recall": 1.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 1.0,
+       "recall": 1.0,
+       "said": 1
+      }
+     }
+    },
+    "emotion_voice_real_agent": {
+     "neutral": {
+      "gold": 662,
+      "ref": {
+       "f1": 0.9766,
+       "recall": 0.9789,
+       "said": 665
+      },
+      "var": {
+       "f1": 0.9797,
+       "recall": 0.9819,
+       "said": 665
+      }
+     },
+     "happy": {
+      "gold": 79,
+      "ref": {
+       "f1": 0.8428,
+       "recall": 0.8481,
+       "said": 80
+      },
+      "var": {
+       "f1": 0.8553,
+       "recall": 0.8608,
+       "said": 80
+      }
+     },
+     "amused": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 2
+      },
+      "var": {
+       "f1": 1.0,
+       "recall": 1.0,
+       "said": 1
+      }
+     },
+     "angry": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 0
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      }
+     },
+     "sad": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.4,
+       "recall": 0.25,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.4,
+       "recall": 0.25,
+       "said": 1
+      }
+     },
+     "surprised": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.8,
+       "recall": 0.6667,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.8,
+       "recall": 0.6667,
+       "said": 2
+      }
+     }
+    },
+    "move_macro_f1": {
+     "asks": {
+      "gold": 172,
+      "ref": {
+       "f1": 0.8844,
+       "recall": 0.8895,
+       "said": 174
+      },
+      "var": {
+       "f1": 0.8837,
+       "recall": 0.8837,
+       "said": 172
+      }
+     },
+     "answers": {
+      "gold": 299,
+      "ref": {
+       "f1": 0.8611,
+       "recall": 0.8395,
+       "said": 284
+      },
+      "var": {
+       "f1": 0.863,
+       "recall": 0.8428,
+       "said": 285
+      }
+     },
+     "hedges": {
+      "gold": 34,
+      "ref": {
+       "f1": 0.8286,
+       "recall": 0.8529,
+       "said": 36
+      },
+      "var": {
+       "f1": 0.8158,
+       "recall": 0.9118,
+       "said": 42
+      }
+     },
+     "doesnt_know": {
+      "gold": 72,
+      "ref": {
+       "f1": 0.8974,
+       "recall": 0.9722,
+       "said": 84
+      },
+      "var": {
+       "f1": 0.9079,
+       "recall": 0.9583,
+       "said": 80
+      }
+     },
+     "withholds": {
+      "gold": 83,
+      "ref": {
+       "f1": 0.7018,
+       "recall": 0.7229,
+       "said": 88
+      },
+      "var": {
+       "f1": 0.7101,
+       "recall": 0.7229,
+       "said": 86
+      }
+     },
+     "closes": {
+      "gold": 46,
+      "ref": {
+       "f1": 0.8283,
+       "recall": 0.8913,
+       "said": 53
+      },
+      "var": {
+       "f1": 0.8454,
+       "recall": 0.8913,
+       "said": 51
+      }
+     },
+     "other": {
+      "gold": 118,
+      "ref": {
+       "f1": 0.7265,
+       "recall": 0.6864,
+       "said": 105
+      },
+      "var": {
+       "f1": 0.7345,
+       "recall": 0.7034,
+       "said": 108
+      }
+     }
+    },
+    "move_voice_macro_f1": {
+     "asks": {
+      "gold": 184,
+      "ref": {
+       "f1": 0.828,
+       "recall": 0.837,
+       "said": 188
+      },
+      "var": {
+       "f1": 0.8043,
+       "recall": 0.8043,
+       "said": 184
+      }
+     },
+     "answers": {
+      "gold": 335,
+      "ref": {
+       "f1": 0.8293,
+       "recall": 0.8119,
+       "said": 321
+      },
+      "var": {
+       "f1": 0.8165,
+       "recall": 0.797,
+       "said": 319
+      }
+     },
+     "hedges": {
+      "gold": 47,
+      "ref": {
+       "f1": 0.7692,
+       "recall": 0.7447,
+       "said": 44
+      },
+      "var": {
+       "f1": 0.7826,
+       "recall": 0.766,
+       "said": 45
+      }
+     },
+     "doesnt_know": {
+      "gold": 19,
+      "ref": {
+       "f1": 0.7568,
+       "recall": 0.7368,
+       "said": 18
+      },
+      "var": {
+       "f1": 0.7027,
+       "recall": 0.6842,
+       "said": 18
+      }
+     },
+     "withholds": {
+      "gold": 36,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 0.5278,
+       "said": 21
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 0.5556,
+       "said": 24
+      }
+     },
+     "closes": {
+      "gold": 134,
+      "ref": {
+       "f1": 0.8425,
+       "recall": 0.9179,
+       "said": 158
+      },
+      "var": {
+       "f1": 0.8446,
+       "recall": 0.9328,
+       "said": 162
+      }
+     },
+     "other": {
+      "gold": 113,
+      "ref": {
+       "f1": 0.7879,
+       "recall": 0.8053,
+       "said": 118
+      },
+      "var": {
+       "f1": 0.7686,
+       "recall": 0.7788,
+       "said": 116
+      }
+     }
+    },
+    "move_voice_real_macro_f1": {
+     "asks": {
+      "gold": 511,
+      "ref": {
+       "f1": 0.9373,
+       "recall": 0.9354,
+       "said": 509
+      },
+      "var": {
+       "f1": 0.9365,
+       "recall": 0.9374,
+       "said": 512
+      }
+     },
+     "answers": {
+      "gold": 665,
+      "ref": {
+       "f1": 0.9296,
+       "recall": 0.9338,
+       "said": 671
+      },
+      "var": {
+       "f1": 0.9264,
+       "recall": 0.9278,
+       "said": 667
+      }
+     },
+     "hedges": {
+      "gold": 12,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 0.5833,
+       "said": 9
+      },
+      "var": {
+       "f1": 0.6957,
+       "recall": 0.6667,
+       "said": 11
+      }
+     },
+     "doesnt_know": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.7778,
+       "recall": 1.0,
+       "said": 11
+      },
+      "var": {
+       "f1": 0.7,
+       "recall": 1.0,
+       "said": 13
+      }
+     },
+     "withholds": {
+      "gold": 6,
+      "ref": {
+       "f1": 0.25,
+       "recall": 0.1667,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      }
+     },
+     "closes": {
+      "gold": 225,
+      "ref": {
+       "f1": 0.9422,
+       "recall": 0.9422,
+       "said": 225
+      },
+      "var": {
+       "f1": 0.9401,
+       "recall": 0.9422,
+       "said": 226
+      }
+     },
+     "other": {
+      "gold": 44,
+      "ref": {
+       "f1": 0.5287,
+       "recall": 0.5227,
+       "said": 43
+      },
+      "var": {
+       "f1": 0.5238,
+       "recall": 0.5,
+       "said": 40
+      }
+     }
+    },
+    "emotion_support": {
+     "neutral": {
+      "gold": 796,
+      "ref": {
+       "f1": 0.9018,
+       "recall": 0.8995,
+       "said": 792
+      },
+      "var": {
+       "f1": 0.8994,
+       "recall": 0.9095,
+       "said": 814
+      }
+     },
+     "happy": {
+      "gold": 715,
+      "ref": {
+       "f1": 0.9269,
+       "recall": 0.9399,
+       "said": 735
+      },
+      "var": {
+       "f1": 0.9164,
+       "recall": 0.9049,
+       "said": 697
+      }
+     },
+     "amused": {
+      "gold": 42,
+      "ref": {
+       "f1": 0.2424,
+       "recall": 0.1905,
+       "said": 24
+      },
+      "var": {
+       "f1": 0.3279,
+       "recall": 0.2381,
+       "said": 19
+      }
+     },
+     "angry": {
+      "gold": 1601,
+      "ref": {
+       "f1": 0.8976,
+       "recall": 0.9119,
+       "said": 1652
+      },
+      "var": {
+       "f1": 0.9002,
+       "recall": 0.9019,
+       "said": 1607
+      }
+     },
+     "sad": {
+      "gold": 68,
+      "ref": {
+       "f1": 0.4628,
+       "recall": 0.4118,
+       "said": 53
+      },
+      "var": {
+       "f1": 0.5167,
+       "recall": 0.4559,
+       "said": 52
+      }
+     },
+     "afraid": {
+      "gold": 175,
+      "ref": {
+       "f1": 0.7826,
+       "recall": 0.72,
+       "said": 147
+      },
+      "var": {
+       "f1": 0.7886,
+       "recall": 0.7143,
+       "said": 142
+      }
+     },
+     "surprised": {
+      "gold": 28,
+      "ref": {
+       "f1": 0.7879,
+       "recall": 0.9286,
+       "said": 38
+      },
+      "var": {
+       "f1": 0.7742,
+       "recall": 0.8571,
+       "said": 34
+      }
+     },
+     "disgusted": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 0
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      }
+     },
+     "contemptuous": {
+      "gold": 263,
+      "ref": {
+       "f1": 0.6784,
+       "recall": 0.6578,
+       "said": 247
+      },
+      "var": {
+       "f1": 0.6974,
+       "recall": 0.7757,
+       "said": 322
+      }
+     }
+    },
+    "emotion_contrast": {
+     "neutral": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.2143,
+       "recall": 0.3333,
+       "said": 19
+      },
+      "var": {
+       "f1": 0.1333,
+       "recall": 0.1111,
+       "said": 6
+      }
+     },
+     "happy": {
+      "gold": 491,
+      "ref": {
+       "f1": 0.8124,
+       "recall": 0.9572,
+       "said": 666
+      },
+      "var": {
+       "f1": 0.9373,
+       "recall": 0.9287,
+       "said": 482
+      }
+     },
+     "angry": {
+      "gold": 234,
+      "ref": {
+       "f1": 0.4337,
+       "recall": 0.2863,
+       "said": 75
+      },
+      "var": {
+       "f1": 0.8819,
+       "recall": 0.8932,
+       "said": 240
+      }
+     },
+     "contemptuous": {
+      "gold": 90,
+      "ref": {
+       "f1": 0.3117,
+       "recall": 0.2667,
+       "said": 64
+      },
+      "var": {
+       "f1": 0.7849,
+       "recall": 0.8111,
+       "said": 96
+      }
+     }
+    },
+    "emotion_sarcastic_tone": {
+     "neutral": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.4,
+       "recall": 0.5,
+       "said": 6
+      }
+     },
+     "happy": {
+      "gold": 21,
+      "ref": {
+       "f1": 0.7179,
+       "recall": 0.6667,
+       "said": 18
+      },
+      "var": {
+       "f1": 0.7027,
+       "recall": 0.619,
+       "said": 16
+      }
+     },
+     "amused": {
+      "gold": 12,
+      "ref": {
+       "f1": 0.5455,
+       "recall": 0.5,
+       "said": 10
+      },
+      "var": {
+       "f1": 0.6364,
+       "recall": 0.5833,
+       "said": 10
+      }
+     },
+     "angry": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.5714,
+       "recall": 0.6667,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 0.6667,
+       "said": 3
+      }
+     },
+     "sad": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      }
+     },
+     "afraid": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      }
+     },
+     "surprised": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      }
+     },
+     "contemptuous": {
+      "gold": 15,
+      "ref": {
+       "f1": 0.6061,
+       "recall": 0.6667,
+       "said": 18
+      },
+      "var": {
+       "f1": 0.5882,
+       "recall": 0.6667,
+       "said": 19
+      }
+     }
+    },
+    "emotion_sarcastic_voice": {
+     "neutral": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.8,
+       "recall": 1.0,
+       "said": 3
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 4
+      }
+     },
+     "happy": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.2857,
+       "recall": 0.5,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 5
+      }
+     },
+     "amused": {
+      "gold": 5,
+      "ref": {
+       "f1": 0.7273,
+       "recall": 0.8,
+       "said": 6
+      },
+      "var": {
+       "f1": 0.8,
+       "recall": 0.8,
+       "said": 5
+      }
+     },
+     "angry": {
+      "gold": 37,
+      "ref": {
+       "f1": 0.8,
+       "recall": 0.8649,
+       "said": 43
+      },
+      "var": {
+       "f1": 0.7838,
+       "recall": 0.7838,
+       "said": 37
+      }
+     },
+     "sad": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.8,
+       "recall": 1.0,
+       "said": 3
+      }
+     },
+     "afraid": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 0
+      }
+     },
+     "surprised": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 2
+      }
+     },
+     "contemptuous": {
+      "gold": 46,
+      "ref": {
+       "f1": 0.7654,
+       "recall": 0.6739,
+       "said": 35
+      },
+      "var": {
+       "f1": 0.814,
+       "recall": 0.7609,
+       "said": 40
+      }
+     }
+    },
+    "emotion_sarcastic_support": {
+     "neutral": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 3
+      }
+     },
+     "happy": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.2941,
+       "recall": 0.7143,
+       "said": 27
+      },
+      "var": {
+       "f1": 0.1538,
+       "recall": 0.2857,
+       "said": 19
+      }
+     },
+     "amused": {
+      "gold": 16,
+      "ref": {
+       "f1": 0.0909,
+       "recall": 0.0625,
+       "said": 6
+      },
+      "var": {
+       "f1": 0.1905,
+       "recall": 0.125,
+       "said": 5
+      }
+     },
+     "angry": {
+      "gold": 1125,
+      "ref": {
+       "f1": 0.9199,
+       "recall": 0.9244,
+       "said": 1136
+      },
+      "var": {
+       "f1": 0.9265,
+       "recall": 0.9129,
+       "said": 1092
+      }
+     },
+     "sad": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 3
+      }
+     },
+     "afraid": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 3
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 2
+      }
+     },
+     "contemptuous": {
+      "gold": 259,
+      "ref": {
+       "f1": 0.7018,
+       "recall": 0.668,
+       "said": 234
+      },
+      "var": {
+       "f1": 0.7368,
+       "recall": 0.7838,
+       "said": 292
+      }
+     }
+    },
+    "emotion_sarcastic_contrast": {
+     "neutral": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 10
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      }
+     },
+     "happy": {
+      "gold": 15,
+      "ref": {
+       "f1": 0.1232,
+       "recall": 0.8667,
+       "said": 196
+      },
+      "var": {
+       "f1": 0.2778,
+       "recall": 0.3333,
+       "said": 21
+      }
+     },
+     "angry": {
+      "gold": 230,
+      "ref": {
+       "f1": 0.4467,
+       "recall": 0.2913,
+       "said": 70
+      },
+      "var": {
+       "f1": 0.9099,
+       "recall": 0.9,
+       "said": 225
+      }
+     },
+     "contemptuous": {
+      "gold": 86,
+      "ref": {
+       "f1": 0.338,
+       "recall": 0.2791,
+       "said": 56
+      },
+      "var": {
+       "f1": 0.8421,
+       "recall": 0.8372,
+       "said": 85
+      }
+     }
+    }
+   },
+   "worse_beyond_noise": [],
+   "better_beyond_noise": [
+    "emotion_contrast",
+    "sarcasm_contrast_f1",
+    "sarcasm_contrast_held_domains_f1",
+    "sarcasm_contrast_built_f1",
+    "contrast_pairs_right",
+    "contrast_pairs_right_at_act",
+    "emotion_sarcastic_contrast"
+   ],
+   "false_sarcasm_or_face_value_rises": [
+    "sarcasm_support_sincere_called_sarcastic",
+    "sarcasm_support_after_plain_sincere_called_sarcastic",
+    "sarcasm_support_held_domains_sincere_called_sarcastic",
+    "sarcasm_support_built_after_plain_sincere_called_sarcastic"
+   ],
+   "tone_items_worse": []
+  },
+  "without_previous": {
+   "items": {
+    "emotion_main": {
+     "ref": 0.661,
+     "var": 0.6504,
+     "diff": -0.0106,
+     "ci": [
+      -0.0429,
+      0.0173
+     ],
+     "lines": 1905
+    },
+    "emotion_player_speech": {
+     "ref": 0.7132,
+     "var": 0.7026,
+     "diff": -0.0107,
+     "ci": [
+      -0.0541,
+      0.0285
+     ],
+     "lines": 870
+    },
+    "emotion_unseen": {
+     "ref": 0.6869,
+     "var": 0.6713,
+     "diff": -0.0156,
+     "ci": [
+      -0.0442,
+      0.0134
+     ],
+     "lines": 874
+    },
+    "emotion_noisy_twins": {
+     "ref": 0.6243,
+     "var": 0.5988,
+     "diff": -0.0256,
+     "ci": [
+      -0.082,
+      0.0243
+     ],
+     "lines": 241
+    },
+    "emotion_voice": {
+     "ref": 0.5385,
+     "var": 0.6591,
+     "diff": 0.1206,
+     "ci": [
+      0.0176,
+      0.164
+     ],
+     "lines": 885
+    },
+    "emotion_voice_agent": {
+     "ref": 0.394,
+     "var": 0.481,
+     "diff": 0.087,
+     "ci": [
+      -0.0012,
+      0.15
+     ],
+     "lines": 299
+    },
+    "emotion_voice_real": {
+     "ref": 0.6265,
+     "var": 0.6377,
+     "diff": 0.0112,
+     "ci": [
+      -0.0714,
+      0.0993
+     ],
+     "lines": 1496
+    },
+    "emotion_voice_real_30": {
+     "ref": 0.9382,
+     "var": 0.9346,
+     "diff": -0.0036,
+     "ci": [
+      -0.015,
+      0.0076
+     ],
+     "ref_ci": [
+      0.9194,
+      0.9541
+     ],
+     "var_ci": [
+      0.9155,
+      0.953
+     ],
+     "lines": 1496,
+     "classes": [
+      "neutral",
+      "happy"
+     ]
+    },
+    "emotion_voice_real_agent": {
+     "ref": 0.567,
+     "var": 0.4849,
+     "diff": -0.0822,
+     "ci": [
+      -0.2118,
+      0.0445
+     ],
+     "lines": 750
+    },
+    "emotion_voice_real_agent_30": {
+     "ref": 0.918,
+     "var": 0.9137,
+     "diff": -0.0043,
+     "ci": [
+      -0.0235,
+      0.0135
+     ],
+     "ref_ci": [
+      0.8819,
+      0.9489
+     ],
+     "var_ci": [
+      0.8777,
+      0.9448
+     ],
+     "lines": 750,
+     "classes": [
+      "neutral",
+      "happy"
+     ]
+    },
+    "move_macro_f1": {
+     "ref": 0.7778,
+     "var": 0.7757,
+     "diff": -0.0021,
+     "ci": [
+      -0.026,
+      0.0193
+     ],
+     "lines": 824
+    },
+    "move_answered_or_open": {
+     "ref": 0.79736,
+     "var": 0.78634,
+     "diff": -0.01101,
+     "ci": [
+      -0.03965,
+      0.01542
+     ],
+     "lines": 454,
+     "ref_count": [
+      362,
+      454
+     ],
+     "var_count": [
+      357,
+      454
+     ]
+    },
+    "move_asks_or_not": {
+     "ref": 0.93325,
+     "var": 0.9284,
+     "diff": -0.00485,
+     "ci": [
+      -0.01456,
+      0.00485
+     ],
+     "lines": 824,
+     "ref_count": [
+      769,
+      824
+     ],
+     "var_count": [
+      765,
+      824
+     ]
+    },
+    "move_voice_macro_f1": {
+     "ref": 0.7432,
+     "var": 0.7504,
+     "diff": 0.0072,
+     "ci": [
+      -0.0148,
+      0.0338
+     ],
+     "lines": 868
+    },
+    "move_voice_answered_or_open": {
+     "ref": 0.73333,
+     "var": 0.72051,
+     "diff": -0.01282,
+     "ci": [
+      -0.04103,
+      0.01538
+     ],
+     "lines": 390,
+     "ref_count": [
+      286,
+      390
+     ],
+     "var_count": [
+      281,
+      390
+     ]
+    },
+    "move_voice_asks_or_not": {
+     "ref": 0.90207,
+     "var": 0.89862,
+     "diff": -0.00346,
+     "ci": [
+      -0.01613,
+      0.01037
+     ],
+     "lines": 868,
+     "ref_count": [
+      783,
+      868
+     ],
+     "var_count": [
+      780,
+      868
+     ]
+    },
+    "move_voice_real_macro_f1": {
+     "ref": 0.6904,
+     "var": 0.6559,
+     "diff": -0.0345,
+     "ci": [
+      -0.1005,
+      0.0246
+     ],
+     "lines": 1470
+    },
+    "move_voice_real_macro_f1_30": {
+     "ref": 0.7808,
+     "var": 0.7795,
+     "diff": -0.0012,
+     "ci": [
+      -0.0191,
+      0.0176
+     ],
+     "ref_ci": [
+      0.7433,
+      0.8122
+     ],
+     "var_ci": [
+      0.7419,
+      0.812
+     ],
+     "lines": 1470,
+     "classes": [
+      "asks",
+      "answers",
+      "closes",
+      "other"
+     ]
+    },
+    "move_voice_real_answered_or_open": {
+     "ref": 0.88496,
+     "var": 0.87168,
+     "diff": -0.01327,
+     "ci": [
+      -0.02802,
+      0.0
+     ],
+     "lines": 678,
+     "ref_count": [
+      600,
+      678
+     ],
+     "var_count": [
+      591,
+      678
+     ]
+    },
+    "move_voice_real_asks_or_not": {
+     "ref": 0.94898,
+     "var": 0.94354,
+     "diff": -0.00544,
+     "ci": [
+      -0.01088,
+      0.00068
+     ],
+     "lines": 1470,
+     "ref_count": [
+      1395,
+      1470
+     ],
+     "var_count": [
+      1387,
+      1470
+     ]
+    },
+    "sarcasm_held_out_f1": {
+     "ref": 0.8135,
+     "var": 0.8098,
+     "diff": -0.0037,
+     "ci": [
+      -0.028,
+      0.0222
+     ],
+     "units": 900
+    },
+    "sarcasm_natural_sincere_called_sarcastic": {
+     "ref": 0.01374,
+     "var": 0.01088,
+     "diff": -0.00286,
+     "ci": [
+      -0.00687,
+      0.00114
+     ],
+     "lines": 1747,
+     "ref_count": [
+      24,
+      1747
+     ],
+     "var_count": [
+      19,
+      1747
+     ]
+    },
+    "sarcasm_voice_f1": {
+     "ref": 0.8867,
+     "var": 0.8614,
+     "diff": -0.0253,
+     "ci": [
+      -0.0639,
+      0.0121
+     ],
+     "units": 897
+    },
+    "sarcasm_voice_sincere_called_sarcastic": {
+     "ref": 0.01631,
+     "var": 0.01882,
+     "diff": 0.00251,
+     "ci": [
+      -0.00627,
+      0.01004
+     ],
+     "lines": 797,
+     "ref_count": [
+      13,
+      797
+     ],
+     "var_count": [
+      15,
+      797
+     ]
+    },
+    "sarcasm_voice_real_f1": {
+     "ref": 0.0,
+     "var": 0.0,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 1500
+    },
+    "sarcasm_voice_real_sincere_called_sarcastic": {
+     "ref": 0.00267,
+     "var": 0.00134,
+     "diff": -0.00134,
+     "ci": [
+      -0.00334,
+      0.0
+     ],
+     "lines": 1496,
+     "ref_count": [
+      4,
+      1496
+     ],
+     "var_count": [
+      2,
+      1496
+     ]
+    },
+    "emotion_support": {
+     "ref": 0.6153,
+     "var": 0.6337,
+     "diff": 0.0184,
+     "ci": [
+      -0.0084,
+      0.047
+     ],
+     "lines": 3688
+    },
+    "sarcasm_support_f1": {
+     "ref": 0.9611,
+     "var": 0.9561,
+     "diff": -0.0051,
+     "ci": [
+      -0.0106,
+      0.0004
+     ],
+     "units": 3752
+    },
+    "sarcasm_support_sincere_called_sarcastic": {
+     "ref": 0.02676,
+     "var": 0.03194,
+     "diff": 0.00518,
+     "ci": [
+      0.00129,
+      0.00906
+     ],
+     "lines": 2317,
+     "ref_count": [
+      62,
+      2317
+     ],
+     "var_count": [
+      74,
+      2317
+     ]
+    },
+    "sarcasm_support_after_plain_f1": {
+     "ref": 0.9724,
+     "var": 0.9701,
+     "diff": -0.0023,
+     "ci": [
+      -0.0072,
+      0.0028
+     ],
+     "units": 2116
+    },
+    "sarcasm_support_after_plain_sincere_called_sarcastic": {
+     "ref": 0.0328,
+     "var": 0.04078,
+     "diff": 0.00798,
+     "ci": [
+      0.00177,
+      0.01596
+     ],
+     "lines": 1128,
+     "ref_count": [
+      37,
+      1128
+     ],
+     "var_count": [
+      46,
+      1128
+     ]
+    },
+    "sarcasm_support_after_news_f1": {
+     "ref": 0.9533,
+     "var": 0.9382,
+     "diff": -0.0151,
+     "ci": [
+      -0.0287,
+      -0.0014
+     ],
+     "units": 890
+    },
+    "sarcasm_support_after_news_sincere_called_sarcastic": {
+     "ref": 0.04025,
+     "var": 0.04237,
+     "diff": 0.00212,
+     "ci": [
+      -0.00847,
+      0.01271
+     ],
+     "lines": 472,
+     "ref_count": [
+      19,
+      472
+     ],
+     "var_count": [
+      20,
+      472
+     ]
+    },
+    "sarcasm_support_held_domains_f1": {
+     "ref": 0.9611,
+     "var": 0.9557,
+     "diff": -0.0054,
+     "ci": [
+      -0.012,
+      0.0015
+     ],
+     "units": 3052
+    },
+    "sarcasm_support_held_domains_sincere_called_sarcastic": {
+     "ref": 0.02701,
+     "var": 0.03284,
+     "diff": 0.00583,
+     "ci": [
+      0.00106,
+      0.01059
+     ],
+     "lines": 1888,
+     "ref_count": [
+      51,
+      1888
+     ],
+     "var_count": [
+      62,
+      1888
+     ]
+    },
+    "sarcasm_support_built_f1": {
+     "ref": 0.9662,
+     "var": 0.9659,
+     "diff": -0.0003,
+     "ci": [
+      -0.0056,
+      0.0047
+     ],
+     "units": 3006
+    },
+    "sarcasm_support_built_sincere_called_sarcastic": {
+     "ref": 0.00665,
+     "var": 0.00798,
+     "diff": 0.00133,
+     "ci": [
+      -0.00266,
+      0.00532
+     ],
+     "lines": 1503,
+     "ref_count": [
+      10,
+      1503
+     ],
+     "var_count": [
+      12,
+      1503
+     ]
+    },
+    "sarcasm_support_built_after_plain_f1": {
+     "ref": 0.9714,
+     "var": 0.974,
+     "diff": 0.0026,
+     "ci": [
+      -0.0023,
+      0.0071
+     ],
+     "units": 2116
+    },
+    "sarcasm_support_built_after_plain_sincere_called_sarcastic": {
+     "ref": 0.00378,
+     "var": 0.00756,
+     "diff": 0.00378,
+     "ci": [
+      -0.00095,
+      0.00945
+     ],
+     "lines": 1058,
+     "ref_count": [
+      4,
+      1058
+     ],
+     "var_count": [
+      8,
+      1058
+     ]
+    },
+    "sarcasm_support_built_after_news_f1": {
+     "ref": 0.9536,
+     "var": 0.946,
+     "diff": -0.0076,
+     "ci": [
+      -0.0217,
+      0.0055
+     ],
+     "units": 890
+    },
+    "sarcasm_support_built_after_news_sincere_called_sarcastic": {
+     "ref": 0.01348,
+     "var": 0.00899,
+     "diff": -0.00449,
+     "ci": [
+      -0.01124,
+      0.0
+     ],
+     "lines": 445,
+     "ref_count": [
+      6,
+      445
+     ],
+     "var_count": [
+      4,
+      445
+     ]
+    },
+    "emotion_contrast": {
+     "ref": 0.2698,
+     "var": 0.2735,
+     "diff": 0.0037,
+     "ci": [
+      -0.0296,
+      0.0462
+     ],
+     "lines": 824
+    },
+    "sarcasm_contrast_f1": {
+     "ref": 0.3242,
+     "var": 0.0264,
+     "diff": -0.2978,
+     "ci": [
+      -0.3489,
+      -0.2498
+     ],
+     "units": 870
+    },
+    "sarcasm_contrast_sincere_called_sarcastic": {
+     "ref": 0.17836,
+     "var": 0.00601,
+     "diff": -0.17234,
+     "ci": [
+      -0.20441,
+      -0.14228
+     ],
+     "lines": 499,
+     "ref_count": [
+      89,
+      499
+     ],
+     "var_count": [
+      3,
+      499
+     ]
+    },
+    "sarcasm_contrast_held_domains_f1": {
+     "ref": 0.3218,
+     "var": 0.0355,
+     "diff": -0.2863,
+     "ci": [
+      -0.3456,
+      -0.2288
+     ],
+     "units": 644
+    },
+    "sarcasm_contrast_held_domains_sincere_called_sarcastic": {
+     "ref": 0.17568,
+     "var": 0.00811,
+     "diff": -0.16757,
+     "ci": [
+      -0.20541,
+      -0.12973
+     ],
+     "lines": 370,
+     "ref_count": [
+      65,
+      370
+     ],
+     "var_count": [
+      3,
+      370
+     ]
+    },
+    "sarcasm_contrast_built_f1": {
+     "ref": 0.2904,
+     "var": 0.0181,
+     "diff": -0.2723,
+     "ci": [
+      -0.318,
+      -0.2279
+     ],
+     "units": 870
+    },
+    "sarcasm_contrast_built_sincere_called_sarcastic": {
+     "ref": 0.2046,
+     "var": 0.0092,
+     "diff": -0.1954,
+     "ci": [
+      -0.23678,
+      -0.15632
+     ],
+     "lines": 435,
+     "ref_count": [
+      89,
+      435
+     ],
+     "var_count": [
+      4,
+      435
+     ]
+    },
+    "emotion_sarcastic_tone": {
+     "ref": 0.4515,
+     "var": 0.4385,
+     "diff": -0.0129,
+     "ci": [
+      -0.1434,
+      0.1516
+     ],
+     "lines": 58
+    },
+    "face_value_sarcastic_tone": {
+     "ref": 0.10811,
+     "var": 0.10811,
+     "diff": 0.0,
+     "ci": [
+      -0.08108,
+      0.08108
+     ],
+     "lines": 37,
+     "ref_count": [
+      4,
+      37
+     ],
+     "var_count": [
+      4,
+      37
+     ]
+    },
+    "emotion_sarcastic_voice": {
+     "ref": 0.4061,
+     "var": 0.6007,
+     "diff": 0.1947,
+     "ci": [
+      -0.0124,
+      0.357
+     ],
+     "lines": 96
+    },
+    "face_value_sarcastic_voice": {
+     "ref": 0.05319,
+     "var": 0.07447,
+     "diff": 0.02128,
+     "ci": [
+      -0.01064,
+      0.06383
+     ],
+     "lines": 94,
+     "ref_count": [
+      5,
+      94
+     ],
+     "var_count": [
+      7,
+      94
+     ]
+    },
+    "emotion_sarcastic_support": {
+     "ref": 0.2724,
+     "var": 0.2788,
+     "diff": 0.0064,
+     "ci": [
+      -0.0503,
+      0.0373
+     ],
+     "lines": 1416
+    },
+    "face_value_sarcastic_support": {
+     "ref": 0.02271,
+     "var": 0.03336,
+     "diff": 0.01065,
+     "ci": [
+      0.00284,
+      0.01845
+     ],
+     "lines": 1409,
+     "ref_count": [
+      32,
+      1409
+     ],
+     "var_count": [
+      47,
+      1409
+     ]
+    },
+    "emotion_sarcastic_contrast": {
+     "ref": 0.0661,
+     "var": 0.0319,
+     "diff": -0.0342,
+     "ci": [
+      -0.0548,
+      -0.014
+     ],
+     "lines": 332
+    },
+    "face_value_sarcastic_contrast": {
+     "ref": 0.87697,
+     "var": 0.97161,
+     "diff": 0.09464,
+     "ci": [
+      0.06625,
+      0.12618
+     ],
+     "lines": 317,
+     "ref_count": [
+      278,
+      317
+     ],
+     "var_count": [
+      308,
+      317
+     ]
+    }
+   },
+   "by_class": {
+    "emotion_main": {
+     "neutral": {
+      "gold": 998,
+      "ref": {
+       "f1": 0.8701,
+       "recall": 0.8627,
+       "said": 981
+      },
+      "var": {
+       "f1": 0.8651,
+       "recall": 0.8577,
+       "said": 981
+      }
+     },
+     "happy": {
+      "gold": 150,
+      "ref": {
+       "f1": 0.8146,
+       "recall": 0.82,
+       "said": 152
+      },
+      "var": {
+       "f1": 0.8231,
+       "recall": 0.8067,
+       "said": 144
+      }
+     },
+     "amused": {
+      "gold": 121,
+      "ref": {
+       "f1": 0.5273,
+       "recall": 0.4793,
+       "said": 99
+      },
+      "var": {
+       "f1": 0.5405,
+       "recall": 0.4959,
+       "said": 101
+      }
+     },
+     "angry": {
+      "gold": 195,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 0.6872,
+       "said": 207
+      },
+      "var": {
+       "f1": 0.6536,
+       "recall": 0.6821,
+       "said": 212
+      }
+     },
+     "sad": {
+      "gold": 85,
+      "ref": {
+       "f1": 0.725,
+       "recall": 0.6824,
+       "said": 75
+      },
+      "var": {
+       "f1": 0.7362,
+       "recall": 0.7059,
+       "said": 78
+      }
+     },
+     "afraid": {
+      "gold": 63,
+      "ref": {
+       "f1": 0.3725,
+       "recall": 0.3016,
+       "said": 39
+      },
+      "var": {
+       "f1": 0.3689,
+       "recall": 0.3016,
+       "said": 40
+      }
+     },
+     "surprised": {
+      "gold": 53,
+      "ref": {
+       "f1": 0.6306,
+       "recall": 0.6604,
+       "said": 58
+      },
+      "var": {
+       "f1": 0.6379,
+       "recall": 0.6981,
+       "said": 63
+      }
+     },
+     "disgusted": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.6316,
+       "recall": 0.6667,
+       "said": 10
+      },
+      "var": {
+       "f1": 0.5263,
+       "recall": 0.5556,
+       "said": 10
+      }
+     },
+     "contemptuous": {
+      "gold": 231,
+      "ref": {
+       "f1": 0.7107,
+       "recall": 0.7922,
+       "said": 284
+      },
+      "var": {
+       "f1": 0.7022,
+       "recall": 0.7706,
+       "said": 276
+      }
+     }
+    },
+    "emotion_player_speech": {
+     "neutral": {
+      "gold": 356,
+      "ref": {
+       "f1": 0.8421,
+       "recall": 0.8315,
+       "said": 347
+      },
+      "var": {
+       "f1": 0.8289,
+       "recall": 0.823,
+       "said": 351
+      }
+     },
+     "happy": {
+      "gold": 84,
+      "ref": {
+       "f1": 0.8118,
+       "recall": 0.8214,
+       "said": 86
+      },
+      "var": {
+       "f1": 0.8166,
+       "recall": 0.8214,
+       "said": 85
+      }
+     },
+     "amused": {
+      "gold": 70,
+      "ref": {
+       "f1": 0.6429,
+       "recall": 0.6429,
+       "said": 70
+      },
+      "var": {
+       "f1": 0.6434,
+       "recall": 0.6571,
+       "said": 73
+      }
+     },
+     "angry": {
+      "gold": 205,
+      "ref": {
+       "f1": 0.8176,
+       "recall": 0.8634,
+       "said": 228
+      },
+      "var": {
+       "f1": 0.8263,
+       "recall": 0.8585,
+       "said": 221
+      }
+     },
+     "sad": {
+      "gold": 28,
+      "ref": {
+       "f1": 0.8,
+       "recall": 0.7857,
+       "said": 27
+      },
+      "var": {
+       "f1": 0.7719,
+       "recall": 0.7857,
+       "said": 29
+      }
+     },
+     "afraid": {
+      "gold": 48,
+      "ref": {
+       "f1": 0.5823,
+       "recall": 0.4792,
+       "said": 31
+      },
+      "var": {
+       "f1": 0.5063,
+       "recall": 0.4167,
+       "said": 31
+      }
+     },
+     "surprised": {
+      "gold": 16,
+      "ref": {
+       "f1": 0.6471,
+       "recall": 0.6875,
+       "said": 18
+      },
+      "var": {
+       "f1": 0.625,
+       "recall": 0.625,
+       "said": 16
+      }
+     },
+     "disgusted": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.75,
+       "recall": 1.0,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.75,
+       "recall": 1.0,
+       "said": 5
+      }
+     },
+     "contemptuous": {
+      "gold": 60,
+      "ref": {
+       "f1": 0.5254,
+       "recall": 0.5167,
+       "said": 58
+      },
+      "var": {
+       "f1": 0.5546,
+       "recall": 0.55,
+       "said": 59
+      }
+     }
+    },
+    "emotion_unseen": {
+     "neutral": {
+      "gold": 428,
+      "ref": {
+       "f1": 0.8615,
+       "recall": 0.8645,
+       "said": 431
+      },
+      "var": {
+       "f1": 0.8571,
+       "recall": 0.8621,
+       "said": 433
+      }
+     },
+     "happy": {
+      "gold": 76,
+      "ref": {
+       "f1": 0.7826,
+       "recall": 0.7105,
+       "said": 62
+      },
+      "var": {
+       "f1": 0.7943,
+       "recall": 0.7368,
+       "said": 65
+      }
+     },
+     "amused": {
+      "gold": 34,
+      "ref": {
+       "f1": 0.5789,
+       "recall": 0.6471,
+       "said": 42
+      },
+      "var": {
+       "f1": 0.6286,
+       "recall": 0.6471,
+       "said": 36
+      }
+     },
+     "angry": {
+      "gold": 130,
+      "ref": {
+       "f1": 0.771,
+       "recall": 0.7769,
+       "said": 132
+      },
+      "var": {
+       "f1": 0.7462,
+       "recall": 0.7462,
+       "said": 130
+      }
+     },
+     "sad": {
+      "gold": 59,
+      "ref": {
+       "f1": 0.8361,
+       "recall": 0.8644,
+       "said": 63
+      },
+      "var": {
+       "f1": 0.7934,
+       "recall": 0.8136,
+       "said": 62
+      }
+     },
+     "afraid": {
+      "gold": 39,
+      "ref": {
+       "f1": 0.5538,
+       "recall": 0.4615,
+       "said": 26
+      },
+      "var": {
+       "f1": 0.4407,
+       "recall": 0.3333,
+       "said": 20
+      }
+     },
+     "surprised": {
+      "gold": 19,
+      "ref": {
+       "f1": 0.55,
+       "recall": 0.5789,
+       "said": 21
+      },
+      "var": {
+       "f1": 0.5581,
+       "recall": 0.6316,
+       "said": 24
+      }
+     },
+     "disgusted": {
+      "gold": 6,
+      "ref": {
+       "f1": 0.6,
+       "recall": 0.5,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.6,
+       "recall": 0.5,
+       "said": 4
+      }
+     },
+     "contemptuous": {
+      "gold": 83,
+      "ref": {
+       "f1": 0.6477,
+       "recall": 0.6867,
+       "said": 93
+      },
+      "var": {
+       "f1": 0.623,
+       "recall": 0.6867,
+       "said": 100
+      }
+     }
+    },
+    "emotion_noisy_twins": {
+     "neutral": {
+      "gold": 123,
+      "ref": {
+       "f1": 0.8667,
+       "recall": 0.8455,
+       "said": 117
+      },
+      "var": {
+       "f1": 0.8618,
+       "recall": 0.8618,
+       "said": 123
+      }
+     },
+     "happy": {
+      "gold": 22,
+      "ref": {
+       "f1": 0.7568,
+       "recall": 0.6364,
+       "said": 15
+      },
+      "var": {
+       "f1": 0.7895,
+       "recall": 0.6818,
+       "said": 16
+      }
+     },
+     "amused": {
+      "gold": 13,
+      "ref": {
+       "f1": 0.48,
+       "recall": 0.4615,
+       "said": 12
+      },
+      "var": {
+       "f1": 0.56,
+       "recall": 0.5385,
+       "said": 12
+      }
+     },
+     "angry": {
+      "gold": 30,
+      "ref": {
+       "f1": 0.7419,
+       "recall": 0.7667,
+       "said": 32
+      },
+      "var": {
+       "f1": 0.7,
+       "recall": 0.7,
+       "said": 30
+      }
+     },
+     "sad": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.6,
+       "recall": 0.75,
+       "said": 6
+      },
+      "var": {
+       "f1": 0.6,
+       "recall": 0.75,
+       "said": 6
+      }
+     },
+     "afraid": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.5882,
+       "recall": 0.5556,
+       "said": 8
+      },
+      "var": {
+       "f1": 0.4706,
+       "recall": 0.4444,
+       "said": 8
+      }
+     },
+     "surprised": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.4444,
+       "recall": 1.0,
+       "said": 7
+      },
+      "var": {
+       "f1": 0.2222,
+       "recall": 0.5,
+       "said": 7
+      }
+     },
+     "disgusted": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      }
+     },
+     "contemptuous": {
+      "gold": 36,
+      "ref": {
+       "f1": 0.641,
+       "recall": 0.6944,
+       "said": 42
+      },
+      "var": {
+       "f1": 0.6849,
+       "recall": 0.6944,
+       "said": 37
+      }
+     }
+    },
+    "emotion_voice": {
+     "neutral": {
+      "gold": 498,
+      "ref": {
+       "f1": 0.908,
+       "recall": 0.9217,
+       "said": 513
+      },
+      "var": {
+       "f1": 0.9137,
+       "recall": 0.9357,
+       "said": 522
+      }
+     },
+     "happy": {
+      "gold": 176,
+      "ref": {
+       "f1": 0.8488,
+       "recall": 0.8295,
+       "said": 168
+      },
+      "var": {
+       "f1": 0.8547,
+       "recall": 0.8352,
+       "said": 168
+      }
+     },
+     "amused": {
+      "gold": 11,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.6364,
+       "said": 17
+      },
+      "var": {
+       "f1": 0.56,
+       "recall": 0.6364,
+       "said": 14
+      }
+     },
+     "angry": {
+      "gold": 84,
+      "ref": {
+       "f1": 0.7159,
+       "recall": 0.75,
+       "said": 92
+      },
+      "var": {
+       "f1": 0.7586,
+       "recall": 0.7857,
+       "said": 90
+      }
+     },
+     "sad": {
+      "gold": 8,
+      "ref": {
+       "f1": 0.1333,
+       "recall": 0.125,
+       "said": 7
+      },
+      "var": {
+       "f1": 0.4,
+       "recall": 0.375,
+       "said": 7
+      }
+     },
+     "afraid": {
+      "gold": 27,
+      "ref": {
+       "f1": 0.3256,
+       "recall": 0.2593,
+       "said": 16
+      },
+      "var": {
+       "f1": 0.3333,
+       "recall": 0.2222,
+       "said": 9
+      }
+     },
+     "surprised": {
+      "gold": 34,
+      "ref": {
+       "f1": 0.6875,
+       "recall": 0.6471,
+       "said": 30
+      },
+      "var": {
+       "f1": 0.697,
+       "recall": 0.6765,
+       "said": 32
+      }
+     },
+     "disgusted": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 0
+      }
+     },
+     "contemptuous": {
+      "gold": 47,
+      "ref": {
+       "f1": 0.7273,
+       "recall": 0.6809,
+       "said": 41
+      },
+      "var": {
+       "f1": 0.7556,
+       "recall": 0.7234,
+       "said": 43
+      }
+     }
+    },
+    "emotion_voice_agent": {
+     "neutral": {
+      "gold": 250,
+      "ref": {
+       "f1": 0.9444,
+       "recall": 0.952,
+       "said": 254
+      },
+      "var": {
+       "f1": 0.9526,
+       "recall": 0.964,
+       "said": 256
+      }
+     },
+     "happy": {
+      "gold": 45,
+      "ref": {
+       "f1": 0.7529,
+       "recall": 0.7111,
+       "said": 40
+      },
+      "var": {
+       "f1": 0.7857,
+       "recall": 0.7333,
+       "said": 39
+      }
+     },
+     "amused": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 2
+      }
+     },
+     "sad": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 0
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 0
+      }
+     },
+     "afraid": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 2
+      }
+     },
+     "contemptuous": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 0
+      }
+     }
+    },
+    "emotion_voice_real": {
+     "neutral": {
+      "gold": 1252,
+      "ref": {
+       "f1": 0.9748,
+       "recall": 0.9728,
+       "said": 1247
+      },
+      "var": {
+       "f1": 0.9741,
+       "recall": 0.9752,
+       "said": 1255
+      }
+     },
+     "happy": {
+      "gold": 213,
+      "ref": {
+       "f1": 0.9016,
+       "recall": 0.9249,
+       "said": 224
+      },
+      "var": {
+       "f1": 0.8951,
+       "recall": 0.9014,
+       "said": 216
+      }
+     },
+     "amused": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.8,
+       "recall": 1.0,
+       "said": 3
+      },
+      "var": {
+       "f1": 0.5714,
+       "recall": 1.0,
+       "said": 5
+      }
+     },
+     "angry": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.3077,
+       "recall": 0.2857,
+       "said": 6
+      },
+      "var": {
+       "f1": 0.3077,
+       "recall": 0.2857,
+       "said": 6
+      }
+     },
+     "sad": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.4615,
+       "recall": 0.3333,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.6154,
+       "recall": 0.4444,
+       "said": 4
+      }
+     },
+     "afraid": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.5714,
+       "recall": 0.5,
+       "said": 3
+      }
+     },
+     "surprised": {
+      "gold": 8,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 0.5,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 0.5,
+       "said": 4
+      }
+     },
+     "contemptuous": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.4,
+       "recall": 1.0,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.5,
+       "recall": 1.0,
+       "said": 3
+      }
+     }
+    },
+    "emotion_voice_real_agent": {
+     "neutral": {
+      "gold": 662,
+      "ref": {
+       "f1": 0.9788,
+       "recall": 0.9773,
+       "said": 660
+      },
+      "var": {
+       "f1": 0.9773,
+       "recall": 0.9773,
+       "said": 662
+      }
+     },
+     "happy": {
+      "gold": 79,
+      "ref": {
+       "f1": 0.8571,
+       "recall": 0.8734,
+       "said": 82
+      },
+      "var": {
+       "f1": 0.85,
+       "recall": 0.8608,
+       "said": 81
+      }
+     },
+     "amused": {
+      "gold": 1,
+      "ref": {
+       "f1": 1.0,
+       "recall": 1.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.6667,
+       "recall": 1.0,
+       "said": 2
+      }
+     },
+     "angry": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 2
+      }
+     },
+     "sad": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.3333,
+       "recall": 0.25,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.4,
+       "recall": 0.25,
+       "said": 1
+      }
+     },
+     "surprised": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.8,
+       "recall": 0.6667,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.5,
+       "recall": 0.3333,
+       "said": 1
+      }
+     },
+     "contemptuous": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      }
+     }
+    },
+    "move_macro_f1": {
+     "asks": {
+      "gold": 172,
+      "ref": {
+       "f1": 0.8433,
+       "recall": 0.8605,
+       "said": 179
+      },
+      "var": {
+       "f1": 0.8338,
+       "recall": 0.8605,
+       "said": 183
+      }
+     },
+     "answers": {
+      "gold": 299,
+      "ref": {
+       "f1": 0.8209,
+       "recall": 0.7893,
+       "said": 276
+      },
+      "var": {
+       "f1": 0.8201,
+       "recall": 0.7926,
+       "said": 279
+      }
+     },
+     "hedges": {
+      "gold": 34,
+      "ref": {
+       "f1": 0.7606,
+       "recall": 0.7941,
+       "said": 37
+      },
+      "var": {
+       "f1": 0.7671,
+       "recall": 0.8235,
+       "said": 39
+      }
+     },
+     "doesnt_know": {
+      "gold": 72,
+      "ref": {
+       "f1": 0.8784,
+       "recall": 0.9028,
+       "said": 76
+      },
+      "var": {
+       "f1": 0.869,
+       "recall": 0.875,
+       "said": 73
+      }
+     },
+     "withholds": {
+      "gold": 83,
+      "ref": {
+       "f1": 0.6207,
+       "recall": 0.6506,
+       "said": 91
+      },
+      "var": {
+       "f1": 0.6145,
+       "recall": 0.6145,
+       "said": 83
+      }
+     },
+     "closes": {
+      "gold": 46,
+      "ref": {
+       "f1": 0.8081,
+       "recall": 0.8696,
+       "said": 53
+      },
+      "var": {
+       "f1": 0.7959,
+       "recall": 0.8478,
+       "said": 52
+      }
+     },
+     "other": {
+      "gold": 118,
+      "ref": {
+       "f1": 0.713,
+       "recall": 0.6949,
+       "said": 112
+      },
+      "var": {
+       "f1": 0.7296,
+       "recall": 0.7203,
+       "said": 115
+      }
+     }
+    },
+    "move_voice_macro_f1": {
+     "asks": {
+      "gold": 184,
+      "ref": {
+       "f1": 0.7745,
+       "recall": 0.7935,
+       "said": 193
+      },
+      "var": {
+       "f1": 0.7684,
+       "recall": 0.7935,
+       "said": 196
+      }
+     },
+     "answers": {
+      "gold": 335,
+      "ref": {
+       "f1": 0.7957,
+       "recall": 0.7672,
+       "said": 311
+      },
+      "var": {
+       "f1": 0.79,
+       "recall": 0.7522,
+       "said": 303
+      }
+     },
+     "hedges": {
+      "gold": 47,
+      "ref": {
+       "f1": 0.7778,
+       "recall": 0.7447,
+       "said": 43
+      },
+      "var": {
+       "f1": 0.8043,
+       "recall": 0.7872,
+       "said": 45
+      }
+     },
+     "doesnt_know": {
+      "gold": 19,
+      "ref": {
+       "f1": 0.7222,
+       "recall": 0.6842,
+       "said": 17
+      },
+      "var": {
+       "f1": 0.7429,
+       "recall": 0.6842,
+       "said": 16
+      }
+     },
+     "withholds": {
+      "gold": 36,
+      "ref": {
+       "f1": 0.5455,
+       "recall": 0.4167,
+       "said": 19
+      },
+      "var": {
+       "f1": 0.5818,
+       "recall": 0.4444,
+       "said": 19
+      }
+     },
+     "closes": {
+      "gold": 134,
+      "ref": {
+       "f1": 0.8345,
+       "recall": 0.903,
+       "said": 156
+      },
+      "var": {
+       "f1": 0.8299,
+       "recall": 0.9104,
+       "said": 160
+      }
+     },
+     "other": {
+      "gold": 113,
+      "ref": {
+       "f1": 0.7521,
+       "recall": 0.8053,
+       "said": 129
+      },
+      "var": {
+       "f1": 0.7355,
+       "recall": 0.7876,
+       "said": 129
+      }
+     }
+    },
+    "move_voice_real_macro_f1": {
+     "asks": {
+      "gold": 511,
+      "ref": {
+       "f1": 0.9267,
+       "recall": 0.9276,
+       "said": 512
+      },
+      "var": {
+       "f1": 0.9189,
+       "recall": 0.9198,
+       "said": 512
+      }
+     },
+     "answers": {
+      "gold": 665,
+      "ref": {
+       "f1": 0.8982,
+       "recall": 0.8887,
+       "said": 651
+      },
+      "var": {
+       "f1": 0.8901,
+       "recall": 0.8767,
+       "said": 645
+      }
+     },
+     "hedges": {
+      "gold": 12,
+      "ref": {
+       "f1": 0.6364,
+       "recall": 0.5833,
+       "said": 10
+      },
+      "var": {
+       "f1": 0.6957,
+       "recall": 0.6667,
+       "said": 11
+      }
+     },
+     "doesnt_know": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.8235,
+       "recall": 1.0,
+       "said": 10
+      },
+      "var": {
+       "f1": 0.7778,
+       "recall": 1.0,
+       "said": 11
+      }
+     },
+     "withholds": {
+      "gold": 6,
+      "ref": {
+       "f1": 0.25,
+       "recall": 0.1667,
+       "said": 2
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 2
+      }
+     },
+     "closes": {
+      "gold": 225,
+      "ref": {
+       "f1": 0.9111,
+       "recall": 0.9333,
+       "said": 236
+      },
+      "var": {
+       "f1": 0.9134,
+       "recall": 0.9378,
+       "said": 237
+      }
+     },
+     "other": {
+      "gold": 44,
+      "ref": {
+       "f1": 0.3871,
+       "recall": 0.4091,
+       "said": 49
+      },
+      "var": {
+       "f1": 0.3958,
+       "recall": 0.4318,
+       "said": 52
+      }
+     }
+    },
+    "emotion_support": {
+     "neutral": {
+      "gold": 796,
+      "ref": {
+       "f1": 0.8859,
+       "recall": 0.8832,
+       "said": 791
+      },
+      "var": {
+       "f1": 0.8875,
+       "recall": 0.907,
+       "said": 831
+      }
+     },
+     "happy": {
+      "gold": 715,
+      "ref": {
+       "f1": 0.9102,
+       "recall": 0.9357,
+       "said": 755
+      },
+      "var": {
+       "f1": 0.8946,
+       "recall": 0.9077,
+       "said": 736
+      }
+     },
+     "amused": {
+      "gold": 42,
+      "ref": {
+       "f1": 0.2647,
+       "recall": 0.2143,
+       "said": 26
+      },
+      "var": {
+       "f1": 0.4,
+       "recall": 0.2857,
+       "said": 18
+      }
+     },
+     "angry": {
+      "gold": 1601,
+      "ref": {
+       "f1": 0.8954,
+       "recall": 0.8982,
+       "said": 1611
+      },
+      "var": {
+       "f1": 0.886,
+       "recall": 0.8738,
+       "said": 1557
+      }
+     },
+     "sad": {
+      "gold": 68,
+      "ref": {
+       "f1": 0.4576,
+       "recall": 0.3971,
+       "said": 50
+      },
+      "var": {
+       "f1": 0.4746,
+       "recall": 0.4118,
+       "said": 50
+      }
+     },
+     "afraid": {
+      "gold": 175,
+      "ref": {
+       "f1": 0.7664,
+       "recall": 0.7029,
+       "said": 146
+      },
+      "var": {
+       "f1": 0.7778,
+       "recall": 0.72,
+       "said": 149
+      }
+     },
+     "surprised": {
+      "gold": 28,
+      "ref": {
+       "f1": 0.6667,
+       "recall": 0.8571,
+       "said": 44
+      },
+      "var": {
+       "f1": 0.7123,
+       "recall": 0.9286,
+       "said": 45
+      }
+     },
+     "disgusted": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      }
+     },
+     "contemptuous": {
+      "gold": 263,
+      "ref": {
+       "f1": 0.6907,
+       "recall": 0.692,
+       "said": 264
+      },
+      "var": {
+       "f1": 0.6702,
+       "recall": 0.7186,
+       "said": 301
+      }
+     }
+    },
+    "emotion_contrast": {
+     "neutral": {
+      "gold": 9,
+      "ref": {
+       "f1": 0.2069,
+       "recall": 0.3333,
+       "said": 20
+      },
+      "var": {
+       "f1": 0.3077,
+       "recall": 0.4444,
+       "said": 17
+      }
+     },
+     "happy": {
+      "gold": 491,
+      "ref": {
+       "f1": 0.7295,
+       "recall": 0.9145,
+       "said": 740
+      },
+      "var": {
+       "f1": 0.7446,
+       "recall": 0.9796,
+       "said": 801
+      }
+     },
+     "angry": {
+      "gold": 234,
+      "ref": {
+       "f1": 0.0331,
+       "recall": 0.0171,
+       "said": 8
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 0
+      }
+     },
+     "contemptuous": {
+      "gold": 90,
+      "ref": {
+       "f1": 0.1096,
+       "recall": 0.0889,
+       "said": 56
+      },
+      "var": {
+       "f1": 0.0417,
+       "recall": 0.0222,
+       "said": 6
+      }
+     }
+    },
+    "emotion_sarcastic_tone": {
+     "neutral": {
+      "gold": 4,
+      "ref": {
+       "f1": 0.5714,
+       "recall": 0.5,
+       "said": 3
+      },
+      "var": {
+       "f1": 0.4,
+       "recall": 0.5,
+       "said": 6
+      }
+     },
+     "happy": {
+      "gold": 21,
+      "ref": {
+       "f1": 0.75,
+       "recall": 0.7143,
+       "said": 19
+      },
+      "var": {
+       "f1": 0.7179,
+       "recall": 0.6667,
+       "said": 18
+      }
+     },
+     "amused": {
+      "gold": 12,
+      "ref": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 12
+      },
+      "var": {
+       "f1": 0.6957,
+       "recall": 0.6667,
+       "said": 11
+      }
+     },
+     "angry": {
+      "gold": 3,
+      "ref": {
+       "f1": 0.8571,
+       "recall": 1.0,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.8,
+       "recall": 0.6667,
+       "said": 2
+      }
+     },
+     "sad": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.4,
+       "recall": 0.5,
+       "said": 3
+      },
+      "var": {
+       "f1": 0.8,
+       "recall": 1.0,
+       "said": 3
+      }
+     },
+     "afraid": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      }
+     },
+     "surprised": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      }
+     },
+     "disgusted": {
+      "gold": 0,
+      "ref": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 0
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": null,
+       "said": 1
+      }
+     },
+     "contemptuous": {
+      "gold": 15,
+      "ref": {
+       "f1": 0.5333,
+       "recall": 0.5333,
+       "said": 15
+      },
+      "var": {
+       "f1": 0.5333,
+       "recall": 0.5333,
+       "said": 15
+      }
+     }
+    },
+    "emotion_sarcastic_voice": {
+     "neutral": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.8,
+       "recall": 1.0,
+       "said": 3
+      },
+      "var": {
+       "f1": 0.8,
+       "recall": 1.0,
+       "said": 3
+      }
+     },
+     "happy": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.2,
+       "recall": 0.5,
+       "said": 8
+      }
+     },
+     "amused": {
+      "gold": 5,
+      "ref": {
+       "f1": 0.5333,
+       "recall": 0.8,
+       "said": 10
+      },
+      "var": {
+       "f1": 0.7273,
+       "recall": 0.8,
+       "said": 6
+      }
+     },
+     "angry": {
+      "gold": 37,
+      "ref": {
+       "f1": 0.7436,
+       "recall": 0.7838,
+       "said": 41
+      },
+      "var": {
+       "f1": 0.7778,
+       "recall": 0.7568,
+       "said": 35
+      }
+     },
+     "sad": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.5,
+       "recall": 0.5,
+       "said": 2
+      }
+     },
+     "surprised": {
+      "gold": 2,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.4,
+       "recall": 0.5,
+       "said": 3
+      }
+     },
+     "contemptuous": {
+      "gold": 46,
+      "ref": {
+       "f1": 0.7654,
+       "recall": 0.6739,
+       "said": 35
+      },
+      "var": {
+       "f1": 0.8,
+       "recall": 0.7391,
+       "said": 39
+      }
+     }
+    },
+    "emotion_sarcastic_support": {
+     "neutral": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 6
+      }
+     },
+     "happy": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.186,
+       "recall": 0.5714,
+       "said": 36
+      },
+      "var": {
+       "f1": 0.1379,
+       "recall": 0.5714,
+       "said": 51
+      }
+     },
+     "amused": {
+      "gold": 16,
+      "ref": {
+       "f1": 0.0952,
+       "recall": 0.0625,
+       "said": 5
+      },
+      "var": {
+       "f1": 0.2,
+       "recall": 0.125,
+       "said": 4
+      }
+     },
+     "angry": {
+      "gold": 1125,
+      "ref": {
+       "f1": 0.9172,
+       "recall": 0.9111,
+       "said": 1110
+      },
+      "var": {
+       "f1": 0.9073,
+       "recall": 0.8871,
+       "said": 1075
+      }
+     },
+     "sad": {
+      "gold": 7,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 2
+      }
+     },
+     "afraid": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 1
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 2
+      }
+     },
+     "contemptuous": {
+      "gold": 259,
+      "ref": {
+       "f1": 0.7082,
+       "recall": 0.7027,
+       "said": 255
+      },
+      "var": {
+       "f1": 0.7065,
+       "recall": 0.7297,
+       "said": 276
+      }
+     }
+    },
+    "emotion_sarcastic_contrast": {
+     "neutral": {
+      "gold": 1,
+      "ref": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 7
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 6
+      }
+     },
+     "happy": {
+      "gold": 15,
+      "ref": {
+       "f1": 0.0912,
+       "recall": 0.9333,
+       "said": 292
+      },
+      "var": {
+       "f1": 0.0831,
+       "recall": 0.9333,
+       "said": 322
+      }
+     },
+     "angry": {
+      "gold": 230,
+      "ref": {
+       "f1": 0.0342,
+       "recall": 0.0174,
+       "said": 4
+      },
+      "var": {
+       "f1": 0.0,
+       "recall": 0.0,
+       "said": 0
+      }
+     },
+     "contemptuous": {
+      "gold": 86,
+      "ref": {
+       "f1": 0.1391,
+       "recall": 0.093,
+       "said": 29
+      },
+      "var": {
+       "f1": 0.0444,
+       "recall": 0.0233,
+       "said": 4
+      }
+     }
+    }
+   },
+   "worse_beyond_noise": [
+    "sarcasm_support_after_news_f1",
+    "sarcasm_contrast_f1",
+    "sarcasm_contrast_held_domains_f1",
+    "sarcasm_contrast_built_f1",
+    "emotion_sarcastic_contrast"
+   ],
+   "better_beyond_noise": [
+    "emotion_voice"
+   ],
+   "false_sarcasm_or_face_value_rises": [
+    "sarcasm_support_sincere_called_sarcastic",
+    "sarcasm_support_after_plain_sincere_called_sarcastic",
+    "sarcasm_support_held_domains_sincere_called_sarcastic",
+    "face_value_sarcastic_support",
+    "face_value_sarcastic_contrast"
+   ],
+   "tone_items_worse": []
+  }
+ },
+ "probes": {
+  "great_late_own": {
+   "should_read": "sarcastic",
+   "with_line_before": false,
+   "ref": {
+    "emotion": [
+     [
+      "angry",
+      0.9
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.98,
+    "sarcastic": true,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "angry",
+      0.89
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.94,
+    "sarcastic": true,
+    "right": true
+   }
+  },
+  "great_late_after_status": {
+   "should_read": "sarcastic",
+   "with_line_before": true,
+   "ref": {
+    "emotion": [
+     [
+      "angry",
+      0.9
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.98,
+    "sarcastic": true,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "angry",
+      0.9
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.94,
+    "sarcastic": true,
+    "right": true
+   }
+  },
+  "wonderful_after_delay": {
+   "should_read": "sarcastic",
+   "with_line_before": true,
+   "ref": {
+    "emotion": [
+     [
+      "angry",
+      0.89
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.98,
+    "sarcastic": true,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "angry",
+      0.89
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.94,
+    "sarcastic": true,
+    "right": true
+   }
+  },
+  "wonderful_own": {
+   "should_read": "sincere",
+   "with_line_before": false,
+   "ref": {
+    "emotion": [
+     [
+      "happy",
+      0.77
+     ],
+     [
+      "angry",
+      0.1
+     ]
+    ],
+    "sarcasm": 0.18,
+    "sarcastic": false,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "happy",
+      0.94
+     ],
+     [
+      "disgusted",
+      0.03
+     ]
+    ],
+    "sarcasm": 0.01,
+    "sarcastic": false,
+    "right": true
+   }
+  },
+  "helpful_after_refusal": {
+   "should_read": "sarcastic",
+   "with_line_before": true,
+   "ref": {
+    "emotion": [
+     [
+      "happy",
+      0.93
+     ],
+     [
+      "disgusted",
+      0.02
+     ]
+    ],
+    "sarcasm": 0.13,
+    "sarcastic": false,
+    "right": false
+   },
+   "var": {
+    "emotion": [
+     [
+      "contemptuous",
+      0.94
+     ],
+     [
+      "disgusted",
+      0.03
+     ]
+    ],
+    "sarcasm": 0.95,
+    "sarcastic": true,
+    "right": true
+   }
+  },
+  "helpful_own": {
+   "should_read": "sincere",
+   "with_line_before": false,
+   "ref": {
+    "emotion": [
+     [
+      "happy",
+      0.94
+     ],
+     [
+      "disgusted",
+      0.02
+     ]
+    ],
+    "sarcasm": 0.02,
+    "sarcastic": false,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "happy",
+      0.94
+     ],
+     [
+      "disgusted",
+      0.03
+     ]
+    ],
+    "sarcasm": 0.01,
+    "sarcastic": false,
+    "right": true
+   }
+  },
+  "wonderful_after_refund": {
+   "should_read": "sincere",
+   "with_line_before": true,
+   "ref": {
+    "emotion": [
+     [
+      "happy",
+      0.93
+     ],
+     [
+      "disgusted",
+      0.02
+     ]
+    ],
+    "sarcasm": 0.05,
+    "sarcastic": false,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "happy",
+      0.93
+     ],
+     [
+      "disgusted",
+      0.03
+     ]
+    ],
+    "sarcasm": 0.01,
+    "sarcastic": false,
+    "right": true
+   }
+  },
+  "helpful_after_reset": {
+   "should_read": "sincere",
+   "with_line_before": true,
+   "ref": {
+    "emotion": [
+     [
+      "happy",
+      0.94
+     ],
+     [
+      "disgusted",
+      0.03
+     ]
+    ],
+    "sarcasm": 0.01,
+    "sarcastic": false,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "happy",
+      0.94
+     ],
+     [
+      "disgusted",
+      0.03
+     ]
+    ],
+    "sarcasm": 0.01,
+    "sarcastic": false,
+    "right": true
+   }
+  },
+  "few_days_after_delay": {
+   "should_read": "sarcastic",
+   "with_line_before": true,
+   "ref": {
+    "emotion": [
+     [
+      "angry",
+      0.9
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.98,
+    "sarcastic": true,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "angry",
+      0.89
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.94,
+    "sarcastic": true,
+    "right": true
+   }
+  },
+  "few_days_own": {
+   "should_read": "sarcastic",
+   "with_line_before": false,
+   "ref": {
+    "emotion": [
+     [
+      "angry",
+      0.9
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.98,
+    "sarcastic": true,
+    "right": true
+   },
+   "var": {
+    "emotion": [
+     [
+      "angry",
+      0.89
+     ],
+     [
+      "disgusted",
+      0.05
+     ]
+    ],
+    "sarcasm": 0.95,
+    "sarcastic": true,
+    "right": true
+   }
+  },
+  "_right": {
+   "ref": 9,
+   "var": 10
+  },
+  "_cases": 10
+ },
+ "praise": {
+  "groups": {
+   "after_good": {
+    "should_read": "sincere",
+    "lines": 13,
+    "ref": {
+     "right": 13,
+     "right_at_act": 13,
+     "mean_chance": 0.022
+    },
+    "var": {
+     "right": 13,
+     "right_at_act": 13,
+     "mean_chance": 0.01
+    }
+   },
+   "alone": {
+    "should_read": "sincere",
+    "lines": 8,
+    "ref": {
+     "right": 8,
+     "right_at_act": 8,
+     "mean_chance": 0.06
+    },
+    "var": {
+     "right": 8,
+     "right_at_act": 8,
+     "mean_chance": 0.014
+    }
+   },
+   "after_bad": {
+    "should_read": "sarcastic",
+    "lines": 8,
+    "ref": {
+     "right": 5,
+     "right_at_act": 5,
+     "mean_chance": 0.59
+    },
+    "var": {
+     "right": 8,
+     "right_at_act": 8,
+     "mean_chance": 0.95
+    }
+   },
+   "own_words": {
+    "should_read": "sarcastic",
+    "lines": 6,
+    "ref": {
+     "right": 6,
+     "right_at_act": 6,
+     "mean_chance": 0.98
+    },
+    "var": {
+     "right": 6,
+     "right_at_act": 6,
+     "mean_chance": 0.942
+    }
+   }
+  },
+  "cases": {
+   "after_good_01": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.04,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_02": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_03": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_04": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_05": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.04,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_06": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_07": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_08": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_09": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.06,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_10": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_11": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_12": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_good_13": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_01": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.18,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_02": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_03": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_04": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.07,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_05": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_06": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.02,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_07": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.12,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "alone_08": {
+    "should_read": "sincere",
+    "ref": {
+     "sarcasm": 0.03,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.01,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_01": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.78,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.91,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_02": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.14,
+     "right": false,
+     "right_at_act": false
+    },
+    "var": {
+     "sarcasm": 0.97,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_03": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.03,
+     "right": false,
+     "right_at_act": false
+    },
+    "var": {
+     "sarcasm": 0.97,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_04": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.7,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.96,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_05": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.97,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_06": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.13,
+     "right": false,
+     "right_at_act": false
+    },
+    "var": {
+     "sarcasm": 0.95,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_07": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.93,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "after_bad_08": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.94,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "own_words_01": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.94,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "own_words_02": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.94,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "own_words_03": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.95,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "own_words_04": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.94,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "own_words_05": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.94,
+     "right": true,
+     "right_at_act": true
+    }
+   },
+   "own_words_06": {
+    "should_read": "sarcastic",
+    "ref": {
+     "sarcasm": 0.98,
+     "right": true,
+     "right_at_act": true
+    },
+    "var": {
+     "sarcasm": 0.94,
+     "right": true,
+     "right_at_act": true
+    }
+   }
+  },
+  "act_at": 0.7
+ },
+ "lines_tagged": 21777,
+ "seconds": 252
+}
