@@ -1,0 +1,647 @@
+{
+ "run_id": "tonetext-r3c-student-minilm-l6-seed2",
+ "built": {
+  "variant": "fp16w",
+  "file": "model_fp16.onnx",
+  "how": "weights of 1,024 values or more stored as fp16 and cast back to fp32: fp32 compute",
+  "weights": 51,
+  "bytes": 48247715
+ },
+ "columns": {
+  "with_previous": {
+   "lines": 8207,
+   "identical": {
+    "emotion": 0.99988,
+    "move": 0.99988,
+    "sarcasm": 1.0,
+    "backchannel": 1.0
+   },
+   "identical_counts": {
+    "emotion": 8206,
+    "move": 8206,
+    "sarcasm": 8207,
+    "backchannel": 8207
+   },
+   "items": {
+    "emotion_main": {
+     "ref": 0.6611,
+     "var": 0.6611,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1905
+    },
+    "emotion_player_speech": {
+     "ref": 0.6843,
+     "var": 0.6843,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 870
+    },
+    "emotion_unseen": {
+     "ref": 0.6834,
+     "var": 0.6834,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 874
+    },
+    "emotion_voice": {
+     "ref": 0.6771,
+     "var": 0.6771,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 885
+    },
+    "move_macro_f1": {
+     "ref": 0.818,
+     "var": 0.818,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 824
+    },
+    "move_answered_or_open": {
+     "ref": 0.837,
+     "var": 0.837,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 454,
+     "ref_count": [
+      380,
+      454
+     ],
+     "var_count": [
+      380,
+      454
+     ]
+    },
+    "move_asks_or_not": {
+     "ref": 0.94539,
+     "var": 0.94539,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 824,
+     "ref_count": [
+      779,
+      824
+     ],
+     "var_count": [
+      779,
+      824
+     ]
+    },
+    "move_voice_macro_f1": {
+     "ref": 0.7742,
+     "var": 0.7742,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 868
+    },
+    "move_voice_answered_or_open": {
+     "ref": 0.77179,
+     "var": 0.77179,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 390,
+     "ref_count": [
+      301,
+      390
+     ],
+     "var_count": [
+      301,
+      390
+     ]
+    },
+    "move_voice_asks_or_not": {
+     "ref": 0.92281,
+     "var": 0.92281,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 868,
+     "ref_count": [
+      801,
+      868
+     ],
+     "var_count": [
+      801,
+      868
+     ]
+    },
+    "sarcasm_held_out_f1": {
+     "ref": 0.8482,
+     "var": 0.8482,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 900
+    },
+    "sarcasm_natural_sincere_called_sarcastic": {
+     "ref": 0.0103,
+     "var": 0.0103,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1747,
+     "ref_count": [
+      18,
+      1747
+     ],
+     "var_count": [
+      18,
+      1747
+     ]
+    },
+    "sarcasm_voice_f1": {
+     "ref": 0.9026,
+     "var": 0.9026,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 897
+    },
+    "sarcasm_voice_sincere_called_sarcastic": {
+     "ref": 0.00878,
+     "var": 0.00878,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 797,
+     "ref_count": [
+      7,
+      797
+     ],
+     "var_count": [
+      7,
+      797
+     ]
+    },
+    "emotion_voice_real": {
+     "ref": 0.713,
+     "var": 0.713,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1496
+    },
+    "move_voice_real_macro_f1": {
+     "ref": 0.6755,
+     "var": 0.6755,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1470
+    },
+    "move_voice_real_answered_or_open": {
+     "ref": 0.92773,
+     "var": 0.92773,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 678,
+     "ref_count": [
+      629,
+      678
+     ],
+     "var_count": [
+      629,
+      678
+     ]
+    },
+    "move_voice_real_asks_or_not": {
+     "ref": 0.9619,
+     "var": 0.9619,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1470,
+     "ref_count": [
+      1414,
+      1470
+     ],
+     "var_count": [
+      1414,
+      1470
+     ]
+    },
+    "sarcasm_voice_real_f1": {
+     "ref": 0.0,
+     "var": 0.0,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 1500
+    },
+    "sarcasm_voice_real_sincere_called_sarcastic": {
+     "ref": 0.00067,
+     "var": 0.00067,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1496,
+     "ref_count": [
+      1,
+      1496
+     ],
+     "var_count": [
+      1,
+      1496
+     ]
+    }
+   },
+   "worse_beyond_noise": [],
+   "false_sarcasm_rises": []
+  },
+  "without_previous": {
+   "lines": 8117,
+   "identical": {
+    "emotion": 1.0,
+    "move": 0.99988,
+    "sarcasm": 1.0,
+    "backchannel": 1.0
+   },
+   "identical_counts": {
+    "emotion": 8117,
+    "move": 8116,
+    "sarcasm": 8117,
+    "backchannel": 8117
+   },
+   "items": {
+    "emotion_main": {
+     "ref": 0.6601,
+     "var": 0.6601,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1905
+    },
+    "emotion_player_speech": {
+     "ref": 0.6797,
+     "var": 0.6797,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 870
+    },
+    "emotion_unseen": {
+     "ref": 0.6834,
+     "var": 0.6834,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 874
+    },
+    "emotion_voice": {
+     "ref": 0.6085,
+     "var": 0.6085,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 885
+    },
+    "move_macro_f1": {
+     "ref": 0.7883,
+     "var": 0.7883,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 824
+    },
+    "move_answered_or_open": {
+     "ref": 0.79515,
+     "var": 0.79515,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 454,
+     "ref_count": [
+      361,
+      454
+     ],
+     "var_count": [
+      361,
+      454
+     ]
+    },
+    "move_asks_or_not": {
+     "ref": 0.93325,
+     "var": 0.93325,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 824,
+     "ref_count": [
+      769,
+      824
+     ],
+     "var_count": [
+      769,
+      824
+     ]
+    },
+    "move_voice_macro_f1": {
+     "ref": 0.7636,
+     "var": 0.7636,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 868
+    },
+    "move_voice_answered_or_open": {
+     "ref": 0.73333,
+     "var": 0.73333,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 390,
+     "ref_count": [
+      286,
+      390
+     ],
+     "var_count": [
+      286,
+      390
+     ]
+    },
+    "move_voice_asks_or_not": {
+     "ref": 0.90553,
+     "var": 0.90553,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 868,
+     "ref_count": [
+      786,
+      868
+     ],
+     "var_count": [
+      786,
+      868
+     ]
+    },
+    "sarcasm_held_out_f1": {
+     "ref": 0.804,
+     "var": 0.804,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 900
+    },
+    "sarcasm_natural_sincere_called_sarcastic": {
+     "ref": 0.01145,
+     "var": 0.01145,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1747,
+     "ref_count": [
+      20,
+      1747
+     ],
+     "var_count": [
+      20,
+      1747
+     ]
+    },
+    "sarcasm_voice_f1": {
+     "ref": 0.866,
+     "var": 0.866,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 897
+    },
+    "sarcasm_voice_sincere_called_sarcastic": {
+     "ref": 0.01255,
+     "var": 0.01255,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 797,
+     "ref_count": [
+      10,
+      797
+     ],
+     "var_count": [
+      10,
+      797
+     ]
+    },
+    "emotion_voice_real": {
+     "ref": 0.5826,
+     "var": 0.5826,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1496
+    },
+    "move_voice_real_macro_f1": {
+     "ref": 0.6526,
+     "var": 0.6526,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1470
+    },
+    "move_voice_real_answered_or_open": {
+     "ref": 0.87758,
+     "var": 0.87758,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 678,
+     "ref_count": [
+      595,
+      678
+     ],
+     "var_count": [
+      595,
+      678
+     ]
+    },
+    "move_voice_real_asks_or_not": {
+     "ref": 0.94558,
+     "var": 0.94558,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1470,
+     "ref_count": [
+      1390,
+      1470
+     ],
+     "var_count": [
+      1390,
+      1470
+     ]
+    },
+    "sarcasm_voice_real_f1": {
+     "ref": 0.0,
+     "var": 0.0,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "units": 1500
+    },
+    "sarcasm_voice_real_sincere_called_sarcastic": {
+     "ref": 0.00201,
+     "var": 0.00201,
+     "diff": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "lines": 1496,
+     "ref_count": [
+      3,
+      1496
+     ],
+     "var_count": [
+      3,
+      1496
+     ]
+    }
+   },
+   "worse_beyond_noise": [],
+   "false_sarcasm_rises": []
+  }
+ },
+ "rule": {
+  "tags_identical_99": true,
+  "no_item_worse": true,
+  "false_sarcasm_not_up": true,
+  "ships": true
+ },
+ "sizes_mb": {
+  "model.opt.onnx": 96.3,
+  "model_fp16.onnx": 48.25
+ },
+ "latency_4_threads_modal_cpu": {
+  "fp32": {
+   "short": {
+    "p50_ms": 2.707,
+    "p95_ms": 3.055
+   },
+   "with_previous": {
+    "p50_ms": 5.124,
+    "p95_ms": 5.629
+   },
+   "long": {
+    "p50_ms": 22.57,
+    "p95_ms": 24.748
+   }
+  },
+  "fp16": {
+   "short": {
+    "p50_ms": 2.57,
+    "p95_ms": 3.134
+   },
+   "with_previous": {
+    "p50_ms": 4.917,
+    "p95_ms": 5.565
+   },
+   "long": {
+    "p50_ms": 21.883,
+    "p95_ms": 23.689
+   }
+  }
+ },
+ "memory": {
+  "fp32": {
+   "max_rss_mb": 742.9
+  },
+  "fp16": {
+   "max_rss_mb": 742.9
+  }
+ },
+ "key": "models/tonetext/tonetext-r3c-student-minilm-l6-seed2/precision/model_fp16.onnx",
+ "sha256": "29d2e3839d806ab91fe64e9de14d13e7ca7251ec2fd44bcd37251200370a163c",
+ "bytes": 48247715,
+ "uploaded": true,
+ "seconds": 133
+}

@@ -1,0 +1,7662 @@
+{
+ "run_id": "tonetext-r3c-student-minilm-l6-seed2",
+ "source": null,
+ "act_label_ids": [
+  "linecls-corpus-0.1-thin-committee",
+  "linecls-corpus-0.1-full-committee",
+  "linecls-corpus-0.1-hardneg-committee",
+  "linecls-corpus-0.1-heldout-committee",
+  "linecls-corpus-0.2-speech-committee",
+  "linecls-corpus-0.4-targeted-committee",
+  "linecls-corpus-0.4-speechdev-committee"
+ ],
+ "act_test_lines": 3999,
+ "exchange_test_lines": 1205,
+ "sarcasm_test_lines": 2681,
+ "tonetext": {
+  "modes": [
+   "as_given",
+   "no_previous"
+  ],
+  "labels": {
+   "as_given": "as given",
+   "no_previous": "without the line before"
+  },
+  "as_given": {
+   "act_emotion": {
+    "main_test": {
+     "lines": 1954,
+     "acts": {
+      "pairs": 2862,
+      "accuracy": 0.644,
+      "macro_f1": 0.0559,
+      "macro_f1_ci": [
+       0.055,
+       0.057
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 201,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 44,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 91,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 39,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 192,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 42,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 74,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 75,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 38,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 62,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 60,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 40,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 61,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.783,
+        "support": 1843,
+        "predicted": 2862
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 2516,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0015
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 346,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.011
+      ],
+      "gold_classes": {
+       "none": 1843,
+       "insult": 201,
+       "demand": 192,
+       "accusation": 91,
+       "request": 75,
+       "refusal": 74,
+       "praise": 62,
+       "warning": 61,
+       "apology": 60,
+       "threat": 44,
+       "dismiss": 42,
+       "comfort": 40,
+       "tease": 39,
+       "thanks": 38
+      }
+     },
+     "emotion": {
+      "lines": 1905,
+      "accuracy": 0.7727,
+      "macro_f1": 0.661,
+      "macro_f1_ci": [
+       0.611,
+       0.698
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.868,
+        "support": 998,
+        "predicted": 970
+       },
+       "happy": {
+        "f1": 0.821,
+        "support": 150,
+        "predicted": 152
+       },
+       "amused": {
+        "f1": 0.517,
+        "support": 121,
+        "predicted": 88
+       },
+       "angry": {
+        "f1": 0.655,
+        "support": 195,
+        "predicted": 211
+       },
+       "sad": {
+        "f1": 0.727,
+        "support": 85,
+        "predicted": 69
+       },
+       "afraid": {
+        "f1": 0.487,
+        "support": 63,
+        "predicted": 56
+       },
+       "surprised": {
+        "f1": 0.655,
+        "support": 53,
+        "predicted": 66
+       },
+       "disgusted": {
+        "f1": 0.526,
+        "support": 9,
+        "predicted": 10
+       },
+       "contemptuous": {
+        "f1": 0.693,
+        "support": 231,
+        "predicted": 283
+       }
+      }
+     },
+     "calibration": {
+      "act": null,
+      "emotion": 0.0404
+     }
+    },
+    "natural_test_false_hostility": {
+     "false_hostile": 0,
+     "non_hostile_pairs": 1115,
+     "false_hostility_rate": 0.0,
+     "false_hostility_ci": [
+      0.0,
+      0.0034
+     ],
+     "hostile_found": 0,
+     "hostile_pairs": 57,
+     "hostile_recall": 0.0,
+     "hostile_recall_ci": [
+      0.0,
+      0.0631
+     ]
+    },
+    "stratified_test_recall": {
+     "false_hostile": 0,
+     "non_hostile_pairs": 1401,
+     "false_hostility_rate": 0.0,
+     "false_hostility_ci": [
+      0.0,
+      0.0027
+     ],
+     "hostile_found": 0,
+     "hostile_pairs": 289,
+     "hostile_recall": 0.0,
+     "hostile_recall_ci": [
+      0.0,
+      0.0131
+     ]
+    },
+    "player_speech": {
+     "lines": 900,
+     "acts": {
+      "pairs": 1194,
+      "accuracy": 0.4765,
+      "macro_f1": 0.0461,
+      "macro_f1_ci": [
+       0.044,
+       0.048
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 66,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 57,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 67,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 17,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 113,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 25,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 68,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 36,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 38,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 61,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 27,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 19,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.645,
+        "support": 569,
+        "predicted": 1194
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 1001,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0038
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 193,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0195
+      ],
+      "gold_classes": {
+       "none": 569,
+       "demand": 113,
+       "refusal": 68,
+       "accusation": 67,
+       "insult": 66,
+       "praise": 61,
+       "threat": 57,
+       "thanks": 38,
+       "request": 36,
+       "comfort": 31,
+       "apology": 27,
+       "dismiss": 25,
+       "warning": 19,
+       "tease": 17
+      }
+     },
+     "emotion": {
+      "lines": 870,
+      "accuracy": 0.7828,
+      "macro_f1": 0.6842,
+      "macro_f1_ci": [
+       0.611,
+       0.743
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.835,
+        "support": 356,
+        "predicted": 343
+       },
+       "happy": {
+        "f1": 0.848,
+        "support": 84,
+        "predicted": 81
+       },
+       "amused": {
+        "f1": 0.701,
+        "support": 70,
+        "predicted": 67
+       },
+       "angry": {
+        "f1": 0.824,
+        "support": 205,
+        "predicted": 232
+       },
+       "sad": {
+        "f1": 0.75,
+        "support": 28,
+        "predicted": 28
+       },
+       "afraid": {
+        "f1": 0.543,
+        "support": 48,
+        "predicted": 33
+       },
+       "surprised": {
+        "f1": 0.564,
+        "support": 16,
+        "predicted": 23
+       },
+       "disgusted": {
+        "f1": 0.5,
+        "support": 3,
+        "predicted": 5
+       },
+       "contemptuous": {
+        "f1": 0.593,
+        "support": 60,
+        "predicted": 58
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 1001,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0038
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 193,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0195
+      ]
+     },
+     "calibration": {
+      "act": null,
+      "emotion": 0.0307
+     }
+    },
+    "unseen_genre": {
+     "lines": 900,
+     "acts": {
+      "pairs": 1391,
+      "accuracy": 0.6017,
+      "macro_f1": 0.0536,
+      "macro_f1_ci": [
+       0.052,
+       0.055
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 80,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 43,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 59,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 15,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 109,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 15,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 33,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 52,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 55,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 26,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 26,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.751,
+        "support": 837,
+        "predicted": 1391
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 1206,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0032
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 185,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0203
+      ],
+      "gold_classes": {
+       "none": 837,
+       "demand": 109,
+       "insult": 80,
+       "accusation": 59,
+       "apology": 55,
+       "praise": 52,
+       "threat": 43,
+       "request": 33,
+       "comfort": 26,
+       "warning": 26,
+       "thanks": 21,
+       "refusal": 20,
+       "tease": 15,
+       "dismiss": 15
+      }
+     },
+     "emotion": {
+      "lines": 874,
+      "accuracy": 0.7929,
+      "macro_f1": 0.6834,
+      "macro_f1_ci": [
+       0.615,
+       0.729
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.872,
+        "support": 428,
+        "predicted": 434
+       },
+       "happy": {
+        "f1": 0.829,
+        "support": 76,
+        "predicted": 64
+       },
+       "amused": {
+        "f1": 0.576,
+        "support": 34,
+        "predicted": 32
+       },
+       "angry": {
+        "f1": 0.77,
+        "support": 130,
+        "predicted": 135
+       },
+       "sad": {
+        "f1": 0.832,
+        "support": 59,
+        "predicted": 66
+       },
+       "afraid": {
+        "f1": 0.508,
+        "support": 39,
+        "predicted": 24
+       },
+       "surprised": {
+        "f1": 0.524,
+        "support": 19,
+        "predicted": 23
+       },
+       "disgusted": {
+        "f1": 0.6,
+        "support": 6,
+        "predicted": 4
+       },
+       "contemptuous": {
+        "f1": 0.64,
+        "support": 83,
+        "predicted": 92
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 1206,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0032
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 185,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0203
+      ]
+     }
+    },
+    "group_lines": {
+     "lines": 785,
+     "acts": {
+      "pairs": 1729,
+      "accuracy": 0.7403,
+      "macro_f1": 0.0608,
+      "macro_f1_ci": [
+       0.06,
+       0.062
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 103,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 18,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 45,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 17,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 74,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 17,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 11,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 47,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 23,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.851,
+        "support": 1280,
+        "predicted": 1729
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 1558,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0025
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 171,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.022
+      ],
+      "gold_classes": {
+       "none": 1280,
+       "insult": 103,
+       "demand": 74,
+       "praise": 47,
+       "accusation": 45,
+       "apology": 31,
+       "warning": 23,
+       "comfort": 21,
+       "thanks": 21,
+       "request": 21,
+       "threat": 18,
+       "tease": 17,
+       "dismiss": 17,
+       "refusal": 11
+      }
+     },
+     "emotion": {
+      "lines": 768,
+      "accuracy": 0.7799,
+      "macro_f1": 0.6492,
+      "macro_f1_ci": [
+       0.593,
+       0.712
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.863,
+        "support": 338,
+        "predicted": 334
+       },
+       "happy": {
+        "f1": 0.886,
+        "support": 83,
+        "predicted": 84
+       },
+       "amused": {
+        "f1": 0.545,
+        "support": 51,
+        "predicted": 37
+       },
+       "angry": {
+        "f1": 0.627,
+        "support": 84,
+        "predicted": 85
+       },
+       "sad": {
+        "f1": 0.771,
+        "support": 51,
+        "predicted": 45
+       },
+       "afraid": {
+        "f1": 0.522,
+        "support": 23,
+        "predicted": 23
+       },
+       "surprised": {
+        "f1": 0.609,
+        "support": 20,
+        "predicted": 26
+       },
+       "disgusted": {
+        "f1": 0.25,
+        "support": 4,
+        "predicted": 4
+       },
+       "contemptuous": {
+        "f1": 0.77,
+        "support": 114,
+        "predicted": 130
+       }
+      }
+     }
+    },
+    "noisy_twins": {
+     "lines": 245,
+     "acts": {
+      "pairs": 380,
+      "accuracy": 0.6421,
+      "macro_f1": 0.0559,
+      "macro_f1_ci": [
+       0.053,
+       0.062
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 13,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 1,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 12,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 9,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.782,
+        "support": 244,
+        "predicted": 380
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 320,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0119
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 60,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0602
+      ],
+      "gold_classes": {
+       "none": 244,
+       "insult": 31,
+       "accusation": 20,
+       "demand": 13,
+       "request": 12,
+       "praise": 10,
+       "apology": 9,
+       "comfort": 8,
+       "threat": 8,
+       "dismiss": 7,
+       "warning": 7,
+       "thanks": 5,
+       "tease": 5,
+       "refusal": 1
+      }
+     },
+     "emotion": {
+      "lines": 241,
+      "accuracy": 0.7759,
+      "macro_f1": 0.6248,
+      "macro_f1_ci": [
+       0.511,
+       0.719
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.882,
+        "support": 123,
+        "predicted": 115
+       },
+       "happy": {
+        "f1": 0.789,
+        "support": 22,
+        "predicted": 16
+       },
+       "amused": {
+        "f1": 0.455,
+        "support": 13,
+        "predicted": 9
+       },
+       "angry": {
+        "f1": 0.719,
+        "support": 30,
+        "predicted": 34
+       },
+       "sad": {
+        "f1": 0.667,
+        "support": 4,
+        "predicted": 8
+       },
+       "afraid": {
+        "f1": 0.556,
+        "support": 9,
+        "predicted": 9
+       },
+       "surprised": {
+        "f1": 0.444,
+        "support": 2,
+        "predicted": 7
+       },
+       "disgusted": {
+        "f1": 0.4,
+        "support": 2,
+        "predicted": 3
+       },
+       "contemptuous": {
+        "f1": 0.711,
+        "support": 36,
+        "predicted": 40
+       }
+      }
+     }
+    },
+    "clean_lines_with_twins": {
+     "lines": 245,
+     "acts": {
+      "pairs": 380,
+      "accuracy": 0.6421,
+      "macro_f1": 0.0559,
+      "macro_f1_ci": [
+       0.053,
+       0.062
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 13,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 1,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 12,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 9,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.782,
+        "support": 244,
+        "predicted": 380
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 320,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0119
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 60,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0602
+      ],
+      "gold_classes": {
+       "none": 244,
+       "insult": 31,
+       "accusation": 20,
+       "demand": 13,
+       "request": 12,
+       "praise": 10,
+       "apology": 9,
+       "comfort": 8,
+       "threat": 8,
+       "dismiss": 7,
+       "warning": 7,
+       "thanks": 5,
+       "tease": 5,
+       "refusal": 1
+      }
+     },
+     "emotion": {
+      "lines": 241,
+      "accuracy": 0.7842,
+      "macro_f1": 0.6287,
+      "macro_f1_ci": [
+       0.496,
+       0.732
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.888,
+        "support": 123,
+        "predicted": 118
+       },
+       "happy": {
+        "f1": 0.821,
+        "support": 22,
+        "predicted": 17
+       },
+       "amused": {
+        "f1": 0.476,
+        "support": 13,
+        "predicted": 8
+       },
+       "angry": {
+        "f1": 0.742,
+        "support": 30,
+        "predicted": 32
+       },
+       "sad": {
+        "f1": 0.6,
+        "support": 4,
+        "predicted": 6
+       },
+       "afraid": {
+        "f1": 0.556,
+        "support": 9,
+        "predicted": 9
+       },
+       "surprised": {
+        "f1": 0.364,
+        "support": 2,
+        "predicted": 9
+       },
+       "disgusted": {
+        "f1": 0.5,
+        "support": 2,
+        "predicted": 2
+       },
+       "contemptuous": {
+        "f1": 0.711,
+        "support": 36,
+        "predicted": 40
+       }
+      }
+     }
+    },
+    "addressee_bound": {
+     "lines": 434,
+     "acts": {
+      "pairs": 964,
+      "accuracy": 0.5477,
+      "macro_f1": 0.0506,
+      "macro_f1_ci": [
+       0.05,
+       0.051
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 110,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 40,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 57,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 41,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 13,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 14,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 22,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 50,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 22,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 19,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.708,
+        "support": 528,
+        "predicted": 964
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 754,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0051
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 210,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.018
+      ],
+      "gold_classes": {
+       "none": 528,
+       "insult": 110,
+       "accusation": 57,
+       "praise": 50,
+       "demand": 41,
+       "threat": 40,
+       "thanks": 22,
+       "comfort": 22,
+       "apology": 20,
+       "tease": 20,
+       "warning": 19,
+       "request": 14,
+       "dismiss": 13,
+       "refusal": 8
+      }
+     },
+     "emotion": {
+      "lines": 420,
+      "accuracy": 0.7643,
+      "macro_f1": 0.6393,
+      "macro_f1_ci": [
+       0.578,
+       0.733
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.769,
+        "support": 96,
+        "predicted": 86
+       },
+       "happy": {
+        "f1": 0.891,
+        "support": 68,
+        "predicted": 69
+       },
+       "amused": {
+        "f1": 0.643,
+        "support": 26,
+        "predicted": 30
+       },
+       "angry": {
+        "f1": 0.707,
+        "support": 82,
+        "predicted": 85
+       },
+       "sad": {
+        "f1": 0.743,
+        "support": 18,
+        "predicted": 17
+       },
+       "afraid": {
+        "f1": 0.714,
+        "support": 15,
+        "predicted": 13
+       },
+       "surprised": {
+        "f1": 0.5,
+        "support": 6,
+        "predicted": 6
+       },
+       "disgusted": {
+        "f1": 0.0,
+        "support": 0,
+        "predicted": 2
+       },
+       "contemptuous": {
+        "f1": 0.787,
+        "support": 109,
+        "predicted": 112
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 754,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0051
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 210,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.018
+      ]
+     }
+    },
+    "context_bound": {
+     "lines": 170,
+     "acts": {
+      "pairs": 239,
+      "accuracy": 0.5732,
+      "macro_f1": 0.0561,
+      "macro_f1_ci": [
+       0.053,
+       0.069
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 11,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 2,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 1,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 35,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 3,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 9,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 3,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 2,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.729,
+        "support": 137,
+        "predicted": 239
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 216,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0175
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 23,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.1431
+      ],
+      "gold_classes": {
+       "none": 137,
+       "demand": 35,
+       "insult": 11,
+       "thanks": 10,
+       "refusal": 10,
+       "praise": 9,
+       "dismiss": 8,
+       "threat": 8,
+       "request": 3,
+       "comfort": 3,
+       "accusation": 2,
+       "warning": 2,
+       "tease": 1
+      }
+     },
+     "emotion": {
+      "lines": 165,
+      "accuracy": 0.8121,
+      "macro_f1": 0.6459,
+      "macro_f1_ci": [
+       0.487,
+       0.826
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.866,
+        "support": 96,
+        "predicted": 98
+       },
+       "happy": {
+        "f1": 0.774,
+        "support": 17,
+        "predicted": 14
+       },
+       "amused": {
+        "f1": 0.667,
+        "support": 4,
+        "predicted": 5
+       },
+       "angry": {
+        "f1": 0.741,
+        "support": 27,
+        "predicted": 27
+       },
+       "sad": {
+        "f1": 0.0,
+        "support": 0,
+        "predicted": 1
+       },
+       "afraid": {
+        "f1": 0.5,
+        "support": 3,
+        "predicted": 1
+       },
+       "surprised": {
+        "f1": 0.857,
+        "support": 4,
+        "predicted": 3
+       },
+       "disgusted": {
+        "f1": 0.667,
+        "support": 1,
+        "predicted": 2
+       },
+       "contemptuous": {
+        "f1": 0.741,
+        "support": 13,
+        "predicted": 14
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 216,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0175
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 23,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.1431
+      ]
+     }
+    }
+   },
+   "exchange": {
+    "test": {
+     "lines": 824,
+     "accuracy": 0.8277,
+     "accuracy_ci": [
+      0.8004,
+      0.8519
+     ],
+     "macro_f1": 0.818,
+     "per_class": {
+      "asks": {
+       "f1": 0.8725,
+       "support": 172,
+       "predicted": 181,
+       "precision": 0.8508,
+       "recall": 0.8953
+      },
+      "answers": {
+       "f1": 0.8517,
+       "support": 299,
+       "predicted": 274,
+       "precision": 0.8905,
+       "recall": 0.8161
+      },
+      "hedges": {
+       "f1": 0.8421,
+       "support": 34,
+       "predicted": 42,
+       "precision": 0.7619,
+       "recall": 0.9412
+      },
+      "doesnt_know": {
+       "f1": 0.9057,
+       "support": 72,
+       "predicted": 87,
+       "precision": 0.8276,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.6905,
+       "support": 83,
+       "predicted": 85,
+       "precision": 0.6824,
+       "recall": 0.6988
+      },
+      "closes": {
+       "f1": 0.8247,
+       "support": 46,
+       "predicted": 51,
+       "precision": 0.7843,
+       "recall": 0.8696
+      },
+      "other": {
+       "f1": 0.7387,
+       "support": 118,
+       "predicted": 104,
+       "precision": 0.7885,
+       "recall": 0.6949
+      }
+     },
+     "answered_vs_open": {
+      "lines": 454,
+      "right": 380,
+      "rate": 0.837,
+      "ci": [
+       0.8002,
+       0.8681
+      ],
+      "crossed": 34,
+      "crossed_rate": 0.0749,
+      "crossed_ci": [
+       0.0541,
+       0.1028
+      ],
+      "answers_lines": 299,
+      "open_lines": 155
+     },
+     "asks_vs_rest": {
+      "lines": 824,
+      "right": 779,
+      "rate": 0.9454,
+      "ci": [
+       0.9277,
+       0.9589
+      ],
+      "asks_recall": 0.8953,
+      "asks_precision": 0.8508,
+      "asks_lines": 172
+     },
+     "confusion": {
+      "asks": {
+       "asks": 154,
+       "answers": 5,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 1,
+       "other": 7
+      },
+      "answers": {
+       "asks": 11,
+       "answers": 244,
+       "hedges": 6,
+       "doesnt_know": 7,
+       "withholds": 15,
+       "closes": 3,
+       "other": 13
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 32,
+       "doesnt_know": 2,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 72,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 5,
+       "answers": 12,
+       "hedges": 0,
+       "doesnt_know": 6,
+       "withholds": 58,
+       "closes": 2,
+       "other": 0
+      },
+      "closes": {
+       "asks": 1,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 40,
+       "other": 2
+      },
+      "other": {
+       "asks": 10,
+       "answers": 10,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 9,
+       "closes": 5,
+       "other": 82
+      }
+     },
+     "gold_classes": {
+      "answers": 299,
+      "asks": 172,
+      "other": 118,
+      "withholds": 83,
+      "doesnt_know": 72,
+      "closes": 46,
+      "hedges": 34
+     },
+     "macro_f1_ci": [
+      0.787,
+      0.8477
+     ]
+    },
+    "player_lines": {
+     "lines": 324,
+     "accuracy": 0.7562,
+     "accuracy_ci": [
+      0.7066,
+      0.7997
+     ],
+     "macro_f1": 0.7545,
+     "per_class": {
+      "asks": {
+       "f1": 0.8533,
+       "support": 111,
+       "predicted": 114,
+       "precision": 0.8421,
+       "recall": 0.8649
+      },
+      "answers": {
+       "f1": 0.6718,
+       "support": 68,
+       "predicted": 63,
+       "precision": 0.6984,
+       "recall": 0.6471
+      },
+      "hedges": {
+       "f1": 0.7368,
+       "support": 7,
+       "predicted": 12,
+       "precision": 0.5833,
+       "recall": 1.0
+      },
+      "doesnt_know": {
+       "f1": 1.0,
+       "support": 3,
+       "predicted": 3,
+       "precision": 1.0,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.5833,
+       "support": 20,
+       "predicted": 28,
+       "precision": 0.5,
+       "recall": 0.7
+      },
+      "closes": {
+       "f1": 0.6875,
+       "support": 14,
+       "predicted": 18,
+       "precision": 0.6111,
+       "recall": 0.7857
+      },
+      "other": {
+       "f1": 0.7487,
+       "support": 101,
+       "predicted": 86,
+       "precision": 0.814,
+       "recall": 0.6931
+      }
+     },
+     "answered_vs_open": {
+      "lines": 91,
+      "right": 61,
+      "rate": 0.6703,
+      "ci": [
+       0.5686,
+       0.7583
+      ],
+      "crossed": 7,
+      "crossed_rate": 0.0769,
+      "crossed_ci": [
+       0.0378,
+       0.1504
+      ],
+      "answers_lines": 68,
+      "open_lines": 23
+     },
+     "asks_vs_rest": {
+      "lines": 324,
+      "right": 291,
+      "rate": 0.8981,
+      "ci": [
+       0.8604,
+       0.9266
+      ],
+      "asks_recall": 0.8649,
+      "asks_precision": 0.8421,
+      "asks_lines": 111
+     },
+     "confusion": {
+      "asks": {
+       "asks": 96,
+       "answers": 4,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 0,
+       "other": 6
+      },
+      "answers": {
+       "asks": 9,
+       "answers": 44,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 2,
+       "other": 9
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 7,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 3,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 1,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 14,
+       "closes": 1,
+       "other": 0
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 11,
+       "other": 1
+      },
+      "other": {
+       "asks": 8,
+       "answers": 9,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 8,
+       "closes": 4,
+       "other": 70
+      }
+     },
+     "gold_classes": {
+      "asks": 111,
+      "other": 101,
+      "answers": 68,
+      "withholds": 20,
+      "closes": 14,
+      "hedges": 7,
+      "doesnt_know": 3
+     },
+     "macro_f1_ci": [
+      0.6823,
+      0.8037
+     ]
+    },
+    "player_speech": {
+     "lines": 253,
+     "accuracy": 0.7036,
+     "accuracy_ci": [
+      0.6446,
+      0.7564
+     ],
+     "macro_f1": 0.7207,
+     "per_class": {
+      "asks": {
+       "f1": 0.7619,
+       "support": 61,
+       "predicted": 65,
+       "precision": 0.7385,
+       "recall": 0.7869
+      },
+      "answers": {
+       "f1": 0.6286,
+       "support": 55,
+       "predicted": 50,
+       "precision": 0.66,
+       "recall": 0.6
+      },
+      "hedges": {
+       "f1": 0.7059,
+       "support": 6,
+       "predicted": 11,
+       "precision": 0.5455,
+       "recall": 1.0
+      },
+      "doesnt_know": {
+       "f1": 1.0,
+       "support": 3,
+       "predicted": 3,
+       "precision": 1.0,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.5957,
+       "support": 20,
+       "predicted": 27,
+       "precision": 0.5185,
+       "recall": 0.7
+      },
+      "closes": {
+       "f1": 0.6154,
+       "support": 11,
+       "predicted": 15,
+       "precision": 0.5333,
+       "recall": 0.7273
+      },
+      "other": {
+       "f1": 0.7374,
+       "support": 97,
+       "predicted": 82,
+       "precision": 0.8049,
+       "recall": 0.6804
+      }
+     },
+     "answered_vs_open": {
+      "lines": 78,
+      "right": 50,
+      "rate": 0.641,
+      "ci": [
+       0.5303,
+       0.7385
+      ],
+      "crossed": 6,
+      "crossed_rate": 0.0769,
+      "crossed_ci": [
+       0.0357,
+       0.1578
+      ],
+      "answers_lines": 55,
+      "open_lines": 23
+     },
+     "asks_vs_rest": {
+      "lines": 253,
+      "right": 223,
+      "rate": 0.8814,
+      "ci": [
+       0.8358,
+       0.9157
+      ],
+      "asks_recall": 0.7869,
+      "asks_precision": 0.7385,
+      "asks_lines": 61
+     },
+     "confusion": {
+      "asks": {
+       "asks": 48,
+       "answers": 2,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 0,
+       "other": 6
+      },
+      "answers": {
+       "asks": 8,
+       "answers": 33,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 2,
+       "other": 9
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 6,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 3,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 1,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 14,
+       "closes": 1,
+       "other": 0
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 8,
+       "other": 1
+      },
+      "other": {
+       "asks": 8,
+       "answers": 9,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 8,
+       "closes": 4,
+       "other": 66
+      }
+     },
+     "gold_classes": {
+      "other": 97,
+      "asks": 61,
+      "answers": 55,
+      "withholds": 20,
+      "closes": 11,
+      "hedges": 6,
+      "doesnt_know": 3
+     },
+     "macro_f1_ci": [
+      0.638,
+      0.7779
+     ]
+    },
+    "npc_lines": {
+     "lines": 500,
+     "accuracy": 0.874,
+     "accuracy_ci": [
+      0.842,
+      0.9003
+     ],
+     "macro_f1": 0.8431,
+     "per_class": {
+      "asks": {
+       "f1": 0.9062,
+       "support": 61,
+       "predicted": 67,
+       "precision": 0.8657,
+       "recall": 0.9508
+      },
+      "answers": {
+       "f1": 0.905,
+       "support": 231,
+       "predicted": 211,
+       "precision": 0.9479,
+       "recall": 0.8658
+      },
+      "hedges": {
+       "f1": 0.8772,
+       "support": 27,
+       "predicted": 30,
+       "precision": 0.8333,
+       "recall": 0.9259
+      },
+      "doesnt_know": {
+       "f1": 0.902,
+       "support": 69,
+       "predicted": 84,
+       "precision": 0.8214,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.7333,
+       "support": 63,
+       "predicted": 57,
+       "precision": 0.7719,
+       "recall": 0.6984
+      },
+      "closes": {
+       "f1": 0.8923,
+       "support": 32,
+       "predicted": 33,
+       "precision": 0.8788,
+       "recall": 0.9062
+      },
+      "other": {
+       "f1": 0.6857,
+       "support": 17,
+       "predicted": 18,
+       "precision": 0.6667,
+       "recall": 0.7059
+      }
+     },
+     "answered_vs_open": {
+      "lines": 363,
+      "right": 319,
+      "rate": 0.8788,
+      "ci": [
+       0.8412,
+       0.9085
+      ],
+      "crossed": 27,
+      "crossed_rate": 0.0744,
+      "crossed_ci": [
+       0.0516,
+       0.1061
+      ],
+      "answers_lines": 231,
+      "open_lines": 132
+     },
+     "asks_vs_rest": {
+      "lines": 500,
+      "right": 488,
+      "rate": 0.976,
+      "ci": [
+       0.9585,
+       0.9862
+      ],
+      "asks_recall": 0.9508,
+      "asks_precision": 0.8657,
+      "asks_lines": 61
+     },
+     "confusion": {
+      "asks": {
+       "asks": 58,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 1
+      },
+      "answers": {
+       "asks": 2,
+       "answers": 200,
+       "hedges": 5,
+       "doesnt_know": 7,
+       "withholds": 12,
+       "closes": 1,
+       "other": 4
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 25,
+       "doesnt_know": 2,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 69,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 4,
+       "answers": 8,
+       "hedges": 0,
+       "doesnt_know": 6,
+       "withholds": 44,
+       "closes": 1,
+       "other": 0
+      },
+      "closes": {
+       "asks": 1,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 29,
+       "other": 1
+      },
+      "other": {
+       "asks": 2,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 1,
+       "other": 12
+      }
+     },
+     "gold_classes": {
+      "answers": 231,
+      "doesnt_know": 69,
+      "withholds": 63,
+      "asks": 61,
+      "closes": 32,
+      "hedges": 27,
+      "other": 17
+     },
+     "macro_f1_ci": [
+      0.7981,
+      0.8819
+     ]
+    },
+    "npc_to_npc": {
+     "lines": 109,
+     "accuracy": 0.8532,
+     "accuracy_ci": [
+      0.7748,
+      0.9076
+     ],
+     "macro_f1": 0.7518,
+     "per_class": {
+      "asks": {
+       "f1": 0.9577,
+       "support": 35,
+       "predicted": 36,
+       "precision": 0.9444,
+       "recall": 0.9714
+      },
+      "answers": {
+       "f1": 0.9024,
+       "support": 41,
+       "predicted": 41,
+       "precision": 0.9024,
+       "recall": 0.9024
+      },
+      "hedges": {
+       "f1": 0.8,
+       "support": 5,
+       "predicted": 5,
+       "precision": 0.8,
+       "recall": 0.8
+      },
+      "doesnt_know": {
+       "f1": 0.8333,
+       "support": 5,
+       "predicted": 7,
+       "precision": 0.7143,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.4,
+       "support": 6,
+       "predicted": 4,
+       "precision": 0.5,
+       "recall": 0.3333
+      },
+      "closes": {
+       "f1": 0.7692,
+       "support": 6,
+       "predicted": 7,
+       "precision": 0.7143,
+       "recall": 0.8333
+      },
+      "other": {
+       "f1": 0.6,
+       "support": 11,
+       "predicted": 9,
+       "precision": 0.6667,
+       "recall": 0.5455
+      }
+     },
+     "answered_vs_open": {
+      "lines": 52,
+      "right": 45,
+      "rate": 0.8654,
+      "ci": [
+       0.7473,
+       0.9332
+      ],
+      "crossed": 4,
+      "crossed_rate": 0.0769,
+      "crossed_ci": [
+       0.0303,
+       0.1817
+      ],
+      "answers_lines": 41,
+      "open_lines": 11
+     },
+     "asks_vs_rest": {
+      "lines": 109,
+      "right": 106,
+      "rate": 0.9725,
+      "ci": [
+       0.9222,
+       0.9906
+      ],
+      "asks_recall": 0.9714,
+      "asks_precision": 0.9444,
+      "asks_lines": 35
+     },
+     "confusion": {
+      "asks": {
+       "asks": 34,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 1
+      },
+      "answers": {
+       "asks": 0,
+       "answers": 37,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 1,
+       "other": 1
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 4,
+       "doesnt_know": 1,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 5,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 1,
+       "withholds": 2,
+       "closes": 0,
+       "other": 0
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 5,
+       "other": 1
+      },
+      "other": {
+       "asks": 2,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 1,
+       "other": 6
+      }
+     },
+     "gold_classes": {
+      "answers": 41,
+      "asks": 35,
+      "other": 11,
+      "closes": 6,
+      "withholds": 6,
+      "doesnt_know": 5,
+      "hedges": 5
+     },
+     "macro_f1_ci": [
+      0.608,
+      0.8471
+     ]
+    },
+    "our_lines": {
+     "lines": 330,
+     "accuracy": 0.8939,
+     "accuracy_ci": [
+      0.8561,
+      0.9227
+     ],
+     "macro_f1": 0.9056,
+     "per_class": {
+      "asks": {
+       "f1": 0.9577,
+       "support": 37,
+       "predicted": 34,
+       "precision": 1.0,
+       "recall": 0.9189
+      },
+      "answers": {
+       "f1": 0.9073,
+       "support": 158,
+       "predicted": 144,
+       "precision": 0.9514,
+       "recall": 0.8671
+      },
+      "hedges": {
+       "f1": 0.8485,
+       "support": 15,
+       "predicted": 18,
+       "precision": 0.7778,
+       "recall": 0.9333
+      },
+      "doesnt_know": {
+       "f1": 0.8889,
+       "support": 44,
+       "predicted": 55,
+       "precision": 0.8,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.7959,
+       "support": 48,
+       "predicted": 50,
+       "precision": 0.78,
+       "recall": 0.8125
+      },
+      "closes": {
+       "f1": 0.9412,
+       "support": 25,
+       "predicted": 26,
+       "precision": 0.9231,
+       "recall": 0.96
+      },
+      "other": {
+       "f1": 1.0,
+       "support": 3,
+       "predicted": 3,
+       "precision": 1.0,
+       "recall": 1.0
+      }
+     },
+     "answered_vs_open": {
+      "lines": 250,
+      "right": 224,
+      "rate": 0.896,
+      "ci": [
+       0.852,
+       0.928
+      ],
+      "crossed": 21,
+      "crossed_rate": 0.084,
+      "crossed_ci": [
+       0.0556,
+       0.125
+      ],
+      "answers_lines": 158,
+      "open_lines": 92
+     },
+     "asks_vs_rest": {
+      "lines": 330,
+      "right": 327,
+      "rate": 0.9909,
+      "ci": [
+       0.9736,
+       0.9969
+      ],
+      "asks_recall": 0.9189,
+      "asks_precision": 1.0,
+      "asks_lines": 37
+     },
+     "confusion": {
+      "asks": {
+       "asks": 34,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 0
+      },
+      "answers": {
+       "asks": 0,
+       "answers": 137,
+       "hedges": 4,
+       "doesnt_know": 6,
+       "withholds": 11,
+       "closes": 0,
+       "other": 0
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 14,
+       "doesnt_know": 1,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 44,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 4,
+       "withholds": 39,
+       "closes": 1,
+       "other": 0
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 24,
+       "other": 0
+      },
+      "other": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 3
+      }
+     },
+     "gold_classes": {
+      "answers": 158,
+      "withholds": 48,
+      "doesnt_know": 44,
+      "asks": 37,
+      "closes": 25,
+      "hedges": 15,
+      "other": 3
+     },
+     "macro_f1_ci": [
+      0.8696,
+      0.9338
+     ]
+    },
+    "generated_lines": {
+     "lines": 494,
+     "accuracy": 0.7834,
+     "accuracy_ci": [
+      0.745,
+      0.8175
+     ],
+     "macro_f1": 0.7688,
+     "per_class": {
+      "asks": {
+       "f1": 0.8511,
+       "support": 135,
+       "predicted": 147,
+       "precision": 0.8163,
+       "recall": 0.8889
+      },
+      "answers": {
+       "f1": 0.7897,
+       "support": 141,
+       "predicted": 130,
+       "precision": 0.8231,
+       "recall": 0.7589
+      },
+      "hedges": {
+       "f1": 0.8372,
+       "support": 19,
+       "predicted": 24,
+       "precision": 0.75,
+       "recall": 0.9474
+      },
+      "doesnt_know": {
+       "f1": 0.9333,
+       "support": 28,
+       "predicted": 32,
+       "precision": 0.875,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.5429,
+       "support": 35,
+       "predicted": 35,
+       "precision": 0.5429,
+       "recall": 0.5429
+      },
+      "closes": {
+       "f1": 0.6957,
+       "support": 21,
+       "predicted": 25,
+       "precision": 0.64,
+       "recall": 0.7619
+      },
+      "other": {
+       "f1": 0.7315,
+       "support": 115,
+       "predicted": 101,
+       "precision": 0.7822,
+       "recall": 0.687
+      }
+     },
+     "answered_vs_open": {
+      "lines": 204,
+      "right": 156,
+      "rate": 0.7647,
+      "ci": [
+       0.7019,
+       0.8177
+      ],
+      "crossed": 13,
+      "crossed_rate": 0.0637,
+      "crossed_ci": [
+       0.0376,
+       0.106
+      ],
+      "answers_lines": 141,
+      "open_lines": 63
+     },
+     "asks_vs_rest": {
+      "lines": 494,
+      "right": 452,
+      "rate": 0.915,
+      "ci": [
+       0.8871,
+       0.9365
+      ],
+      "asks_recall": 0.8889,
+      "asks_precision": 0.8163,
+      "asks_lines": 135
+     },
+     "confusion": {
+      "asks": {
+       "asks": 120,
+       "answers": 3,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 0,
+       "other": 7
+      },
+      "answers": {
+       "asks": 11,
+       "answers": 107,
+       "hedges": 2,
+       "doesnt_know": 1,
+       "withholds": 4,
+       "closes": 3,
+       "other": 13
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 18,
+       "doesnt_know": 1,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 28,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 5,
+       "answers": 8,
+       "hedges": 0,
+       "doesnt_know": 2,
+       "withholds": 19,
+       "closes": 1,
+       "other": 0
+      },
+      "closes": {
+       "asks": 1,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 16,
+       "other": 2
+      },
+      "other": {
+       "asks": 10,
+       "answers": 10,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 9,
+       "closes": 5,
+       "other": 79
+      }
+     },
+     "gold_classes": {
+      "answers": 141,
+      "asks": 135,
+      "other": 115,
+      "withholds": 35,
+      "doesnt_know": 28,
+      "closes": 21,
+      "hedges": 19
+     },
+     "macro_f1_ci": [
+      0.7201,
+      0.8106
+     ]
+    },
+    "noisy_twins": {
+     "lines": 75,
+     "accuracy": 0.7733,
+     "accuracy_ci": [
+      0.6666,
+      0.8534
+     ],
+     "macro_f1": 0.5552,
+     "per_class": {
+      "asks": {
+       "f1": 0.8525,
+       "support": 31,
+       "predicted": 30,
+       "precision": 0.8667,
+       "recall": 0.8387
+      },
+      "answers": {
+       "f1": 0.75,
+       "support": 12,
+       "predicted": 12,
+       "precision": 0.75,
+       "recall": 0.75
+      },
+      "hedges": {
+       "f1": 0.0,
+       "support": 0,
+       "predicted": 1,
+       "precision": 0.0,
+       "recall": null
+      },
+      "withholds": {
+       "f1": 0.4444,
+       "support": 5,
+       "predicted": 4,
+       "precision": 0.5,
+       "recall": 0.4
+      },
+      "closes": {
+       "f1": 0.5,
+       "support": 1,
+       "predicted": 3,
+       "precision": 0.3333,
+       "recall": 1.0
+      },
+      "other": {
+       "f1": 0.7843,
+       "support": 26,
+       "predicted": 25,
+       "precision": 0.8,
+       "recall": 0.7692
+      }
+     },
+     "answered_vs_open": {
+      "lines": 17,
+      "right": 11,
+      "rate": 0.6471,
+      "ci": [
+       0.413,
+       0.8269
+      ],
+      "crossed": 2,
+      "crossed_rate": 0.1176,
+      "crossed_ci": [
+       0.0329,
+       0.3434
+      ],
+      "answers_lines": 12,
+      "open_lines": 5
+     },
+     "asks_vs_rest": {
+      "lines": 75,
+      "right": 66,
+      "rate": 0.88,
+      "ci": [
+       0.7874,
+       0.9356
+      ],
+      "asks_recall": 0.8387,
+      "asks_precision": 0.8667,
+      "asks_lines": 31
+     },
+     "confusion": {
+      "asks": {
+       "asks": 26,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 0,
+       "other": 4
+      },
+      "answers": {
+       "asks": 2,
+       "answers": 9,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 0,
+       "other": 1
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 0
+      },
+      "other": {
+       "asks": 2,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 2,
+       "other": 20
+      }
+     },
+     "gold_classes": {
+      "asks": 31,
+      "other": 26,
+      "answers": 12,
+      "withholds": 5,
+      "closes": 1
+     },
+     "macro_f1_ci": [
+      0.4021,
+      0.777
+     ]
+    },
+    "unseen_genre": {
+     "lines": 293,
+     "accuracy": 0.8362,
+     "accuracy_ci": [
+      0.7895,
+      0.8742
+     ],
+     "macro_f1": 0.7816,
+     "per_class": {
+      "asks": {
+       "f1": 0.8421,
+       "support": 51,
+       "predicted": 44,
+       "precision": 0.9091,
+       "recall": 0.7843
+      },
+      "answers": {
+       "f1": 0.8667,
+       "support": 116,
+       "predicted": 124,
+       "precision": 0.8387,
+       "recall": 0.8966
+      },
+      "hedges": {
+       "f1": 0.9149,
+       "support": 48,
+       "predicted": 46,
+       "precision": 0.9348,
+       "recall": 0.8958
+      },
+      "doesnt_know": {
+       "f1": 0.8571,
+       "support": 29,
+       "predicted": 34,
+       "precision": 0.7941,
+       "recall": 0.931
+      },
+      "withholds": {
+       "f1": 0.3704,
+       "support": 18,
+       "predicted": 9,
+       "precision": 0.5556,
+       "recall": 0.2778
+      },
+      "closes": {
+       "f1": 0.9091,
+       "support": 11,
+       "predicted": 11,
+       "precision": 0.9091,
+       "recall": 0.9091
+      },
+      "other": {
+       "f1": 0.7111,
+       "support": 20,
+       "predicted": 25,
+       "precision": 0.64,
+       "recall": 0.8
+      }
+     },
+     "answered_vs_open": {
+      "lines": 163,
+      "right": 137,
+      "rate": 0.8405,
+      "ci": [
+       0.7765,
+       0.8888
+      ],
+      "crossed": 16,
+      "crossed_rate": 0.0982,
+      "crossed_ci": [
+       0.0613,
+       0.1535
+      ],
+      "answers_lines": 116,
+      "open_lines": 47
+     },
+     "asks_vs_rest": {
+      "lines": 293,
+      "right": 278,
+      "rate": 0.9488,
+      "ci": [
+       0.9173,
+       0.9687
+      ],
+      "asks_recall": 0.7843,
+      "asks_precision": 0.9091,
+      "asks_lines": 51
+     },
+     "confusion": {
+      "asks": {
+       "asks": 40,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 0,
+       "other": 5
+      },
+      "answers": {
+       "asks": 2,
+       "answers": 104,
+       "hedges": 2,
+       "doesnt_know": 3,
+       "withholds": 2,
+       "closes": 1,
+       "other": 2
+      },
+      "hedges": {
+       "asks": 1,
+       "answers": 1,
+       "hedges": 43,
+       "doesnt_know": 3,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 1,
+       "doesnt_know": 27,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 10,
+       "hedges": 0,
+       "doesnt_know": 1,
+       "withholds": 5,
+       "closes": 0,
+       "other": 2
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 10,
+       "other": 0
+      },
+      "other": {
+       "asks": 1,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 16
+      }
+     },
+     "gold_classes": {
+      "answers": 116,
+      "asks": 51,
+      "hedges": 48,
+      "doesnt_know": 29,
+      "other": 20,
+      "withholds": 18,
+      "closes": 11
+     },
+     "macro_f1_ci": [
+      0.7224,
+      0.8312
+     ]
+    },
+    "clean_lines_with_twins": {
+     "lines": 75,
+     "accuracy": 0.7867,
+     "accuracy_ci": [
+      0.6812,
+      0.8642
+     ],
+     "macro_f1": 0.5558,
+     "per_class": {
+      "asks": {
+       "f1": 0.9032,
+       "support": 31,
+       "predicted": 31,
+       "precision": 0.9032,
+       "recall": 0.9032
+      },
+      "answers": {
+       "f1": 0.6154,
+       "support": 12,
+       "predicted": 14,
+       "precision": 0.5714,
+       "recall": 0.6667
+      },
+      "hedges": {
+       "f1": 0.0,
+       "support": 0,
+       "predicted": 1,
+       "precision": 0.0,
+       "recall": null
+      },
+      "withholds": {
+       "f1": 0.5,
+       "support": 5,
+       "predicted": 3,
+       "precision": 0.6667,
+       "recall": 0.4
+      },
+      "closes": {
+       "f1": 0.5,
+       "support": 1,
+       "predicted": 3,
+       "precision": 0.3333,
+       "recall": 1.0
+      },
+      "other": {
+       "f1": 0.8163,
+       "support": 26,
+       "predicted": 23,
+       "precision": 0.8696,
+       "recall": 0.7692
+      }
+     },
+     "answered_vs_open": {
+      "lines": 17,
+      "right": 10,
+      "rate": 0.5882,
+      "ci": [
+       0.3601,
+       0.7839
+      ],
+      "crossed": 3,
+      "crossed_rate": 0.1765,
+      "crossed_ci": [
+       0.0619,
+       0.4103
+      ],
+      "answers_lines": 12,
+      "open_lines": 5
+     },
+     "asks_vs_rest": {
+      "lines": 75,
+      "right": 69,
+      "rate": 0.92,
+      "ci": [
+       0.8363,
+       0.9628
+      ],
+      "asks_recall": 0.9032,
+      "asks_precision": 0.9032,
+      "asks_lines": 31
+     },
+     "confusion": {
+      "asks": {
+       "asks": 28,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 3
+      },
+      "answers": {
+       "asks": 3,
+       "answers": 8,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 0,
+       "other": 0
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 0
+      },
+      "other": {
+       "asks": 0,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 2,
+       "other": 20
+      }
+     },
+     "gold_classes": {
+      "asks": 31,
+      "other": 26,
+      "answers": 12,
+      "withholds": 5,
+      "closes": 1
+     },
+     "macro_f1_ci": [
+      0.3904,
+      0.7724
+     ]
+    },
+    "no_majority": {
+     "lines": 13,
+     "predicted": {
+      "answers": 7,
+      "other": 2,
+      "withholds": 1,
+      "asks": 1,
+      "closes": 1,
+      "hedges": 1
+     }
+    },
+    "context_bound": {
+     "lines": 93,
+     "accuracy": 0.8065,
+     "accuracy_ci": [
+      0.7147,
+      0.8739
+     ],
+     "macro_f1": 0.7903,
+     "per_class": {
+      "asks": {
+       "f1": 0.8649,
+       "support": 18,
+       "predicted": 19,
+       "precision": 0.8421,
+       "recall": 0.8889
+      },
+      "answers": {
+       "f1": 0.84,
+       "support": 25,
+       "predicted": 25,
+       "precision": 0.84,
+       "recall": 0.84
+      },
+      "doesnt_know": {
+       "f1": 0.875,
+       "support": 7,
+       "predicted": 9,
+       "precision": 0.7778,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.5714,
+       "support": 9,
+       "predicted": 5,
+       "precision": 0.8,
+       "recall": 0.4444
+      },
+      "closes": {
+       "f1": 0.8462,
+       "support": 13,
+       "predicted": 13,
+       "precision": 0.8462,
+       "recall": 0.8462
+      },
+      "other": {
+       "f1": 0.7442,
+       "support": 21,
+       "predicted": 22,
+       "precision": 0.7273,
+       "recall": 0.7619
+      }
+     },
+     "answered_vs_open": {
+      "lines": 41,
+      "right": 34,
+      "rate": 0.8293,
+      "ci": [
+       0.6874,
+       0.9147
+      ],
+      "crossed": 1,
+      "crossed_rate": 0.0244,
+      "crossed_ci": [
+       0.0043,
+       0.126
+      ],
+      "answers_lines": 25,
+      "open_lines": 16
+     },
+     "asks_vs_rest": {
+      "lines": 93,
+      "right": 88,
+      "rate": 0.9462,
+      "ci": [
+       0.8803,
+       0.9768
+      ],
+      "asks_recall": 0.8889,
+      "asks_precision": 0.8421,
+      "asks_lines": 18
+     },
+     "confusion": {
+      "asks": {
+       "asks": 16,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 0,
+       "other": 1
+      },
+      "answers": {
+       "asks": 0,
+       "answers": 21,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 3
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 7,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 1,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 2,
+       "withholds": 4,
+       "closes": 1,
+       "other": 0
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 11,
+       "other": 2
+      },
+      "other": {
+       "asks": 2,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 16
+      }
+     },
+     "gold_classes": {
+      "answers": 25,
+      "other": 21,
+      "asks": 18,
+      "closes": 13,
+      "withholds": 9,
+      "doesnt_know": 7
+     },
+     "macro_f1_ci": [
+      0.691,
+      0.8725
+     ]
+    },
+    "calibration_ece": 0.0364
+   },
+   "sarcasm": {
+    "sarcasm_test": {
+     "lines": 900,
+     "sarcastic": 263,
+     "f1": 0.8482,
+     "f1_ci": [
+      0.8132,
+      0.8778
+     ],
+     "precision": 0.8685,
+     "recall": 0.8289,
+     "false_sarcasm": 33,
+     "sincere": 637,
+     "false_sarcasm_rate": 0.0518,
+     "false_sarcasm_ci": [
+      0.0371,
+      0.0719
+     ]
+    },
+    "natural_test": {
+     "lines": 1781,
+     "sarcastic": 34,
+     "f1": 0.4706,
+     "f1_ci": [
+      0.3,
+      0.6027
+     ],
+     "precision": 0.4706,
+     "recall": 0.4706,
+     "false_sarcasm": 18,
+     "sincere": 1747,
+     "false_sarcasm_rate": 0.0103,
+     "false_sarcasm_ci": [
+      0.0065,
+      0.0162
+     ]
+    },
+    "player_speech_test": {
+     "lines": 900,
+     "sarcastic": 30,
+     "f1": 0.5172,
+     "f1_ci": [
+      0.3404,
+      0.6667
+     ],
+     "precision": 0.5357,
+     "recall": 0.5,
+     "false_sarcasm": 13,
+     "sincere": 870,
+     "false_sarcasm_rate": 0.0149,
+     "false_sarcasm_ci": [
+      0.0088,
+      0.0254
+     ]
+    },
+    "game_dialogue_test": {
+     "lines": 881,
+     "sarcastic": 4,
+     "f1": 0.2,
+     "f1_ci": [
+      0.0,
+      0.5
+     ],
+     "precision": 0.1667,
+     "recall": 0.25,
+     "false_sarcasm": 5,
+     "sincere": 877,
+     "false_sarcasm_rate": 0.0057,
+     "false_sarcasm_ci": [
+      0.0024,
+      0.0133
+     ]
+    },
+    "calibration": {
+     "ece": 0.0163,
+     "items": 2681,
+     "brier": 0.0339,
+     "bins": [
+      {
+       "from": 0.0,
+       "to": 0.1,
+       "items": 2326,
+       "confidence": 0.0204,
+       "right": 0.0163
+      },
+      {
+       "from": 0.1,
+       "to": 0.2,
+       "items": 42,
+       "confidence": 0.1425,
+       "right": 0.4048
+      },
+      {
+       "from": 0.2,
+       "to": 0.3,
+       "items": 22,
+       "confidence": 0.256,
+       "right": 0.3636
+      },
+      {
+       "from": 0.3,
+       "to": 0.4,
+       "items": 13,
+       "confidence": 0.3407,
+       "right": 0.2308
+      },
+      {
+       "from": 0.4,
+       "to": 0.5,
+       "items": 11,
+       "confidence": 0.4445,
+       "right": 0.5455
+      },
+      {
+       "from": 0.5,
+       "to": 0.6,
+       "items": 9,
+       "confidence": 0.5549,
+       "right": 0.4444
+      },
+      {
+       "from": 0.6,
+       "to": 0.7,
+       "items": 11,
+       "confidence": 0.6558,
+       "right": 0.6364
+      },
+      {
+       "from": 0.7,
+       "to": 0.8,
+       "items": 19,
+       "confidence": 0.7578,
+       "right": 0.5263
+      },
+      {
+       "from": 0.8,
+       "to": 0.9,
+       "items": 24,
+       "confidence": 0.8562,
+       "right": 0.5833
+      },
+      {
+       "from": 0.9,
+       "to": 1.0,
+       "items": 204,
+       "confidence": 0.962,
+       "right": 0.9314
+      }
+     ]
+    }
+   }
+  },
+  "no_previous": {
+   "act_emotion": {
+    "main_test": {
+     "lines": 1954,
+     "acts": {
+      "pairs": 2862,
+      "accuracy": 0.644,
+      "macro_f1": 0.0559,
+      "macro_f1_ci": [
+       0.055,
+       0.057
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 201,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 44,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 91,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 39,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 192,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 42,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 74,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 75,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 38,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 62,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 60,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 40,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 61,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.783,
+        "support": 1843,
+        "predicted": 2862
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 2516,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0015
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 346,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.011
+      ],
+      "gold_classes": {
+       "none": 1843,
+       "insult": 201,
+       "demand": 192,
+       "accusation": 91,
+       "request": 75,
+       "refusal": 74,
+       "praise": 62,
+       "warning": 61,
+       "apology": 60,
+       "threat": 44,
+       "dismiss": 42,
+       "comfort": 40,
+       "tease": 39,
+       "thanks": 38
+      }
+     },
+     "emotion": {
+      "lines": 1905,
+      "accuracy": 0.7727,
+      "macro_f1": 0.6602,
+      "macro_f1_ci": [
+       0.611,
+       0.695
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.869,
+        "support": 998,
+        "predicted": 979
+       },
+       "happy": {
+        "f1": 0.808,
+        "support": 150,
+        "predicted": 152
+       },
+       "amused": {
+        "f1": 0.51,
+        "support": 121,
+        "predicted": 83
+       },
+       "angry": {
+        "f1": 0.662,
+        "support": 195,
+        "predicted": 204
+       },
+       "sad": {
+        "f1": 0.714,
+        "support": 85,
+        "predicted": 69
+       },
+       "afraid": {
+        "f1": 0.47,
+        "support": 63,
+        "predicted": 52
+       },
+       "surprised": {
+        "f1": 0.661,
+        "support": 53,
+        "predicted": 65
+       },
+       "disgusted": {
+        "f1": 0.556,
+        "support": 9,
+        "predicted": 9
+       },
+       "contemptuous": {
+        "f1": 0.692,
+        "support": 231,
+        "predicted": 292
+       }
+      }
+     },
+     "calibration": {
+      "act": null,
+      "emotion": 0.0418
+     }
+    },
+    "natural_test_false_hostility": {
+     "false_hostile": 0,
+     "non_hostile_pairs": 1115,
+     "false_hostility_rate": 0.0,
+     "false_hostility_ci": [
+      0.0,
+      0.0034
+     ],
+     "hostile_found": 0,
+     "hostile_pairs": 57,
+     "hostile_recall": 0.0,
+     "hostile_recall_ci": [
+      0.0,
+      0.0631
+     ]
+    },
+    "stratified_test_recall": {
+     "false_hostile": 0,
+     "non_hostile_pairs": 1401,
+     "false_hostility_rate": 0.0,
+     "false_hostility_ci": [
+      0.0,
+      0.0027
+     ],
+     "hostile_found": 0,
+     "hostile_pairs": 289,
+     "hostile_recall": 0.0,
+     "hostile_recall_ci": [
+      0.0,
+      0.0131
+     ]
+    },
+    "player_speech": {
+     "lines": 900,
+     "acts": {
+      "pairs": 1194,
+      "accuracy": 0.4765,
+      "macro_f1": 0.0461,
+      "macro_f1_ci": [
+       0.044,
+       0.048
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 66,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 57,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 67,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 17,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 113,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 25,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 68,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 36,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 38,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 61,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 27,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 19,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.645,
+        "support": 569,
+        "predicted": 1194
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 1001,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0038
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 193,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0195
+      ],
+      "gold_classes": {
+       "none": 569,
+       "demand": 113,
+       "refusal": 68,
+       "accusation": 67,
+       "insult": 66,
+       "praise": 61,
+       "threat": 57,
+       "thanks": 38,
+       "request": 36,
+       "comfort": 31,
+       "apology": 27,
+       "dismiss": 25,
+       "warning": 19,
+       "tease": 17
+      }
+     },
+     "emotion": {
+      "lines": 870,
+      "accuracy": 0.7644,
+      "macro_f1": 0.6798,
+      "macro_f1_ci": [
+       0.6,
+       0.734
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.819,
+        "support": 356,
+        "predicted": 335
+       },
+       "happy": {
+        "f1": 0.795,
+        "support": 84,
+        "predicted": 87
+       },
+       "amused": {
+        "f1": 0.667,
+        "support": 70,
+        "predicted": 68
+       },
+       "angry": {
+        "f1": 0.818,
+        "support": 205,
+        "predicted": 223
+       },
+       "sad": {
+        "f1": 0.759,
+        "support": 28,
+        "predicted": 30
+       },
+       "afraid": {
+        "f1": 0.525,
+        "support": 48,
+        "predicted": 32
+       },
+       "surprised": {
+        "f1": 0.595,
+        "support": 16,
+        "predicted": 21
+       },
+       "disgusted": {
+        "f1": 0.571,
+        "support": 3,
+        "predicted": 4
+       },
+       "contemptuous": {
+        "f1": 0.569,
+        "support": 60,
+        "predicted": 70
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 1001,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0038
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 193,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0195
+      ]
+     },
+     "calibration": {
+      "act": null,
+      "emotion": 0.0528
+     }
+    },
+    "unseen_genre": {
+     "lines": 900,
+     "acts": {
+      "pairs": 1391,
+      "accuracy": 0.6017,
+      "macro_f1": 0.0536,
+      "macro_f1_ci": [
+       0.052,
+       0.055
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 80,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 43,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 59,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 15,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 109,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 15,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 33,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 52,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 55,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 26,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 26,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.751,
+        "support": 837,
+        "predicted": 1391
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 1206,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0032
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 185,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0203
+      ],
+      "gold_classes": {
+       "none": 837,
+       "demand": 109,
+       "insult": 80,
+       "accusation": 59,
+       "apology": 55,
+       "praise": 52,
+       "threat": 43,
+       "request": 33,
+       "comfort": 26,
+       "warning": 26,
+       "thanks": 21,
+       "refusal": 20,
+       "tease": 15,
+       "dismiss": 15
+      }
+     },
+     "emotion": {
+      "lines": 874,
+      "accuracy": 0.7929,
+      "macro_f1": 0.6834,
+      "macro_f1_ci": [
+       0.615,
+       0.729
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.872,
+        "support": 428,
+        "predicted": 434
+       },
+       "happy": {
+        "f1": 0.829,
+        "support": 76,
+        "predicted": 64
+       },
+       "amused": {
+        "f1": 0.576,
+        "support": 34,
+        "predicted": 32
+       },
+       "angry": {
+        "f1": 0.77,
+        "support": 130,
+        "predicted": 135
+       },
+       "sad": {
+        "f1": 0.832,
+        "support": 59,
+        "predicted": 66
+       },
+       "afraid": {
+        "f1": 0.508,
+        "support": 39,
+        "predicted": 24
+       },
+       "surprised": {
+        "f1": 0.524,
+        "support": 19,
+        "predicted": 23
+       },
+       "disgusted": {
+        "f1": 0.6,
+        "support": 6,
+        "predicted": 4
+       },
+       "contemptuous": {
+        "f1": 0.64,
+        "support": 83,
+        "predicted": 92
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 1206,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0032
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 185,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0203
+      ]
+     }
+    },
+    "group_lines": {
+     "lines": 785,
+     "acts": {
+      "pairs": 1729,
+      "accuracy": 0.7403,
+      "macro_f1": 0.0608,
+      "macro_f1_ci": [
+       0.06,
+       0.062
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 103,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 18,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 45,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 17,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 74,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 17,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 11,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 47,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 21,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 23,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.851,
+        "support": 1280,
+        "predicted": 1729
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 1558,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0025
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 171,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.022
+      ],
+      "gold_classes": {
+       "none": 1280,
+       "insult": 103,
+       "demand": 74,
+       "praise": 47,
+       "accusation": 45,
+       "apology": 31,
+       "warning": 23,
+       "comfort": 21,
+       "thanks": 21,
+       "request": 21,
+       "threat": 18,
+       "tease": 17,
+       "dismiss": 17,
+       "refusal": 11
+      }
+     },
+     "emotion": {
+      "lines": 768,
+      "accuracy": 0.776,
+      "macro_f1": 0.643,
+      "macro_f1_ci": [
+       0.586,
+       0.706
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.862,
+        "support": 338,
+        "predicted": 335
+       },
+       "happy": {
+        "f1": 0.874,
+        "support": 83,
+        "predicted": 84
+       },
+       "amused": {
+        "f1": 0.539,
+        "support": 51,
+        "predicted": 38
+       },
+       "angry": {
+        "f1": 0.627,
+        "support": 84,
+        "predicted": 82
+       },
+       "sad": {
+        "f1": 0.758,
+        "support": 51,
+        "predicted": 44
+       },
+       "afraid": {
+        "f1": 0.489,
+        "support": 23,
+        "predicted": 22
+       },
+       "surprised": {
+        "f1": 0.622,
+        "support": 20,
+        "predicted": 25
+       },
+       "disgusted": {
+        "f1": 0.25,
+        "support": 4,
+        "predicted": 4
+       },
+       "contemptuous": {
+        "f1": 0.766,
+        "support": 114,
+        "predicted": 134
+       }
+      }
+     }
+    },
+    "noisy_twins": {
+     "lines": 245,
+     "acts": {
+      "pairs": 380,
+      "accuracy": 0.6421,
+      "macro_f1": 0.0559,
+      "macro_f1_ci": [
+       0.053,
+       0.062
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 13,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 1,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 12,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 9,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.782,
+        "support": 244,
+        "predicted": 380
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 320,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0119
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 60,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0602
+      ],
+      "gold_classes": {
+       "none": 244,
+       "insult": 31,
+       "accusation": 20,
+       "demand": 13,
+       "request": 12,
+       "praise": 10,
+       "apology": 9,
+       "comfort": 8,
+       "threat": 8,
+       "dismiss": 7,
+       "warning": 7,
+       "thanks": 5,
+       "tease": 5,
+       "refusal": 1
+      }
+     },
+     "emotion": {
+      "lines": 241,
+      "accuracy": 0.7759,
+      "macro_f1": 0.6248,
+      "macro_f1_ci": [
+       0.511,
+       0.719
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.882,
+        "support": 123,
+        "predicted": 115
+       },
+       "happy": {
+        "f1": 0.789,
+        "support": 22,
+        "predicted": 16
+       },
+       "amused": {
+        "f1": 0.455,
+        "support": 13,
+        "predicted": 9
+       },
+       "angry": {
+        "f1": 0.719,
+        "support": 30,
+        "predicted": 34
+       },
+       "sad": {
+        "f1": 0.667,
+        "support": 4,
+        "predicted": 8
+       },
+       "afraid": {
+        "f1": 0.556,
+        "support": 9,
+        "predicted": 9
+       },
+       "surprised": {
+        "f1": 0.444,
+        "support": 2,
+        "predicted": 7
+       },
+       "disgusted": {
+        "f1": 0.4,
+        "support": 2,
+        "predicted": 3
+       },
+       "contemptuous": {
+        "f1": 0.711,
+        "support": 36,
+        "predicted": 40
+       }
+      }
+     }
+    },
+    "clean_lines_with_twins": {
+     "lines": 245,
+     "acts": {
+      "pairs": 380,
+      "accuracy": 0.6421,
+      "macro_f1": 0.0559,
+      "macro_f1_ci": [
+       0.053,
+       0.062
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 31,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 13,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 1,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 12,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 5,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 9,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 7,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.782,
+        "support": 244,
+        "predicted": 380
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 320,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0119
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 60,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.0602
+      ],
+      "gold_classes": {
+       "none": 244,
+       "insult": 31,
+       "accusation": 20,
+       "demand": 13,
+       "request": 12,
+       "praise": 10,
+       "apology": 9,
+       "comfort": 8,
+       "threat": 8,
+       "dismiss": 7,
+       "warning": 7,
+       "thanks": 5,
+       "tease": 5,
+       "refusal": 1
+      }
+     },
+     "emotion": {
+      "lines": 241,
+      "accuracy": 0.7842,
+      "macro_f1": 0.6289,
+      "macro_f1_ci": [
+       0.498,
+       0.732
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.888,
+        "support": 123,
+        "predicted": 118
+       },
+       "happy": {
+        "f1": 0.821,
+        "support": 22,
+        "predicted": 17
+       },
+       "amused": {
+        "f1": 0.476,
+        "support": 13,
+        "predicted": 8
+       },
+       "angry": {
+        "f1": 0.754,
+        "support": 30,
+        "predicted": 31
+       },
+       "sad": {
+        "f1": 0.6,
+        "support": 4,
+        "predicted": 6
+       },
+       "afraid": {
+        "f1": 0.556,
+        "support": 9,
+        "predicted": 9
+       },
+       "surprised": {
+        "f1": 0.364,
+        "support": 2,
+        "predicted": 9
+       },
+       "disgusted": {
+        "f1": 0.5,
+        "support": 2,
+        "predicted": 2
+       },
+       "contemptuous": {
+        "f1": 0.701,
+        "support": 36,
+        "predicted": 41
+       }
+      }
+     }
+    },
+    "addressee_bound": {
+     "lines": 434,
+     "acts": {
+      "pairs": 964,
+      "accuracy": 0.5477,
+      "macro_f1": 0.0506,
+      "macro_f1_ci": [
+       0.05,
+       0.051
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 110,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 40,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 57,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 41,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 13,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 14,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 22,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 50,
+        "predicted": 0
+       },
+       "apology": {
+        "f1": 0.0,
+        "support": 20,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 22,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 19,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.708,
+        "support": 528,
+        "predicted": 964
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 754,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0051
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 210,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.018
+      ],
+      "gold_classes": {
+       "none": 528,
+       "insult": 110,
+       "accusation": 57,
+       "praise": 50,
+       "demand": 41,
+       "threat": 40,
+       "thanks": 22,
+       "comfort": 22,
+       "apology": 20,
+       "tease": 20,
+       "warning": 19,
+       "request": 14,
+       "dismiss": 13,
+       "refusal": 8
+      }
+     },
+     "emotion": {
+      "lines": 420,
+      "accuracy": 0.7595,
+      "macro_f1": 0.6343,
+      "macro_f1_ci": [
+       0.573,
+       0.728
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.765,
+        "support": 96,
+        "predicted": 87
+       },
+       "happy": {
+        "f1": 0.889,
+        "support": 68,
+        "predicted": 67
+       },
+       "amused": {
+        "f1": 0.632,
+        "support": 26,
+        "predicted": 31
+       },
+       "angry": {
+        "f1": 0.707,
+        "support": 82,
+        "predicted": 82
+       },
+       "sad": {
+        "f1": 0.722,
+        "support": 18,
+        "predicted": 18
+       },
+       "afraid": {
+        "f1": 0.667,
+        "support": 15,
+        "predicted": 12
+       },
+       "surprised": {
+        "f1": 0.545,
+        "support": 6,
+        "predicted": 5
+       },
+       "disgusted": {
+        "f1": 0.0,
+        "support": 0,
+        "predicted": 2
+       },
+       "contemptuous": {
+        "f1": 0.782,
+        "support": 109,
+        "predicted": 116
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 754,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0051
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 210,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.018
+      ]
+     }
+    },
+    "context_bound": {
+     "lines": 170,
+     "acts": {
+      "pairs": 239,
+      "accuracy": 0.5732,
+      "macro_f1": 0.0561,
+      "macro_f1_ci": [
+       0.053,
+       0.069
+      ],
+      "per_class": {
+       "insult": {
+        "f1": 0.0,
+        "support": 11,
+        "predicted": 0
+       },
+       "threat": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "accusation": {
+        "f1": 0.0,
+        "support": 2,
+        "predicted": 0
+       },
+       "tease": {
+        "f1": 0.0,
+        "support": 1,
+        "predicted": 0
+       },
+       "demand": {
+        "f1": 0.0,
+        "support": 35,
+        "predicted": 0
+       },
+       "dismiss": {
+        "f1": 0.0,
+        "support": 8,
+        "predicted": 0
+       },
+       "refusal": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "request": {
+        "f1": 0.0,
+        "support": 3,
+        "predicted": 0
+       },
+       "thanks": {
+        "f1": 0.0,
+        "support": 10,
+        "predicted": 0
+       },
+       "praise": {
+        "f1": 0.0,
+        "support": 9,
+        "predicted": 0
+       },
+       "comfort": {
+        "f1": 0.0,
+        "support": 3,
+        "predicted": 0
+       },
+       "warning": {
+        "f1": 0.0,
+        "support": 2,
+        "predicted": 0
+       },
+       "none": {
+        "f1": 0.729,
+        "support": 137,
+        "predicted": 239
+       }
+      },
+      "false_hostile": 0,
+      "non_hostile_pairs": 216,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0175
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 23,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.1431
+      ],
+      "gold_classes": {
+       "none": 137,
+       "demand": 35,
+       "insult": 11,
+       "thanks": 10,
+       "refusal": 10,
+       "praise": 9,
+       "dismiss": 8,
+       "threat": 8,
+       "request": 3,
+       "comfort": 3,
+       "accusation": 2,
+       "warning": 2,
+       "tease": 1
+      }
+     },
+     "emotion": {
+      "lines": 165,
+      "accuracy": 0.7939,
+      "macro_f1": 0.6754,
+      "macro_f1_ci": [
+       0.536,
+       0.84
+      ],
+      "per_class": {
+       "neutral": {
+        "f1": 0.863,
+        "support": 96,
+        "predicted": 94
+       },
+       "happy": {
+        "f1": 0.765,
+        "support": 17,
+        "predicted": 17
+       },
+       "amused": {
+        "f1": 0.667,
+        "support": 4,
+        "predicted": 5
+       },
+       "angry": {
+        "f1": 0.691,
+        "support": 27,
+        "predicted": 28
+       },
+       "sad": {
+        "f1": 0.0,
+        "support": 0,
+        "predicted": 1
+       },
+       "afraid": {
+        "f1": 0.5,
+        "support": 3,
+        "predicted": 1
+       },
+       "surprised": {
+        "f1": 1.0,
+        "support": 4,
+        "predicted": 4
+       },
+       "disgusted": {
+        "f1": 1.0,
+        "support": 1,
+        "predicted": 1
+       },
+       "contemptuous": {
+        "f1": 0.593,
+        "support": 13,
+        "predicted": 14
+       }
+      }
+     },
+     "hostility": {
+      "false_hostile": 0,
+      "non_hostile_pairs": 216,
+      "false_hostility_rate": 0.0,
+      "false_hostility_ci": [
+       0.0,
+       0.0175
+      ],
+      "hostile_found": 0,
+      "hostile_pairs": 23,
+      "hostile_recall": 0.0,
+      "hostile_recall_ci": [
+       0.0,
+       0.1431
+      ]
+     }
+    }
+   },
+   "exchange": {
+    "test": {
+     "lines": 824,
+     "accuracy": 0.7998,
+     "accuracy_ci": [
+      0.7711,
+      0.8257
+     ],
+     "macro_f1": 0.7883,
+     "per_class": {
+      "asks": {
+       "f1": 0.8433,
+       "support": 172,
+       "predicted": 179,
+       "precision": 0.8268,
+       "recall": 0.8605
+      },
+      "answers": {
+       "f1": 0.8252,
+       "support": 299,
+       "predicted": 273,
+       "precision": 0.8645,
+       "recall": 0.7893
+      },
+      "hedges": {
+       "f1": 0.7733,
+       "support": 34,
+       "predicted": 41,
+       "precision": 0.7073,
+       "recall": 0.8529
+      },
+      "doesnt_know": {
+       "f1": 0.9067,
+       "support": 72,
+       "predicted": 78,
+       "precision": 0.8718,
+       "recall": 0.9444
+      },
+      "withholds": {
+       "f1": 0.6272,
+       "support": 83,
+       "predicted": 86,
+       "precision": 0.6163,
+       "recall": 0.6386
+      },
+      "closes": {
+       "f1": 0.8085,
+       "support": 46,
+       "predicted": 48,
+       "precision": 0.7917,
+       "recall": 0.8261
+      },
+      "other": {
+       "f1": 0.7342,
+       "support": 118,
+       "predicted": 119,
+       "precision": 0.7311,
+       "recall": 0.7373
+      }
+     },
+     "answered_vs_open": {
+      "lines": 454,
+      "right": 361,
+      "rate": 0.7952,
+      "ci": [
+       0.7556,
+       0.8297
+      ],
+      "crossed": 36,
+      "crossed_rate": 0.0793,
+      "crossed_ci": [
+       0.0578,
+       0.1078
+      ],
+      "answers_lines": 299,
+      "open_lines": 155
+     },
+     "asks_vs_rest": {
+      "lines": 824,
+      "right": 769,
+      "rate": 0.9333,
+      "ci": [
+       0.9141,
+       0.9484
+      ],
+      "asks_recall": 0.8605,
+      "asks_precision": 0.8268,
+      "asks_lines": 172
+     },
+     "confusion": {
+      "asks": {
+       "asks": 148,
+       "answers": 6,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 8,
+       "closes": 1,
+       "other": 7
+      },
+      "answers": {
+       "asks": 17,
+       "answers": 236,
+       "hedges": 7,
+       "doesnt_know": 5,
+       "withholds": 15,
+       "closes": 2,
+       "other": 17
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 2,
+       "hedges": 29,
+       "doesnt_know": 1,
+       "withholds": 1,
+       "closes": 0,
+       "other": 1
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 2,
+       "hedges": 2,
+       "doesnt_know": 68,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 5,
+       "answers": 14,
+       "hedges": 0,
+       "doesnt_know": 4,
+       "withholds": 53,
+       "closes": 2,
+       "other": 5
+      },
+      "closes": {
+       "asks": 2,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 38,
+       "other": 2
+      },
+      "other": {
+       "asks": 7,
+       "answers": 9,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 9,
+       "closes": 5,
+       "other": 87
+      }
+     },
+     "gold_classes": {
+      "answers": 299,
+      "asks": 172,
+      "other": 118,
+      "withholds": 83,
+      "doesnt_know": 72,
+      "closes": 46,
+      "hedges": 34
+     },
+     "macro_f1_ci": [
+      0.7545,
+      0.8182
+     ]
+    },
+    "player_lines": {
+     "lines": 324,
+     "accuracy": 0.7407,
+     "accuracy_ci": [
+      0.6904,
+      0.7854
+     ],
+     "macro_f1": 0.6971,
+     "per_class": {
+      "asks": {
+       "f1": 0.8257,
+       "support": 111,
+       "predicted": 107,
+       "precision": 0.8411,
+       "recall": 0.8108
+      },
+      "answers": {
+       "f1": 0.6718,
+       "support": 68,
+       "predicted": 63,
+       "precision": 0.6984,
+       "recall": 0.6471
+      },
+      "hedges": {
+       "f1": 0.5882,
+       "support": 7,
+       "predicted": 10,
+       "precision": 0.5,
+       "recall": 0.7143
+      },
+      "doesnt_know": {
+       "f1": 0.8,
+       "support": 3,
+       "predicted": 2,
+       "precision": 1.0,
+       "recall": 0.6667
+      },
+      "withholds": {
+       "f1": 0.4706,
+       "support": 20,
+       "predicted": 31,
+       "precision": 0.3871,
+       "recall": 0.6
+      },
+      "closes": {
+       "f1": 0.75,
+       "support": 14,
+       "predicted": 18,
+       "precision": 0.6667,
+       "recall": 0.8571
+      },
+      "other": {
+       "f1": 0.7732,
+       "support": 101,
+       "predicted": 93,
+       "precision": 0.8065,
+       "recall": 0.7426
+      }
+     },
+     "answered_vs_open": {
+      "lines": 91,
+      "right": 58,
+      "rate": 0.6374,
+      "ci": [
+       0.5349,
+       0.7287
+      ],
+      "crossed": 7,
+      "crossed_rate": 0.0769,
+      "crossed_ci": [
+       0.0378,
+       0.1504
+      ],
+      "answers_lines": 68,
+      "open_lines": 23
+     },
+     "asks_vs_rest": {
+      "lines": 324,
+      "right": 286,
+      "rate": 0.8827,
+      "ci": [
+       0.8431,
+       0.9133
+      ],
+      "asks_recall": 0.8108,
+      "asks_precision": 0.8411,
+      "asks_lines": 111
+     },
+     "confusion": {
+      "asks": {
+       "asks": 90,
+       "answers": 5,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 8,
+       "closes": 0,
+       "other": 6
+      },
+      "answers": {
+       "asks": 10,
+       "answers": 44,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 1,
+       "other": 9
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 5,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 1,
+       "doesnt_know": 2,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 1,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 12,
+       "closes": 1,
+       "other": 2
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 12,
+       "other": 1
+      },
+      "other": {
+       "asks": 6,
+       "answers": 8,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 7,
+       "closes": 4,
+       "other": 75
+      }
+     },
+     "gold_classes": {
+      "asks": 111,
+      "other": 101,
+      "answers": 68,
+      "withholds": 20,
+      "closes": 14,
+      "hedges": 7,
+      "doesnt_know": 3
+     },
+     "macro_f1_ci": [
+      0.5601,
+      0.7662
+     ]
+    },
+    "player_speech": {
+     "lines": 253,
+     "accuracy": 0.6877,
+     "accuracy_ci": [
+      0.6282,
+      0.7417
+     ],
+     "macro_f1": 0.6716,
+     "per_class": {
+      "asks": {
+       "f1": 0.7059,
+       "support": 61,
+       "predicted": 58,
+       "precision": 0.7241,
+       "recall": 0.6885
+      },
+      "answers": {
+       "f1": 0.6346,
+       "support": 55,
+       "predicted": 49,
+       "precision": 0.6735,
+       "recall": 0.6
+      },
+      "hedges": {
+       "f1": 0.625,
+       "support": 6,
+       "predicted": 10,
+       "precision": 0.5,
+       "recall": 0.8333
+      },
+      "doesnt_know": {
+       "f1": 0.8,
+       "support": 3,
+       "predicted": 2,
+       "precision": 1.0,
+       "recall": 0.6667
+      },
+      "withholds": {
+       "f1": 0.48,
+       "support": 20,
+       "predicted": 30,
+       "precision": 0.4,
+       "recall": 0.6
+      },
+      "closes": {
+       "f1": 0.6923,
+       "support": 11,
+       "predicted": 15,
+       "precision": 0.6,
+       "recall": 0.8182
+      },
+      "other": {
+       "f1": 0.7634,
+       "support": 97,
+       "predicted": 89,
+       "precision": 0.7978,
+       "recall": 0.732
+      }
+     },
+     "answered_vs_open": {
+      "lines": 78,
+      "right": 47,
+      "rate": 0.6026,
+      "ci": [
+       0.4916,
+       0.7039
+      ],
+      "crossed": 6,
+      "crossed_rate": 0.0769,
+      "crossed_ci": [
+       0.0357,
+       0.1578
+      ],
+      "answers_lines": 55,
+      "open_lines": 23
+     },
+     "asks_vs_rest": {
+      "lines": 253,
+      "right": 218,
+      "rate": 0.8617,
+      "ci": [
+       0.8137,
+       0.8988
+      ],
+      "asks_recall": 0.6885,
+      "asks_precision": 0.7241,
+      "asks_lines": 61
+     },
+     "confusion": {
+      "asks": {
+       "asks": 42,
+       "answers": 3,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 8,
+       "closes": 0,
+       "other": 6
+      },
+      "answers": {
+       "asks": 9,
+       "answers": 33,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 1,
+       "other": 9
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 5,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 1,
+       "doesnt_know": 2,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 1,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 12,
+       "closes": 1,
+       "other": 2
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 9,
+       "other": 1
+      },
+      "other": {
+       "asks": 6,
+       "answers": 8,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 7,
+       "closes": 4,
+       "other": 71
+      }
+     },
+     "gold_classes": {
+      "other": 97,
+      "asks": 61,
+      "answers": 55,
+      "withholds": 20,
+      "closes": 11,
+      "hedges": 6,
+      "doesnt_know": 3
+     },
+     "macro_f1_ci": [
+      0.5243,
+      0.7513
+     ]
+    },
+    "npc_lines": {
+     "lines": 500,
+     "accuracy": 0.838,
+     "accuracy_ci": [
+      0.8031,
+      0.8677
+     ],
+     "macro_f1": 0.7961,
+     "per_class": {
+      "asks": {
+       "f1": 0.8722,
+       "support": 61,
+       "predicted": 72,
+       "precision": 0.8056,
+       "recall": 0.9508
+      },
+      "answers": {
+       "f1": 0.8707,
+       "support": 231,
+       "predicted": 210,
+       "precision": 0.9143,
+       "recall": 0.8312
+      },
+      "hedges": {
+       "f1": 0.8276,
+       "support": 27,
+       "predicted": 31,
+       "precision": 0.7742,
+       "recall": 0.8889
+      },
+      "doesnt_know": {
+       "f1": 0.9103,
+       "support": 69,
+       "predicted": 76,
+       "precision": 0.8684,
+       "recall": 0.9565
+      },
+      "withholds": {
+       "f1": 0.6949,
+       "support": 63,
+       "predicted": 55,
+       "precision": 0.7455,
+       "recall": 0.6508
+      },
+      "closes": {
+       "f1": 0.8387,
+       "support": 32,
+       "predicted": 30,
+       "precision": 0.8667,
+       "recall": 0.8125
+      },
+      "other": {
+       "f1": 0.5581,
+       "support": 17,
+       "predicted": 26,
+       "precision": 0.4615,
+       "recall": 0.7059
+      }
+     },
+     "answered_vs_open": {
+      "lines": 363,
+      "right": 303,
+      "rate": 0.8347,
+      "ci": [
+       0.793,
+       0.8694
+      ],
+      "crossed": 29,
+      "crossed_rate": 0.0799,
+      "crossed_ci": [
+       0.0562,
+       0.1124
+      ],
+      "answers_lines": 231,
+      "open_lines": 132
+     },
+     "asks_vs_rest": {
+      "lines": 500,
+      "right": 483,
+      "rate": 0.966,
+      "ci": [
+       0.9462,
+       0.9787
+      ],
+      "asks_recall": 0.9508,
+      "asks_precision": 0.8056,
+      "asks_lines": 61
+     },
+     "confusion": {
+      "asks": {
+       "asks": 58,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 1
+      },
+      "answers": {
+       "asks": 7,
+       "answers": 192,
+       "hedges": 6,
+       "doesnt_know": 5,
+       "withholds": 12,
+       "closes": 1,
+       "other": 8
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 24,
+       "doesnt_know": 1,
+       "withholds": 0,
+       "closes": 0,
+       "other": 1
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 2,
+       "hedges": 1,
+       "doesnt_know": 66,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 4,
+       "answers": 10,
+       "hedges": 0,
+       "doesnt_know": 4,
+       "withholds": 41,
+       "closes": 1,
+       "other": 3
+      },
+      "closes": {
+       "asks": 2,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 26,
+       "other": 1
+      },
+      "other": {
+       "asks": 1,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 1,
+       "other": 12
+      }
+     },
+     "gold_classes": {
+      "answers": 231,
+      "doesnt_know": 69,
+      "withholds": 63,
+      "asks": 61,
+      "closes": 32,
+      "hedges": 27,
+      "other": 17
+     },
+     "macro_f1_ci": [
+      0.7482,
+      0.8377
+     ]
+    },
+    "npc_to_npc": {
+     "lines": 109,
+     "accuracy": 0.7982,
+     "accuracy_ci": [
+      0.7133,
+      0.8628
+     ],
+     "macro_f1": 0.6428,
+     "per_class": {
+      "asks": {
+       "f1": 0.9577,
+       "support": 35,
+       "predicted": 36,
+       "precision": 0.9444,
+       "recall": 0.9714
+      },
+      "answers": {
+       "f1": 0.8537,
+       "support": 41,
+       "predicted": 41,
+       "precision": 0.8537,
+       "recall": 0.8537
+      },
+      "hedges": {
+       "f1": 0.6667,
+       "support": 5,
+       "predicted": 4,
+       "precision": 0.75,
+       "recall": 0.6
+      },
+      "doesnt_know": {
+       "f1": 0.8333,
+       "support": 5,
+       "predicted": 7,
+       "precision": 0.7143,
+       "recall": 1.0
+      },
+      "withholds": {
+       "f1": 0.0,
+       "support": 6,
+       "predicted": 3,
+       "precision": 0.0,
+       "recall": 0.0
+      },
+      "closes": {
+       "f1": 0.6667,
+       "support": 6,
+       "predicted": 6,
+       "precision": 0.6667,
+       "recall": 0.6667
+      },
+      "other": {
+       "f1": 0.5217,
+       "support": 11,
+       "predicted": 12,
+       "precision": 0.5,
+       "recall": 0.5455
+      }
+     },
+     "answered_vs_open": {
+      "lines": 52,
+      "right": 41,
+      "rate": 0.7885,
+      "ci": [
+       0.6597,
+       0.8776
+      ],
+      "crossed": 4,
+      "crossed_rate": 0.0769,
+      "crossed_ci": [
+       0.0303,
+       0.1817
+      ],
+      "answers_lines": 41,
+      "open_lines": 11
+     },
+     "asks_vs_rest": {
+      "lines": 109,
+      "right": 106,
+      "rate": 0.9725,
+      "ci": [
+       0.9222,
+       0.9906
+      ],
+      "asks_recall": 0.9714,
+      "asks_precision": 0.9444,
+      "asks_lines": 35
+     },
+     "confusion": {
+      "asks": {
+       "asks": 34,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 1
+      },
+      "answers": {
+       "asks": 1,
+       "answers": 35,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 1,
+       "other": 2
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 3,
+       "doesnt_know": 1,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 5,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 1,
+       "withholds": 0,
+       "closes": 0,
+       "other": 2
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 4,
+       "other": 1
+      },
+      "other": {
+       "asks": 1,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 1,
+       "other": 6
+      }
+     },
+     "gold_classes": {
+      "answers": 41,
+      "asks": 35,
+      "other": 11,
+      "closes": 6,
+      "withholds": 6,
+      "doesnt_know": 5,
+      "hedges": 5
+     },
+     "macro_f1_ci": [
+      0.5046,
+      0.7297
+     ]
+    },
+    "our_lines": {
+     "lines": 330,
+     "accuracy": 0.8697,
+     "accuracy_ci": [
+      0.8291,
+      0.9018
+     ],
+     "macro_f1": 0.8318,
+     "per_class": {
+      "asks": {
+       "f1": 0.9315,
+       "support": 37,
+       "predicted": 36,
+       "precision": 0.9444,
+       "recall": 0.9189
+      },
+      "answers": {
+       "f1": 0.8808,
+       "support": 158,
+       "predicted": 144,
+       "precision": 0.9236,
+       "recall": 0.8418
+      },
+      "hedges": {
+       "f1": 0.8235,
+       "support": 15,
+       "predicted": 19,
+       "precision": 0.7368,
+       "recall": 0.9333
+      },
+      "doesnt_know": {
+       "f1": 0.9053,
+       "support": 44,
+       "predicted": 51,
+       "precision": 0.8431,
+       "recall": 0.9773
+      },
+      "withholds": {
+       "f1": 0.7835,
+       "support": 48,
+       "predicted": 49,
+       "precision": 0.7755,
+       "recall": 0.7917
+      },
+      "closes": {
+       "f1": 0.898,
+       "support": 25,
+       "predicted": 24,
+       "precision": 0.9167,
+       "recall": 0.88
+      },
+      "other": {
+       "f1": 0.6,
+       "support": 3,
+       "predicted": 7,
+       "precision": 0.4286,
+       "recall": 1.0
+      }
+     },
+     "answered_vs_open": {
+      "lines": 250,
+      "right": 217,
+      "rate": 0.868,
+      "ci": [
+       0.8204,
+       0.9044
+      ],
+      "crossed": 22,
+      "crossed_rate": 0.088,
+      "crossed_ci": [
+       0.0588,
+       0.1296
+      ],
+      "answers_lines": 158,
+      "open_lines": 92
+     },
+     "asks_vs_rest": {
+      "lines": 330,
+      "right": 325,
+      "rate": 0.9848,
+      "ci": [
+       0.965,
+       0.9935
+      ],
+      "asks_recall": 0.9189,
+      "asks_precision": 0.9444,
+      "asks_lines": 37
+     },
+     "confusion": {
+      "asks": {
+       "asks": 34,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 0
+      },
+      "answers": {
+       "asks": 1,
+       "answers": 133,
+       "hedges": 5,
+       "doesnt_know": 5,
+       "withholds": 11,
+       "closes": 0,
+       "other": 3
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 14,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 43,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 5,
+       "hedges": 0,
+       "doesnt_know": 3,
+       "withholds": 38,
+       "closes": 1,
+       "other": 1
+      },
+      "closes": {
+       "asks": 1,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 22,
+       "other": 0
+      },
+      "other": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 3
+      }
+     },
+     "gold_classes": {
+      "answers": 158,
+      "withholds": 48,
+      "doesnt_know": 44,
+      "asks": 37,
+      "closes": 25,
+      "hedges": 15,
+      "other": 3
+     },
+     "macro_f1_ci": [
+      0.7456,
+      0.891
+     ]
+    },
+    "generated_lines": {
+     "lines": 494,
+     "accuracy": 0.753,
+     "accuracy_ci": [
+      0.7132,
+      0.789
+     ],
+     "macro_f1": 0.7274,
+     "per_class": {
+      "asks": {
+       "f1": 0.8201,
+       "support": 135,
+       "predicted": 143,
+       "precision": 0.7972,
+       "recall": 0.8444
+      },
+      "answers": {
+       "f1": 0.763,
+       "support": 141,
+       "predicted": 129,
+       "precision": 0.7984,
+       "recall": 0.7305
+      },
+      "hedges": {
+       "f1": 0.7317,
+       "support": 19,
+       "predicted": 22,
+       "precision": 0.6818,
+       "recall": 0.7895
+      },
+      "doesnt_know": {
+       "f1": 0.9091,
+       "support": 28,
+       "predicted": 27,
+       "precision": 0.9259,
+       "recall": 0.8929
+      },
+      "withholds": {
+       "f1": 0.4167,
+       "support": 35,
+       "predicted": 37,
+       "precision": 0.4054,
+       "recall": 0.4286
+      },
+      "closes": {
+       "f1": 0.7111,
+       "support": 21,
+       "predicted": 24,
+       "precision": 0.6667,
+       "recall": 0.7619
+      },
+      "other": {
+       "f1": 0.7401,
+       "support": 115,
+       "predicted": 112,
+       "precision": 0.75,
+       "recall": 0.7304
+      }
+     },
+     "answered_vs_open": {
+      "lines": 204,
+      "right": 144,
+      "rate": 0.7059,
+      "ci": [
+       0.64,
+       0.7641
+      ],
+      "crossed": 14,
+      "crossed_rate": 0.0686,
+      "crossed_ci": [
+       0.0413,
+       0.1119
+      ],
+      "answers_lines": 141,
+      "open_lines": 63
+     },
+     "asks_vs_rest": {
+      "lines": 494,
+      "right": 444,
+      "rate": 0.8988,
+      "ci": [
+       0.869,
+       0.9224
+      ],
+      "asks_recall": 0.8444,
+      "asks_precision": 0.7972,
+      "asks_lines": 135
+     },
+     "confusion": {
+      "asks": {
+       "asks": 114,
+       "answers": 4,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 8,
+       "closes": 0,
+       "other": 7
+      },
+      "answers": {
+       "asks": 16,
+       "answers": 103,
+       "hedges": 2,
+       "doesnt_know": 0,
+       "withholds": 4,
+       "closes": 2,
+       "other": 14
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 15,
+       "doesnt_know": 1,
+       "withholds": 1,
+       "closes": 0,
+       "other": 1
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 2,
+       "doesnt_know": 25,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 5,
+       "answers": 9,
+       "hedges": 0,
+       "doesnt_know": 1,
+       "withholds": 15,
+       "closes": 1,
+       "other": 4
+      },
+      "closes": {
+       "asks": 1,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 16,
+       "other": 2
+      },
+      "other": {
+       "asks": 7,
+       "answers": 9,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 9,
+       "closes": 5,
+       "other": 84
+      }
+     },
+     "gold_classes": {
+      "answers": 141,
+      "asks": 135,
+      "other": 115,
+      "withholds": 35,
+      "doesnt_know": 28,
+      "closes": 21,
+      "hedges": 19
+     },
+     "macro_f1_ci": [
+      0.676,
+      0.7703
+     ]
+    },
+    "noisy_twins": {
+     "lines": 75,
+     "accuracy": 0.8,
+     "accuracy_ci": [
+      0.6959,
+      0.8749
+     ],
+     "macro_f1": 0.5824,
+     "per_class": {
+      "asks": {
+       "f1": 0.8889,
+       "support": 31,
+       "predicted": 32,
+       "precision": 0.875,
+       "recall": 0.9032
+      },
+      "answers": {
+       "f1": 0.75,
+       "support": 12,
+       "predicted": 12,
+       "precision": 0.75,
+       "recall": 0.75
+      },
+      "hedges": {
+       "f1": 0.0,
+       "support": 0,
+       "predicted": 1,
+       "precision": 0.0,
+       "recall": null
+      },
+      "withholds": {
+       "f1": 0.5714,
+       "support": 5,
+       "predicted": 2,
+       "precision": 1.0,
+       "recall": 0.4
+      },
+      "closes": {
+       "f1": 0.5,
+       "support": 1,
+       "predicted": 3,
+       "precision": 0.3333,
+       "recall": 1.0
+      },
+      "other": {
+       "f1": 0.7843,
+       "support": 26,
+       "predicted": 25,
+       "precision": 0.8,
+       "recall": 0.7692
+      }
+     },
+     "answered_vs_open": {
+      "lines": 17,
+      "right": 11,
+      "rate": 0.6471,
+      "ci": [
+       0.413,
+       0.8269
+      ],
+      "crossed": 1,
+      "crossed_rate": 0.0588,
+      "crossed_ci": [
+       0.0105,
+       0.2698
+      ],
+      "answers_lines": 12,
+      "open_lines": 5
+     },
+     "asks_vs_rest": {
+      "lines": 75,
+      "right": 68,
+      "rate": 0.9067,
+      "ci": [
+       0.8197,
+       0.9541
+      ],
+      "asks_recall": 0.9032,
+      "asks_precision": 0.875,
+      "asks_lines": 31
+     },
+     "confusion": {
+      "asks": {
+       "asks": 28,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 3
+      },
+      "answers": {
+       "asks": 2,
+       "answers": 9,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 2,
+       "closes": 0,
+       "other": 2
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 0
+      },
+      "other": {
+       "asks": 2,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 2,
+       "other": 20
+      }
+     },
+     "gold_classes": {
+      "asks": 31,
+      "other": 26,
+      "answers": 12,
+      "withholds": 5,
+      "closes": 1
+     },
+     "macro_f1_ci": [
+      0.4219,
+      0.8124
+     ]
+    },
+    "unseen_genre": {
+     "lines": 293,
+     "accuracy": 0.7986,
+     "accuracy_ci": [
+      0.749,
+      0.8406
+     ],
+     "macro_f1": 0.7042,
+     "per_class": {
+      "asks": {
+       "f1": 0.8515,
+       "support": 51,
+       "predicted": 50,
+       "precision": 0.86,
+       "recall": 0.8431
+      },
+      "answers": {
+       "f1": 0.8522,
+       "support": 116,
+       "predicted": 114,
+       "precision": 0.8596,
+       "recall": 0.8448
+      },
+      "hedges": {
+       "f1": 0.8696,
+       "support": 48,
+       "predicted": 44,
+       "precision": 0.9091,
+       "recall": 0.8333
+      },
+      "doesnt_know": {
+       "f1": 0.8254,
+       "support": 29,
+       "predicted": 34,
+       "precision": 0.7647,
+       "recall": 0.8966
+      },
+      "withholds": {
+       "f1": 0.1,
+       "support": 18,
+       "predicted": 2,
+       "precision": 0.5,
+       "recall": 0.0556
+      },
+      "closes": {
+       "f1": 0.8696,
+       "support": 11,
+       "predicted": 12,
+       "precision": 0.8333,
+       "recall": 0.9091
+      },
+      "other": {
+       "f1": 0.5614,
+       "support": 20,
+       "predicted": 37,
+       "precision": 0.4324,
+       "recall": 0.8
+      }
+     },
+     "answered_vs_open": {
+      "lines": 163,
+      "right": 126,
+      "rate": 0.773,
+      "ci": [
+       0.7028,
+       0.8306
+      ],
+      "crossed": 11,
+      "crossed_rate": 0.0675,
+      "crossed_ci": [
+       0.0381,
+       0.1168
+      ],
+      "answers_lines": 116,
+      "open_lines": 47
+     },
+     "asks_vs_rest": {
+      "lines": 293,
+      "right": 278,
+      "rate": 0.9488,
+      "ci": [
+       0.9173,
+       0.9687
+      ],
+      "asks_recall": 0.8431,
+      "asks_precision": 0.86,
+      "asks_lines": 51
+     },
+     "confusion": {
+      "asks": {
+       "asks": 43,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 0,
+       "other": 5
+      },
+      "answers": {
+       "asks": 4,
+       "answers": 98,
+       "hedges": 3,
+       "doesnt_know": 3,
+       "withholds": 0,
+       "closes": 2,
+       "other": 6
+      },
+      "hedges": {
+       "asks": 1,
+       "answers": 2,
+       "hedges": 40,
+       "doesnt_know": 4,
+       "withholds": 0,
+       "closes": 0,
+       "other": 1
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 1,
+       "doesnt_know": 26,
+       "withholds": 0,
+       "closes": 0,
+       "other": 1
+      },
+      "withholds": {
+       "asks": 1,
+       "answers": 7,
+       "hedges": 0,
+       "doesnt_know": 1,
+       "withholds": 1,
+       "closes": 0,
+       "other": 8
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 10,
+       "other": 0
+      },
+      "other": {
+       "asks": 1,
+       "answers": 3,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 16
+      }
+     },
+     "gold_classes": {
+      "answers": 116,
+      "asks": 51,
+      "hedges": 48,
+      "doesnt_know": 29,
+      "other": 20,
+      "withholds": 18,
+      "closes": 11
+     },
+     "macro_f1_ci": [
+      0.6513,
+      0.7537
+     ]
+    },
+    "clean_lines_with_twins": {
+     "lines": 75,
+     "accuracy": 0.7867,
+     "accuracy_ci": [
+      0.6812,
+      0.8642
+     ],
+     "macro_f1": 0.5795,
+     "per_class": {
+      "asks": {
+       "f1": 0.9032,
+       "support": 31,
+       "predicted": 31,
+       "precision": 0.9032,
+       "recall": 0.9032
+      },
+      "answers": {
+       "f1": 0.6154,
+       "support": 12,
+       "predicted": 14,
+       "precision": 0.5714,
+       "recall": 0.6667
+      },
+      "hedges": {
+       "f1": 0.0,
+       "support": 0,
+       "predicted": 1,
+       "precision": 0.0,
+       "recall": null
+      },
+      "withholds": {
+       "f1": 0.6667,
+       "support": 5,
+       "predicted": 4,
+       "precision": 0.75,
+       "recall": 0.6
+      },
+      "closes": {
+       "f1": 0.5,
+       "support": 1,
+       "predicted": 3,
+       "precision": 0.3333,
+       "recall": 1.0
+      },
+      "other": {
+       "f1": 0.7917,
+       "support": 26,
+       "predicted": 22,
+       "precision": 0.8636,
+       "recall": 0.7308
+      }
+     },
+     "answered_vs_open": {
+      "lines": 17,
+      "right": 11,
+      "rate": 0.6471,
+      "ci": [
+       0.413,
+       0.8269
+      ],
+      "crossed": 2,
+      "crossed_rate": 0.1176,
+      "crossed_ci": [
+       0.0329,
+       0.3434
+      ],
+      "answers_lines": 12,
+      "open_lines": 5
+     },
+     "asks_vs_rest": {
+      "lines": 75,
+      "right": 69,
+      "rate": 0.92,
+      "ci": [
+       0.8363,
+       0.9628
+      ],
+      "asks_recall": 0.9032,
+      "asks_precision": 0.9032,
+      "asks_lines": 31
+     },
+     "confusion": {
+      "asks": {
+       "asks": 28,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 3
+      },
+      "answers": {
+       "asks": 3,
+       "answers": 8,
+       "hedges": 1,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 0,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 0,
+       "other": 0
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 0
+      },
+      "other": {
+       "asks": 0,
+       "answers": 4,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 1,
+       "closes": 2,
+       "other": 19
+      }
+     },
+     "gold_classes": {
+      "asks": 31,
+      "other": 26,
+      "answers": 12,
+      "withholds": 5,
+      "closes": 1
+     },
+     "macro_f1_ci": [
+      0.4291,
+      0.8007
+     ]
+    },
+    "no_majority": {
+     "lines": 13,
+     "predicted": {
+      "answers": 7,
+      "withholds": 2,
+      "other": 2,
+      "asks": 1,
+      "hedges": 1
+     }
+    },
+    "context_bound": {
+     "lines": 93,
+     "accuracy": 0.7312,
+     "accuracy_ci": [
+      0.6332,
+      0.8108
+     ],
+     "macro_f1": 0.7121,
+     "per_class": {
+      "asks": {
+       "f1": 0.7568,
+       "support": 18,
+       "predicted": 19,
+       "precision": 0.7368,
+       "recall": 0.7778
+      },
+      "answers": {
+       "f1": 0.7451,
+       "support": 25,
+       "predicted": 26,
+       "precision": 0.7308,
+       "recall": 0.76
+      },
+      "doesnt_know": {
+       "f1": 0.8571,
+       "support": 7,
+       "predicted": 7,
+       "precision": 0.8571,
+       "recall": 0.8571
+      },
+      "withholds": {
+       "f1": 0.4,
+       "support": 9,
+       "predicted": 6,
+       "precision": 0.5,
+       "recall": 0.3333
+      },
+      "closes": {
+       "f1": 0.7692,
+       "support": 13,
+       "predicted": 13,
+       "precision": 0.7692,
+       "recall": 0.7692
+      },
+      "other": {
+       "f1": 0.7442,
+       "support": 21,
+       "predicted": 22,
+       "precision": 0.7273,
+       "recall": 0.7619
+      }
+     },
+     "answered_vs_open": {
+      "lines": 41,
+      "right": 29,
+      "rate": 0.7073,
+      "ci": [
+       0.5552,
+       0.8239
+      ],
+      "crossed": 3,
+      "crossed_rate": 0.0732,
+      "crossed_ci": [
+       0.0252,
+       0.1943
+      ],
+      "answers_lines": 25,
+      "open_lines": 16
+     },
+     "asks_vs_rest": {
+      "lines": 93,
+      "right": 84,
+      "rate": 0.9032,
+      "ci": [
+       0.8262,
+       0.9482
+      ],
+      "asks_recall": 0.7778,
+      "asks_precision": 0.7368,
+      "asks_lines": 18
+     },
+     "confusion": {
+      "asks": {
+       "asks": 14,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 3,
+       "closes": 0,
+       "other": 0
+      },
+      "answers": {
+       "asks": 2,
+       "answers": 19,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 3
+      },
+      "hedges": {
+       "asks": 0,
+       "answers": 0,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "doesnt_know": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 6,
+       "withholds": 0,
+       "closes": 0,
+       "other": 0
+      },
+      "withholds": {
+       "asks": 1,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 1,
+       "withholds": 3,
+       "closes": 1,
+       "other": 1
+      },
+      "closes": {
+       "asks": 0,
+       "answers": 1,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 10,
+       "other": 2
+      },
+      "other": {
+       "asks": 2,
+       "answers": 2,
+       "hedges": 0,
+       "doesnt_know": 0,
+       "withholds": 0,
+       "closes": 1,
+       "other": 16
+      }
+     },
+     "gold_classes": {
+      "answers": 25,
+      "other": 21,
+      "asks": 18,
+      "closes": 13,
+      "withholds": 9,
+      "doesnt_know": 7
+     },
+     "macro_f1_ci": [
+      0.6103,
+      0.7985
+     ]
+    },
+    "calibration_ece": 0.0643
+   },
+   "sarcasm": {
+    "sarcasm_test": {
+     "lines": 900,
+     "sarcastic": 263,
+     "f1": 0.804,
+     "f1_ci": [
+      0.7655,
+      0.8378
+     ],
+     "precision": 0.8578,
+     "recall": 0.7567,
+     "false_sarcasm": 33,
+     "sincere": 637,
+     "false_sarcasm_rate": 0.0518,
+     "false_sarcasm_ci": [
+      0.0371,
+      0.0719
+     ]
+    },
+    "natural_test": {
+     "lines": 1781,
+     "sarcastic": 34,
+     "f1": 0.3881,
+     "f1_ci": [
+      0.2143,
+      0.5294
+     ],
+     "precision": 0.3939,
+     "recall": 0.3824,
+     "false_sarcasm": 20,
+     "sincere": 1747,
+     "false_sarcasm_rate": 0.0114,
+     "false_sarcasm_ci": [
+      0.0074,
+      0.0176
+     ]
+    },
+    "player_speech_test": {
+     "lines": 900,
+     "sarcastic": 30,
+     "f1": 0.4138,
+     "f1_ci": [
+      0.2462,
+      0.5672
+     ],
+     "precision": 0.4286,
+     "recall": 0.4,
+     "false_sarcasm": 16,
+     "sincere": 870,
+     "false_sarcasm_rate": 0.0184,
+     "false_sarcasm_ci": [
+      0.0114,
+      0.0297
+     ]
+    },
+    "game_dialogue_test": {
+     "lines": 881,
+     "sarcastic": 4,
+     "f1": 0.2222,
+     "f1_ci": [
+      0.0,
+      0.5714
+     ],
+     "precision": 0.2,
+     "recall": 0.25,
+     "false_sarcasm": 4,
+     "sincere": 877,
+     "false_sarcasm_rate": 0.0046,
+     "false_sarcasm_ci": [
+      0.0018,
+      0.0117
+     ]
+    },
+    "calibration": {
+     "ece": 0.0175,
+     "items": 2681,
+     "brier": 0.0403,
+     "bins": [
+      {
+       "from": 0.0,
+       "to": 0.1,
+       "items": 2344,
+       "confidence": 0.0204,
+       "right": 0.0247
+      },
+      {
+       "from": 0.1,
+       "to": 0.2,
+       "items": 54,
+       "confidence": 0.1455,
+       "right": 0.4074
+      },
+      {
+       "from": 0.2,
+       "to": 0.3,
+       "items": 16,
+       "confidence": 0.2451,
+       "right": 0.3125
+      },
+      {
+       "from": 0.3,
+       "to": 0.4,
+       "items": 15,
+       "confidence": 0.3577,
+       "right": 0.1333
+      },
+      {
+       "from": 0.4,
+       "to": 0.5,
+       "items": 13,
+       "confidence": 0.4399,
+       "right": 0.6923
+      },
+      {
+       "from": 0.5,
+       "to": 0.6,
+       "items": 9,
+       "confidence": 0.5453,
+       "right": 0.3333
+      },
+      {
+       "from": 0.6,
+       "to": 0.7,
+       "items": 9,
+       "confidence": 0.6458,
+       "right": 0.3333
+      },
+      {
+       "from": 0.7,
+       "to": 0.8,
+       "items": 15,
+       "confidence": 0.7453,
+       "right": 0.6
+      },
+      {
+       "from": 0.8,
+       "to": 0.9,
+       "items": 34,
+       "confidence": 0.8591,
+       "right": 0.7353
+      },
+      {
+       "from": 0.9,
+       "to": 1.0,
+       "items": 172,
+       "confidence": 0.9577,
+       "right": 0.936
+      }
+     ]
+    }
+   }
+  }
+ },
+ "tonetext_extra": {
+  "as_given": {
+   "chain_test": {
+    "lines": 300,
+    "sarcastic": 8,
+    "f1": 0.6667,
+    "f1_ci": [
+     0.3529,
+     0.8889
+    ],
+    "precision": 0.6,
+    "recall": 0.75,
+    "false_sarcasm": 4,
+    "sincere": 292,
+    "false_sarcasm_rate": 0.0137,
+    "false_sarcasm_ci": [
+     0.0053,
+     0.0347
+    ]
+   },
+   "backchannel_main_test": {
+    "lines": 1954,
+    "backchannels": 18,
+    "f1": 0.8,
+    "false_rate": 0.0
+   },
+   "intensity_main_test": {
+    "lines": 907,
+    "accuracy": 0.7563
+   }
+  },
+  "no_previous": {
+   "chain_test": {
+    "lines": 300,
+    "sarcastic": 8,
+    "f1": 0.8,
+    "f1_ci": [
+     0.5,
+     1.0
+    ],
+    "precision": 0.8571,
+    "recall": 0.75,
+    "false_sarcasm": 1,
+    "sincere": 292,
+    "false_sarcasm_rate": 0.0034,
+    "false_sarcasm_ci": [
+     0.0006,
+     0.0191
+    ]
+   },
+   "backchannel_main_test": {
+    "lines": 1954,
+    "backchannels": 18,
+    "f1": 0.8,
+    "false_rate": 0.0
+   },
+   "intensity_main_test": {
+    "lines": 907,
+    "accuracy": 0.7541
+   }
+  }
+ },
+ "voice": {
+  "lines": {
+   "emotion": 897,
+   "move": 897,
+   "sarcasm": 897
+  },
+  "tonetext": {
+   "as_given": {
+    "all": {
+     "emotion": {
+      "lines": 885,
+      "macro_f1": 0.677,
+      "macro_f1_ci": [
+       0.604,
+       0.73
+      ],
+      "accuracy": 0.8429,
+      "calibration_ece": 0.0271,
+      "macro_f1_30": 0.7802
+     },
+     "move": {
+      "lines": 868,
+      "macro_f1": 0.7742,
+      "macro_f1_ci": [
+       0.7287,
+       0.8113
+      ],
+      "answered_vs_open": 0.7718,
+      "asks_vs_rest": 0.9228,
+      "calibration_ece": 0.0402,
+      "macro_f1_30": 0.7802
+     },
+     "sarcasm": {
+      "lines": 897,
+      "sarcastic": 100,
+      "f1": 0.9026,
+      "f1_ci": [
+       0.8571,
+       0.9439
+      ],
+      "precision": 0.9263,
+      "recall": 0.88,
+      "false_sarcasm": 7,
+      "sincere": 797,
+      "false_sarcasm_rate": 0.0088,
+      "false_sarcasm_ci": [
+       0.0043,
+       0.018
+      ],
+      "calibration_ece": 0.0095
+     }
+    },
+    "user_lines": {
+     "emotion": {
+      "lines": 586,
+      "macro_f1": 0.689,
+      "macro_f1_ci": [
+       0.615,
+       0.746
+      ],
+      "accuracy": 0.7986,
+      "calibration_ece": 0.0713,
+      "macro_f1_30": 0.775
+     },
+     "move": {
+      "lines": 576,
+      "macro_f1": 0.7539,
+      "macro_f1_ci": [
+       0.7043,
+       0.795
+      ],
+      "answered_vs_open": 0.6979,
+      "asks_vs_rest": 0.9201,
+      "calibration_ece": 0.046,
+      "macro_f1_30": 0.7648
+     },
+     "sarcasm": {
+      "lines": 598,
+      "sarcastic": 100,
+      "f1": 0.9072,
+      "f1_ci": [
+       0.8617,
+       0.9468
+      ],
+      "precision": 0.9362,
+      "recall": 0.88,
+      "false_sarcasm": 6,
+      "sincere": 498,
+      "false_sarcasm_rate": 0.012,
+      "false_sarcasm_ci": [
+       0.0055,
+       0.026
+      ],
+      "calibration_ece": 0.0148
+     }
+    },
+    "agent_lines": {
+     "emotion": {
+      "lines": 299,
+      "macro_f1": 0.3501,
+      "macro_f1_ci": [
+       0.254,
+       0.599
+      ],
+      "accuracy": 0.9298,
+      "calibration_ece": 0.0601,
+      "macro_f1_30": 0.892
+     },
+     "move": {
+      "lines": 292,
+      "macro_f1": 0.5554,
+      "macro_f1_ci": [
+       0.4647,
+       0.7332
+      ],
+      "answered_vs_open": 0.8839,
+      "asks_vs_rest": 0.9281,
+      "calibration_ece": 0.0511,
+      "macro_f1_30": 0.892
+     },
+     "sarcasm": {
+      "lines": 299,
+      "sarcastic": 0,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": 0.0,
+      "recall": null,
+      "false_sarcasm": 1,
+      "sincere": 299,
+      "false_sarcasm_rate": 0.0033,
+      "false_sarcasm_ci": [
+       0.0006,
+       0.0187
+      ],
+      "calibration_ece": 0.0185
+     }
+    },
+    "asr_style_user_lines": {
+     "emotion": {
+      "lines": 212,
+      "macro_f1": 0.7119,
+      "macro_f1_ci": [
+       0.598,
+       0.802
+      ],
+      "accuracy": 0.8302,
+      "calibration_ece": 0.0464,
+      "macro_f1_30": 0.879
+     },
+     "move": {
+      "lines": 210,
+      "macro_f1": 0.7551,
+      "macro_f1_ci": [
+       0.6412,
+       0.8272
+      ],
+      "answered_vs_open": 0.6552,
+      "asks_vs_rest": 0.9238,
+      "calibration_ece": 0.0863,
+      "macro_f1_30": 0.8123
+     },
+     "sarcasm": {
+      "lines": 214,
+      "sarcastic": 34,
+      "f1": 0.9206,
+      "f1_ci": [
+       0.8364,
+       0.9831
+      ],
+      "precision": 1.0,
+      "recall": 0.8529,
+      "false_sarcasm": 0,
+      "sincere": 180,
+      "false_sarcasm_rate": 0.0,
+      "false_sarcasm_ci": [
+       0.0,
+       0.0209
+      ],
+      "calibration_ece": 0.0207
+     }
+    }
+   },
+   "no_previous": {
+    "all": {
+     "emotion": {
+      "lines": 885,
+      "macro_f1": 0.6084,
+      "macro_f1_ci": [
+       0.558,
+       0.723
+      ],
+      "accuracy": 0.852,
+      "calibration_ece": 0.0263,
+      "macro_f1_30": 0.7914
+     },
+     "move": {
+      "lines": 868,
+      "macro_f1": 0.7636,
+      "macro_f1_ci": [
+       0.7197,
+       0.8009
+      ],
+      "answered_vs_open": 0.7333,
+      "asks_vs_rest": 0.9055,
+      "calibration_ece": 0.0563,
+      "macro_f1_30": 0.752
+     },
+     "sarcasm": {
+      "lines": 897,
+      "sarcastic": 100,
+      "f1": 0.866,
+      "f1_ci": [
+       0.8108,
+       0.9143
+      ],
+      "precision": 0.8936,
+      "recall": 0.84,
+      "false_sarcasm": 10,
+      "sincere": 797,
+      "false_sarcasm_rate": 0.0125,
+      "false_sarcasm_ci": [
+       0.0068,
+       0.0229
+      ],
+      "calibration_ece": 0.009
+     }
+    },
+    "user_lines": {
+     "emotion": {
+      "lines": 586,
+      "macro_f1": 0.624,
+      "macro_f1_ci": [
+       0.569,
+       0.736
+      ],
+      "accuracy": 0.8174,
+      "calibration_ece": 0.0571,
+      "macro_f1_30": 0.7932
+     },
+     "move": {
+      "lines": 576,
+      "macro_f1": 0.7435,
+      "macro_f1_ci": [
+       0.6945,
+       0.7864
+      ],
+      "answered_vs_open": 0.6511,
+      "asks_vs_rest": 0.8976,
+      "calibration_ece": 0.0658,
+      "macro_f1_30": 0.7318
+     },
+     "sarcasm": {
+      "lines": 598,
+      "sarcastic": 100,
+      "f1": 0.8705,
+      "f1_ci": [
+       0.8187,
+       0.9163
+      ],
+      "precision": 0.9032,
+      "recall": 0.84,
+      "false_sarcasm": 9,
+      "sincere": 498,
+      "false_sarcasm_rate": 0.0181,
+      "false_sarcasm_ci": [
+       0.0095,
+       0.034
+      ],
+      "calibration_ece": 0.0199
+     }
+    },
+    "agent_lines": {
+     "emotion": {
+      "lines": 299,
+      "macro_f1": 0.3802,
+      "macro_f1_ci": [
+       0.288,
+       0.561
+      ],
+      "accuracy": 0.9197,
+      "calibration_ece": 0.0654,
+      "macro_f1_30": 0.8905
+     },
+     "move": {
+      "lines": 292,
+      "macro_f1": 0.5348,
+      "macro_f1_ci": [
+       0.4489,
+       0.7088
+      ],
+      "answered_vs_open": 0.8581,
+      "asks_vs_rest": 0.9212,
+      "calibration_ece": 0.0478,
+      "macro_f1_30": 0.877
+     },
+     "sarcasm": {
+      "lines": 299,
+      "sarcastic": 0,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": 0.0,
+      "recall": null,
+      "false_sarcasm": 1,
+      "sincere": 299,
+      "false_sarcasm_rate": 0.0033,
+      "false_sarcasm_ci": [
+       0.0006,
+       0.0187
+      ],
+      "calibration_ece": 0.0185
+     }
+    },
+    "asr_style_user_lines": {
+     "emotion": {
+      "lines": 212,
+      "macro_f1": 0.7714,
+      "macro_f1_ci": [
+       0.637,
+       0.868
+      ],
+      "accuracy": 0.8774,
+      "calibration_ece": 0.0391,
+      "macro_f1_30": 0.919
+     },
+     "move": {
+      "lines": 210,
+      "macro_f1": 0.7223,
+      "macro_f1_ci": [
+       0.5943,
+       0.7934
+      ],
+      "answered_vs_open": 0.5517,
+      "asks_vs_rest": 0.8905,
+      "calibration_ece": 0.0805,
+      "macro_f1_30": 0.7743
+     },
+     "sarcasm": {
+      "lines": 214,
+      "sarcastic": 34,
+      "f1": 0.9062,
+      "f1_ci": [
+       0.8136,
+       0.9714
+      ],
+      "precision": 0.9667,
+      "recall": 0.8529,
+      "false_sarcasm": 1,
+      "sincere": 180,
+      "false_sarcasm_rate": 0.0056,
+      "false_sarcasm_ci": [
+       0.001,
+       0.0308
+      ],
+      "calibration_ece": 0.023
+     }
+    }
+   }
+  }
+ },
+ "voice_real": {
+  "lines": {
+   "emotion": 1500,
+   "move": 1500,
+   "sarcasm": 1500
+  },
+  "tonetext": {
+   "as_given": {
+    "all": {
+     "emotion": {
+      "lines": 1496,
+      "macro_f1": 0.713,
+      "macro_f1_ci": [
+       0.515,
+       0.786
+      ],
+      "accuracy": 0.9552,
+      "calibration_ece": 0.0773,
+      "macro_f1_30": 0.9355
+     },
+     "move": {
+      "lines": 1470,
+      "macro_f1": 0.6755,
+      "macro_f1_ci": [
+       0.6088,
+       0.7243
+      ],
+      "answered_vs_open": 0.9277,
+      "asks_vs_rest": 0.9619,
+      "calibration_ece": 0.0224,
+      "macro_f1_30": 0.8458
+     },
+     "sarcasm": {
+      "lines": 1500,
+      "sarcastic": 4,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_sarcasm": 1,
+      "sincere": 1496,
+      "false_sarcasm_rate": 0.0007,
+      "false_sarcasm_ci": [
+       0.0001,
+       0.0038
+      ],
+      "calibration_ece": 0.0147
+     }
+    },
+    "user_lines": {
+     "emotion": {
+      "lines": 746,
+      "macro_f1": 0.7083,
+      "macro_f1_ci": [
+       0.494,
+       0.802
+      ],
+      "accuracy": 0.9517,
+      "calibration_ece": 0.0772,
+      "macro_f1_30": 0.9485
+     },
+     "move": {
+      "lines": 735,
+      "macro_f1": 0.7009,
+      "macro_f1_ci": [
+       0.6378,
+       0.8068
+      ],
+      "answered_vs_open": 0.9306,
+      "asks_vs_rest": 0.9551,
+      "calibration_ece": 0.028,
+      "macro_f1_30": 0.93
+     },
+     "sarcasm": {
+      "lines": 750,
+      "sarcastic": 4,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": null,
+      "recall": 0.0,
+      "false_sarcasm": 0,
+      "sincere": 746,
+      "false_sarcasm_rate": 0.0,
+      "false_sarcasm_ci": [
+       0.0,
+       0.0051
+      ],
+      "calibration_ece": 0.0126
+     }
+    },
+    "agent_lines": {
+     "emotion": {
+      "lines": 750,
+      "macro_f1": 0.6708,
+      "macro_f1_ci": [
+       0.464,
+       0.784
+      ],
+      "accuracy": 0.9587,
+      "calibration_ece": 0.0774,
+      "macro_f1_30": 0.9125
+     },
+     "move": {
+      "lines": 735,
+      "macro_f1": 0.5354,
+      "macro_f1_ci": [
+       0.4497,
+       0.6753
+      ],
+      "answered_vs_open": 0.9245,
+      "asks_vs_rest": 0.9687,
+      "calibration_ece": 0.0205,
+      "macro_f1_30": 0.9493
+     },
+     "sarcasm": {
+      "lines": 750,
+      "sarcastic": 0,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": 0.0,
+      "recall": null,
+      "false_sarcasm": 1,
+      "sincere": 750,
+      "false_sarcasm_rate": 0.0013,
+      "false_sarcasm_ci": [
+       0.0002,
+       0.0075
+      ],
+      "calibration_ece": 0.0168
+     }
+    },
+    "asr_style_user_lines": {}
+   },
+   "no_previous": {
+    "all": {
+     "emotion": {
+      "lines": 1496,
+      "macro_f1": 0.5825,
+      "macro_f1_ci": [
+       0.42,
+       0.693
+      ],
+      "accuracy": 0.9539,
+      "calibration_ece": 0.0732,
+      "macro_f1_30": 0.9375
+     },
+     "move": {
+      "lines": 1470,
+      "macro_f1": 0.6526,
+      "macro_f1_ci": [
+       0.5896,
+       0.6984
+      ],
+      "answered_vs_open": 0.8776,
+      "asks_vs_rest": 0.9456,
+      "calibration_ece": 0.0219,
+      "macro_f1_30": 0.7955
+     },
+     "sarcasm": {
+      "lines": 1500,
+      "sarcastic": 4,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_sarcasm": 3,
+      "sincere": 1496,
+      "false_sarcasm_rate": 0.002,
+      "false_sarcasm_ci": [
+       0.0007,
+       0.0059
+      ],
+      "calibration_ece": 0.0151
+     }
+    },
+    "user_lines": {
+     "emotion": {
+      "lines": 746,
+      "macro_f1": 0.5942,
+      "macro_f1_ci": [
+       0.385,
+       0.703
+      ],
+      "accuracy": 0.9531,
+      "calibration_ece": 0.0725,
+      "macro_f1_30": 0.956
+     },
+     "move": {
+      "lines": 735,
+      "macro_f1": 0.6661,
+      "macro_f1_ci": [
+       0.6035,
+       0.7684
+      ],
+      "answered_vs_open": 0.8556,
+      "asks_vs_rest": 0.9293,
+      "calibration_ece": 0.036,
+      "macro_f1_30": 0.8823
+     },
+     "sarcasm": {
+      "lines": 750,
+      "sarcastic": 4,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": null,
+      "recall": 0.0,
+      "false_sarcasm": 0,
+      "sincere": 746,
+      "false_sarcasm_rate": 0.0,
+      "false_sarcasm_ci": [
+       0.0,
+       0.0051
+      ],
+      "calibration_ece": 0.0108
+     }
+    },
+    "agent_lines": {
+     "emotion": {
+      "lines": 750,
+      "macro_f1": 0.5259,
+      "macro_f1_ci": [
+       0.363,
+       0.726
+      ],
+      "accuracy": 0.9547,
+      "calibration_ece": 0.0805,
+      "macro_f1_30": 0.907
+     },
+     "move": {
+      "lines": 735,
+      "macro_f1": 0.5247,
+      "macro_f1_ci": [
+       0.4251,
+       0.6627
+      ],
+      "answered_vs_open": 0.9025,
+      "asks_vs_rest": 0.9619,
+      "calibration_ece": 0.0302,
+      "macro_f1_30": 0.9363
+     },
+     "sarcasm": {
+      "lines": 750,
+      "sarcastic": 0,
+      "f1": 0.0,
+      "f1_ci": [
+       0.0,
+       0.0
+      ],
+      "precision": 0.0,
+      "recall": null,
+      "false_sarcasm": 3,
+      "sincere": 750,
+      "false_sarcasm_rate": 0.004,
+      "false_sarcasm_ci": [
+       0.0014,
+       0.0117
+      ],
+      "calibration_ece": 0.0194
+     }
+    },
+    "asr_style_user_lines": {}
+   }
+  }
+ },
+ "topicalchat": {
+  "tonetext": {
+   "as_given": {
+    "lines": 13059,
+    "macro_f1": 0.2947,
+    "accuracy": 0.3929,
+    "gold": {
+     "neutral": 5336,
+     "happy": 3632,
+     "surprised": 3488,
+     "sad": 231,
+     "disgusted": 200,
+     "angry": 105,
+     "afraid": 67
+    },
+    "predicted": {
+     "neutral": 5409,
+     "happy": 2950,
+     "amused": 2133,
+     "surprised": 1393,
+     "contemptuous": 707,
+     "angry": 193,
+     "sad": 172,
+     "afraid": 81,
+     "disgusted": 21
+    }
+   },
+   "no_previous": {
+    "lines": 13059,
+    "macro_f1": 0.2813,
+    "accuracy": 0.3794,
+    "gold": {
+     "neutral": 5336,
+     "happy": 3632,
+     "surprised": 3488,
+     "sad": 231,
+     "disgusted": 200,
+     "angry": 105,
+     "afraid": 67
+    },
+    "predicted": {
+     "neutral": 5118,
+     "happy": 2915,
+     "amused": 2118,
+     "surprised": 1346,
+     "contemptuous": 1043,
+     "sad": 203,
+     "angry": 201,
+     "afraid": 94,
+     "disgusted": 21
+    }
+   }
+  }
+ },
+ "seconds": 353
+}
