@@ -4,7 +4,7 @@ The tone reader was Pipecat Tone, published as `pipecat-ai/tone`. Its runtime an
 
 ## rc2 (2026-10-28)
 
-Reads sarcasm with the agent's line as context, as the Realtime Context Standard does. rc1 read a turn sarcastic on its own words as sincere after a plain agent line; rc2 doesn't, and it keeps reading praise as sarcastic after bad news and as sincere after good news. The r3c recipe's run `tonetext-r3c-student-minilm-l6-seed2`, the same MiniLM-L6 encoder as rc1, trained on 1,111,319 lines with the soft labels of rc1's five teachers, then calibrated. `reader-rc2` is the runtime's default now; `revision="reader-rc1"` keeps rc1.
+Reads sarcasm with the agent's line as context, as the Real-time Context Standard does. rc1 read a turn sarcastic on its own words as sincere after a plain agent line; rc2 doesn't, and it keeps reading praise as sarcastic after bad news and as sincere after good news. The r3c recipe's run `tonetext-r3c-student-minilm-l6-seed2`, the same MiniLM-L6 encoder as rc1, trained on 1,111,319 lines with the soft labels of rc1's five teachers, then calibrated. `reader-rc2` is the runtime's default now; `revision="reader-rc1"` keeps rc1.
 
 - **Support calls** (3,752 turns in 35 domains, read with the agent's line): sarcasm F1 0.959 (rc1 0.903), and 2.1% of sarcastic turns read as happy (rc1 18.7%).
 - **Contrast pairs** (365 pairs of a praise or thanks turn after a line it's meant after and one that makes it mean the opposite): both read right in 94.0% of pairs (rc1 49.0%), 93.4% at Pipecat's 0.7 (rc1 35.6%).

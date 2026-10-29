@@ -2,7 +2,7 @@
 
 Hears how each turn of a call was meant, from its words: the speaker's emotion, whether the turn is sarcastic, the move it makes, and whether it's only a listening sound. Each comes with a calibrated confidence. It runs on a CPU in a few milliseconds.
 
-rc2 reads a turn as the Realtime Context Standard does: the emotion its words show, and sarcasm with the agent's line before it as context, not as the turn. rc1 read a turn that was sarcastic on its own words as sincere when the agent's line before it was plain: "Well, that's just great, isn't it? It's gonna be late." after "It's still processing, so it hasn't shipped yet." read happy, sarcasm 0.07. rc2 reads it angry, sarcasm 0.97. It still reads "Oh, wonderful." as sarcastic after "Your delivery is delayed again." and as sincere on its own or after good news.
+rc2 reads a turn as the [Real-time Context Standard](https://docs.pipecat.ai/api-reference/standards/real-time-context-standard) (RCS) does: the emotion its words show, and sarcasm with the agent's line before it as context, not as the turn. rc1 read a turn that was sarcastic on its own words as sincere when the agent's line before it was plain: "Well, that's just great, isn't it? It's gonna be late." after "It's still processing, so it hasn't shipped yet." read happy, sarcasm 0.07. rc2 reads it angry, sarcasm 0.97. It still reads "Oh, wonderful." as sarcastic after "Your delivery is delayed again." and as sincere on its own or after good news.
 
 ```python
 from pipecat_tone.reader import ToneReaderParams, ToneReaderProcessor

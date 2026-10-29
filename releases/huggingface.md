@@ -18,25 +18,25 @@ tags:
 
 # Pipecat Tone
 
-Two small CPU models for [Pipecat](https://github.com/pipecat-ai/pipecat) voice agents, built for Pipecat's [Realtime Context Standard](https://docs.pipecat.ai)<!-- placeholder: the standard's docs page -->:
+Two small CPU models for [Pipecat](https://github.com/pipecat-ai/pipecat) voice agents, built for the [Real-time Context Standard](https://docs.pipecat.ai/api-reference/standards/real-time-context-standard) (RCS):
 
-- **Tone reader** (`reader/`) reads how each user turn was meant, from its words: the emotion and whether it's sarcastic, with calibrated confidences.
-- **Tone tagger** (`tagger/`) voices an LLM's plain reply, a sentence at a time: a delivery, slow spans for details, stressed words, sounds and breaths, in the names the TTS performs.
+- **Tone reader** (`reader/`), a perception producer, reads how each user turn was meant from its words: the emotion and whether it's sarcastic, with calibrated confidences.
+- **Tone tagger** (`tagger/`), an expression producer, writes the expression tags for an LLM's plain reply, a sentence at a time: a delivery, slow spans for details, stressed words, sounds and breaths, in the names the TTS performs.
 
 Each runs in milliseconds on a CPU.
 
-## Realtime Context Standard
+## Real-time Context Standard
 
-The standard carries how a conversation sounds alongside its words. A reading of how the user spoke heads their message in the LLM's context, and each reply reaches the TTS with the expression tags it performs. The reader writes the reading; the tagger writes the tags, so the LLM writes only words.
+RCS is how the models in a voice agent pass each other context beyond the words, in the same text stream. Perception, how the user said what they said, heads the user's message in the LLM's context. Expression, how the agent should say its reply, reaches the TTS as the tags it performs. The reader writes the perception and the tagger writes the tags, so the LLM writes only words.
 
 ```text
 LLM reads:  ([emotion angry=0.71, neutral=0.20],[sarcasm value=0.99]) Oh great, a forty minute wait.
-TTS gets:   <<apologetic>> Sorry about the wait. [[quick breath]] Your order, <<slow: 48213>>, ships ^^today^^.
+TTS gets:   <<apologetic>> Sorry about the wait. [[light breath]] Your order, <<slow: 48213>>, ships ^^today^^.
 ```
 
 ## Use
 
-In Pipecat, install `pipecat-ai[tone]`, turn on `PipelineParams(enable_expressive_conversation=True)`, and add the two processors:
+In Pipecat 1.15.0 or later, install `pipecat-ai[tone]`, turn on `PipelineParams(enable_expressive_conversation=True)`, and add the two processors:
 
 ```python
 from pipecat.processors.tone.reader import PipecatToneReader
@@ -48,7 +48,7 @@ pipeline = Pipeline([
 ])
 ```
 
-The models download from here the first time a pipeline starts; `PipecatToneTagger(size="32m")` picks the larger tagger. Breaths need `ExpressionGuidance.BREATHE` in the expression policy.
+The models download from here the first time a pipeline starts; `PipecatToneTagger(size="32m")` picks the larger tagger. Breaths need `ExpressionGuidance.BREATHE` in the expression policy. Pipecat's docs walk through [expressive conversation](https://docs.pipecat.ai/pipecat/features/expressive-conversation) and list [each processor's options](https://docs.pipecat.ai/api-reference/server/expressive/pipecat-tone).
 
 ## Releases
 
